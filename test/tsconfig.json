@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": false,
+        "target": "es5",
+        "lib": [
+            "es2015",
+            "dom"
+        ]
+    },
+    "typeRoots": [
+        "./../node_modules/@types"
+    ],
+    "include": [
+        "**/*"
+    ],
+    "exclude": [
+        "./../node_modules",
+        "**/*.spec.ts",
+        "*.js"
+    ]
+}
