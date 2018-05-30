@@ -1,0 +1,29 @@
+{
+  "name": "linq.ts",
+  "version": "0.0.1-beta",
+  "description": "LINQ implementation library for TypeScript",
+  "main": "index.js",
+  "author": "Yuuki Wesp",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "typescript",
+    "linq",
+    "linqjs",
+    "csharp",
+    "query",
+    "lang"
+  ],
+  "bugs": {
+    "url": "https://github.com/0xF6/linq.ts/issues"
+  },
+  "homepage": "https://github.com/0xF6/linq.ts#readme",
+  "scripts": {
+    "build": "tsc --declaration",
+    "test": "@echo off && echo test not found",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0xF6/linq.ts.git"
+  }
+}
