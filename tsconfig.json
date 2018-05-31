@@ -1,13 +1,14 @@
 {
     "compilerOptions": {
         "target": "es6",
-        "module": "system",
+        "module": "amd",
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
         "sourceMap": true,
-        "outFile": "build/linqts.js",
-        "moduleResolution": "node"
+        "outFile": "linqts.js",
+        "moduleResolution": "node",
+        "declaration": true
     },
     "typeRoots": [
         "node_modules/@types"

@@ -1,25 +1,26 @@
-let LinqBase = require("./LinqBase");
+export { }
+declare global {
+    interface Array<T> {
+        Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[]
+        Where<TResult>(predicate: (element: T, index: number) => boolean, context?: any): TResult[]
+        Any(predicate?: (element: T) => boolean): boolean;
+        All(predicate: (element: T) => boolean): boolean;
+        IsEmpty(): boolean;
 
-declare interface Array<T> {
-    Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[]
-}
+        Max(selector?: (element: T) => number): number;
+        Min(selector?: (element: T) => number): number;
+        MaxBy<TKey>(keySelector: (element: T) => TKey): T;
+        MinBy<TKey>(keySelector: (element: T) => TKey): T;
+        Sum(selector?: (element: T) => number): number;
 
-(function () {
-    var global: any = global;
-    var window: any = window || global;
-    if (typeof Array.prototype.Select !== 'function') {
-        Array.prototype.Select = Array.prototype.map || function (selector, context) {
-            context = context || window;
-            var arr = [];
-            var l = this.length;
-            for (var i = 0; i < l; i++)
-                arr.push(LinqBase.Selector.call(context, this[i], i, this));
-            return arr;
-        };
+        First(predicate?: (element: T, index: number) => boolean): T;
+        FirstOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T): T;
+        Last(predicate?: (element: T, index: number) => boolean): T;
+        LastOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T): T;
+
+        Take<TResult>(count: number): TResult[]
     }
-})();
-
-
-
-
-
+}
+require("./Enumerable")
+require("./Select")
+require("./Where")
