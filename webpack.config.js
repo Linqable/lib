@@ -1,8 +1,8 @@
 const path = require('path');
-
 module.exports = {
     mode: "development",
     entry: './src/linq.ts',
+    devtool: 'cheap-module-eval-source-map',
     module: {
         rules: [
             {
@@ -13,7 +13,7 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['.ts']
+        extensions: [".ts", ".tsx", ".js"]
     },
     output: {
         filename: 'linqts.js',

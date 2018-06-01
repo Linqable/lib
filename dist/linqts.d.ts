@@ -5,7 +5,7 @@ declare module "Enumerable" {
         constructor(arr: Array<T>);
         Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): this;
         Where<TResult>(predicate: (element: T, index: number) => boolean, context?: any): this;
-        Any(predicate?: (element: T) => boolean): boolean;
+        Any(predicate?: (element: T) => boolean, context?: any): boolean;
         ToArray(): Array<T>;
         private getContext(context?);
         private static EqualityComparer(a, b);

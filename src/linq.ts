@@ -21,6 +21,7 @@ declare global {
         Take<TResult>(count: number): TResult[]
     }
 }
-require("./Enumerable")
-require("./Select")
-require("./Where")
+require("./Enumerable");
+require("./Any");
+require("./Select");
+require("./Where");

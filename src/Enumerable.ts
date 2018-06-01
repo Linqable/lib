@@ -3,7 +3,6 @@ export class Enumerable<T> {
     private window: any;
     constructor(arr: Array<T>) {
         this.array = arr;
-
     }
 
     public Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): this {
@@ -31,20 +30,17 @@ export class Enumerable<T> {
         return this;
     }
 
-    public Any(predicate?: (element: T) => boolean): boolean {
+    public Any(predicate?: (element: T) => boolean, context?: any): boolean {
         predicate = predicate || this.Predicate;
         var f = this.array.some || function (p, c) {
-            var l = this.length;
+            var l = this.array.length;
             if (!p) return l > 0;
             while (l-- > 0)
-                if (p.call(c, this[l], l, this) === true) return true;
+                if (p.call(c, this.array[l], l, this.array) === true) return true;
             return false;
         };
-        return f.apply(this, [predicate, this.getContext(context)]);
+        return f.apply(this.array, [predicate, this.getContext(context)]);
     }
-
-
-
     public ToArray(): Array<T> {
         if (this.array)
             return this.array;

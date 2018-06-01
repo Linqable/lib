@@ -21,6 +21,8 @@
         "**/*.spec.ts",
         "*.js",
         "bin",
-        "src/test/**/*"
+        "dist",
+        "src/test/**/*",
+        "test"
     ]
 }
