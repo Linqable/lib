@@ -39,21 +39,53 @@ test("Where all XXII century", (t) => {
 test("Any dead", (t) => {
     t.true(linqData.Any(x => x.IsDead));
 });
-/*
-describe("Any", function () {
-    it("Any dead", function () {
-        assert.isTrue(linqData.Any(x => x.IsDead));
-    });
-    it("Where all adult", function () {
-        assert.equal(linqData.Where(x => x.age >= 18).length, 6);
-    });
-    it("Where all female adult", function () {
-        assert.equal(linqData.Where(x => x.age >= 18 && x.gender == "female").length, 3);
-    });
-    it("Where all female soldier adult", function () {
-        assert.equal(linqData.Where(x => x.age >= 18 && x.gender == "female" && x.workPlace == "Soldier").length, 1);
-    });
-    it("Where all XXII century", function () {
-        assert.equal(linqData.Where(x => x.birthdate.getFullYear() > 1100 && x.birthdate.getFullYear() < 1200).length, 2);
-    });
-});*/
+test("First - (Empty predicate)", (t) => {
+    t.deepEqual(linqData.First().name, "Chtholly Nola");
+});
+test("First - Willem", (t) => {
+    t.deepEqual(linqData.First(x => x.age == 321).name, "Willem Kumesh");
+});
+
+test("First - Throw Error No Math", (t) => {
+    t.throws(() => {
+        [].First(x => x.age == 321);
+    }, null, "No math");
+});
+
+
+test("FirstOrDefault", (t) => {
+    t.deepEqual(linqData.FirstOrDefault(x => x.age == 1, {
+        name: "Lia Watermah",
+        age: 1839,
+        workPlace: "God",
+        birthdate: undefined,
+        gender: "female",
+        IsDead: true
+    }).name, "Lia Watermah");
+});
+
+
+test("LastOrDefault", (t) => {
+    t.deepEqual(linqData.LastOrDefault(x => x.age == 1, {
+        name: "Lia Watermah",
+        age: 1839,
+        workPlace: "God",
+        birthdate: undefined,
+        gender: "female",
+        IsDead: true
+    }).name, "Lia Watermah");
+});
+
+
+test("Last - Nygglatho", (t) => {
+    t.deepEqual(linqData.Last().name, "Nygglatho");
+});
+
+
+test("All dead", (t) => {
+    t.true(linqData.Where(x => x.IsDead).All(x => x.IsDead));
+});
+test("All Not dead", (t) => {
+    t.false([{ x: 1 }, { x: 1 }, { x: 2 }].All(x => x.x == 1));
+});
+

@@ -32,3 +32,43 @@ ava_1.default("Where all XXII century", function (t) {
 ava_1.default("Any dead", function (t) {
     t.true(linqData.Any(function (x) { return x.IsDead; }));
 });
+ava_1.default("First - (Empty predicate)", function (t) {
+    t.deepEqual(linqData.First().name, "Chtholly Nola");
+});
+ava_1.default("First - Willem", function (t) {
+    t.deepEqual(linqData.First(function (x) { return x.age == 321; }).name, "Willem Kumesh");
+});
+ava_1.default("First - Throw Error No Math", function (t) {
+    t.throws(function () {
+        [].First(function (x) { return x.age == 321; });
+    }, null, "No math");
+});
+ava_1.default("FirstOrDefault", function (t) {
+    t.deepEqual(linqData.FirstOrDefault(function (x) { return x.age == 1; }, {
+        name: "Lia Watermah",
+        age: 1839,
+        workPlace: "God",
+        birthdate: undefined,
+        gender: "female",
+        IsDead: true
+    }).name, "Lia Watermah");
+});
+ava_1.default("LastOrDefault", function (t) {
+    t.deepEqual(linqData.LastOrDefault(function (x) { return x.age == 1; }, {
+        name: "Lia Watermah",
+        age: 1839,
+        workPlace: "God",
+        birthdate: undefined,
+        gender: "female",
+        IsDead: true
+    }).name, "Lia Watermah");
+});
+ava_1.default("Last - Nygglatho", function (t) {
+    t.deepEqual(linqData.Last().name, "Nygglatho");
+});
+ava_1.default("All dead", function (t) {
+    t.true(linqData.Where(function (x) { return x.IsDead; }).All(function (x) { return x.IsDead; }));
+});
+ava_1.default("All Not dead", function (t) {
+    t.false([{ x: 1 }, { x: 1 }, { x: 2 }].All(function (x) { return x.x == 1; }));
+});

@@ -1,11 +1,83 @@
-export class Enumerable<T> {
+class InvalidOperationError extends Error { }
+
+interface IEnumerable<T> {
+    Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): this;
+    Where(predicate: (element: T, index: number) => boolean, context?: any): this;
+    Any(predicate?: (element: T) => boolean, context?: any): boolean;
+    All(predicate: (element: T) => boolean, context?: any): boolean;
+    IsEmpty(): boolean;
+    Max(selector?: (element: T) => number, context?: any): number;
+    Min(selector?: (element: T) => number, context?: any): number;
+    MaxBy<TKey>(keySelector: (element: T, context?: any) => TKey): T;
+    MinBy<TKey>(keySelector: (element: T, context?: any) => TKey): T;
+    Sum(selector?: (element: T, context?: any) => number): number;
+    First(predicate?: (element: T, index: number) => boolean, context?: any): T;
+    FirstOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
+    Last(predicate?: (element: T, index?: number) => boolean, context?: any): T;
+    LastOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
+    Take<TResult>(count: number): TResult[];
+}
+
+
+class Enumerable<T> implements IEnumerable<T> {
     private array: Array<T>;
     private window: any;
     constructor(arr: Array<T>) {
         this.array = arr;
     }
 
+
+    public IsEmpty(): boolean {
+        this.checkArray();
+        return this.array.length == 0;
+    }
+    public All(predicate: (element: T) => boolean, context?: any): boolean {
+        predicate = predicate || this.Predicate;
+        let l = this.array.length;
+        return this.Where(predicate, context).ToArray().length == l;
+    }
+    public Max(selector?: (element: T) => number, context?: any): number {
+        throw new Error("Method not implemented.");
+    }
+    public Min(selector?: (element: T) => number, context?: any): number {
+        throw new Error("Method not implemented.");
+    }
+    public MaxBy<TKey>(keySelector: (element: T, context?: any) => TKey): T {
+        throw new Error("Method not implemented.");
+    }
+    public MinBy<TKey>(keySelector: (element: T, context?: any) => TKey): T {
+        throw new Error("Method not implemented.");
+    }
+    public Sum(selector?: (element: T, context?: any) => number): number {
+        throw new Error("Method not implemented.");
+    }
+    public Last(predicate?: (element: T, index?: number) => boolean, context?: any): T {
+        this.checkArray();
+        var qwe = this._reverseArray(this.array);
+        for (const source of qwe) {
+            if (!predicate)
+                return source;
+            if (predicate(source)) {
+                return source;
+            }
+        }
+        throw new InvalidOperationError("No math")
+    }
+    public LastOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T {
+        this.checkArray();
+        try {
+            return this.Where(predicate, context).First(null, context);
+        }
+        catch (e) {
+            return defaultValue;
+        }
+    }
+    public Take<TResult>(count: number): TResult[] {
+        throw new Error("Method not implemented.");
+    }
+
     public Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): this {
+        this.checkArray();
         var arr = [];
         var l = this.array.length;
         for (var i = 0; i < l; i++)
@@ -14,7 +86,31 @@ export class Enumerable<T> {
         return this;
     }
 
-    public Where<TResult>(predicate: (element: T, index: number) => boolean, context?: any): this {
+    public First(predicate?: (element: T, index?: number) => boolean, context?: any): T {
+        this.checkArray();
+
+        for (const source of this.array) {
+            if (!predicate)
+                return source;
+
+            if (predicate(source)) {
+                return source;
+            }
+        }
+        throw new InvalidOperationError("No math")
+    }
+    public FirstOrDefault(predicate?: (element: T, index: number) => boolean, def?: T, context?: any): T {
+        this.checkArray();
+        try {
+            return this.Where(predicate, context).First(null, context);
+        }
+        catch (e) {
+            return def;
+        }
+    }
+
+    public Where(predicate: (element: T, index: number) => boolean, context?: any): this {
+        this.checkArray();
         var arr = [];
         var l = this.array.length;
         for (var i = 0; i < l; i++) {
@@ -31,6 +127,7 @@ export class Enumerable<T> {
     }
 
     public Any(predicate?: (element: T) => boolean, context?: any): boolean {
+        this.checkArray();
         predicate = predicate || this.Predicate;
         var f = this.array.some || function (p, c) {
             var l = this.array.length;
@@ -41,6 +138,7 @@ export class Enumerable<T> {
         };
         return f.apply(this.array, [predicate, this.getContext(context)]);
     }
+
     public ToArray(): Array<T> {
         if (this.array)
             return this.array;
@@ -71,4 +169,39 @@ export class Enumerable<T> {
     private Predicate(): boolean {
         return true;
     }
+
+    private checkArray() {
+        if (!this.array)
+            throw new ReferenceError("ArgumentUndefinedError(array)");
+    }
+
+    private _reverseArray(arr: Array<T>): Array<T> {
+        var arr2 = [];
+        for (var i = arr.length; i--;) {
+            arr2.push(arr[i]);
+        };
+        return arr2;
+    }
 }
+declare global {
+
+    interface Array<T> {
+        Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[];
+        Where(predicate: (element: T, index: number) => boolean, context?: any): T[];
+        Any(predicate?: (element: T) => boolean, context?: any): boolean;
+        All(predicate: (element: T) => boolean, context?: any): boolean;
+        IsEmpty(): boolean;
+        Max(selector?: (element: T) => number, context?: any): number;
+        Min(selector?: (element: T) => number, context?: any): number;
+        MaxBy<TKey>(keySelector: (element: T, context?: any) => TKey): T;
+        MinBy<TKey>(keySelector: (element: T, context?: any) => TKey): T;
+        Sum(selector?: (element: T, context?: any) => number): number;
+        First(predicate?: (element: T, index: number) => boolean, context?: any): T;
+        FirstOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
+        Last(predicate?: (element: T, index?: number) => boolean, context?: any): T;
+        LastOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
+        Take<TResult>(count: number): TResult[];
+    }
+}
+
+export { Enumerable, InvalidOperationError, IEnumerable }

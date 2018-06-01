@@ -18,5 +18,6 @@ module.exports = {
     output: {
         filename: 'linqts.js',
         path: path.resolve(__dirname, 'dist')
-    }
+    },
+    target: "node"
 };
