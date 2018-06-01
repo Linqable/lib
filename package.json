@@ -1,6 +1,6 @@
 {
   "name": "linq.ts",
-  "version": "0.0.1-beta",
+  "version": "0.0.6-beta",
   "description": "LINQ implementation library for TypeScript",
   "main": "index.js",
   "author": "Yuuki Wesp",
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/0xF6/linq.ts#readme",
   "scripts": {
-    "build": "tsc",
+    "build": "webpack",
     "test": "webpack && tsc -p ./test/tsconfig.json && ava --verbose"
   },
   "repository": {
@@ -31,12 +31,8 @@
     "@types/mocha": "^5.2.0",
     "@types/node": "^10.1.4",
     "ava": "1.0.0-beta.5",
-    "awesome-typescript-loader": "^5.0.0",
-    "chai": "^4.1.2",
     "inline-source-map": "^0.6.2",
-    "mocha": "^5.2.0",
     "rollup-plugin-typescript": "^0.8.1",
-    "ts-loader": "^4.3.0",
     "typescript": "^2.8.4",
     "webpack": "^4.10.2",
     "webpack-cli": "^2.1.4"
