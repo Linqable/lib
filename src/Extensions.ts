@@ -45,4 +45,24 @@
             return new Enumerable(this).Sum(selector, context);
         };
     }
+    if (typeof Array.prototype.Min !== 'function') {
+        Array.prototype.Min = function (selector?: any) {
+            return new Enumerable(this).Min(selector);
+        };
+    }
+    if (typeof Array.prototype.Max !== 'function') {
+        Array.prototype.Max = function (selector?: any) {
+            return new Enumerable(this).Max(selector);
+        };
+    }
+    if (typeof Array.prototype.MaxBy !== 'function') {
+        Array.prototype.MaxBy = function (selector?: any) {
+            return new Enumerable(this).MaxBy(selector);
+        };
+    }
+    if (typeof Array.prototype.MinBy !== 'function') {
+        Array.prototype.MinBy = function (selector?: any) {
+            return new Enumerable(this).MinBy(selector);
+        };
+    }
 })();

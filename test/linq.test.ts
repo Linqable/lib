@@ -99,5 +99,20 @@ test("Throw Sum InvalidOperation", (t) => {
     }, "Element is not number.");
 });
 
+test("Max", (t) => {
+    t.deepEqual(linqData.Max(x => x.age), 321);
+});
+
+test("Min", (t) => {
+    t.deepEqual(linqData.Min(x => x.age), 17);
+});
+
+test("MaxBy", (t) => {
+    t.deepEqual(linqData.MaxBy(x => x.age).name, "Willem Kumesh");
+});
+
+test("MinBy", (t) => {
+    t.deepEqual(linqData.MinBy(x => x.age).name, "Chtholly Nola");
+});
 
 

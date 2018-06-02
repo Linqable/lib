@@ -7,10 +7,10 @@ declare global {
         Any(predicate?: (element: T) => boolean, context?: any): boolean;
         All(predicate: (element: T) => boolean, context?: any): boolean;
         IsEmpty(): boolean;
-        Max(selector?: (element: T) => number, context?: any): number;
-        Min(selector?: (element: T) => number, context?: any): number;
-        MaxBy<TKey>(keySelector: (element: T) => TKey, context?: any): T;
-        MinBy<TKey>(keySelector: (element: T) => TKey, context?: any): T;
+        Max(selector?: (element: T) => number): number;
+        Min(selector?: (element: T) => number): number;
+        MaxBy(selector: (element: T) => number): T;
+        MinBy(selector: (element: T) => number): T;
         Sum(selector?: (element: T) => number, context?: any): number;
         First(predicate?: (element: T, index: number) => boolean, context?: any): T;
         FirstOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
@@ -25,10 +25,10 @@ interface IEnumerable<T> {
     Any(predicate?: (element: T) => boolean, context?: any): boolean;
     All(predicate: (element: T) => boolean, context?: any): boolean;
     IsEmpty(): boolean;
-    Max(selector?: (element: T) => number, context?: any): number;
-    Min(selector?: (element: T) => number, context?: any): number;
-    MaxBy<TKey>(keySelector: (element: T, context?: any) => TKey): T;
-    MinBy<TKey>(keySelector: (element: T, context?: any) => TKey): T;
+    Max(selector?: (element: T) => number): number;
+    Min(selector?: (element: T) => number): number;
+    MaxBy(selector: (element: T) => number): T;
+    MinBy(selector: (element: T) => number): T;
     Sum(selector?: (element: T) => number, context?: any): number;
     First(predicate?: (element: T, index: number) => boolean, context?: any): T;
     FirstOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
@@ -55,17 +55,67 @@ class Enumerable<T> implements IEnumerable<T> {
         let l = this.array.length;
         return this.Where(predicate, context).ToArray().length == l;
     }
-    public Max(selector?: (element: T) => number, context?: any): number {
-        throw new Error("Method not implemented.");
+    public Max(selector?: (element: T) => number): number {
+        this.checkArray();
+        var l = this.array.length;
+        if (l == 0)
+            return 0;
+        selector = selector || <(element: T) => number><any>this.Selector;
+        var max = selector(this.array[0]);
+        if (typeof max !== "number")
+            throw new InvalidOperationError("Element is not number.");
+        while (l-- > 0)
+            if (selector(this.array[l]) > max && isFinite(selector(this.array[l]))) max = selector(this.array[l]);
+        return max;
     }
-    public Min(selector?: (element: T) => number, context?: any): number {
-        throw new Error("Method not implemented.");
+    public Min(selector?: (element: T) => number): number {
+        this.checkArray();
+        var l = this.array.length;
+        if (l == 0)
+            return 0;
+        selector = selector || <(element: T) => number><any>this.Selector;
+        var min = selector(this.array[0]);
+        if (typeof min !== "number")
+            throw new InvalidOperationError("Element is not number.");
+        while (l-- > 0)
+            if (selector(this.array[l]) < min && isFinite(selector(this.array[l]))) min = selector(this.array[l]);
+        return min;
     }
-    public MaxBy<TKey>(keySelector: (element: T, context?: any) => TKey): T {
-        throw new Error("Method not implemented.");
+    public MaxBy(selector: (element: T) => number): T {
+        this.checkArray();
+        var l = this.array.length;
+        if (l == 0)
+            throw new InvalidOperationError("Array Is Empty.");
+        selector = selector || <(element: T) => number><any>this.Selector;
+        var max = selector(this.array[0]);
+        let FindedElement = <T>this.array[0];
+        if (typeof max !== "number")
+            throw new InvalidOperationError("Element is not number.");
+        while (l-- > 0)
+            if (selector(this.array[l]) > max && isFinite(selector(this.array[l]))) {
+                max = selector(this.array[l]);
+                FindedElement = this.array[l];
+            }
+        return FindedElement;
     }
-    public MinBy<TKey>(keySelector: (element: T, context?: any) => TKey): T {
-        throw new Error("Method not implemented.");
+    public MinBy(selector: (element: T) => number): T {
+        this.checkArray();
+        var l = this.array.length;
+        if (l == 0)
+            throw new InvalidOperationError("Array Is Empty.");
+        selector = selector || <(element: T) => number><any>this.Selector;
+        var min = selector(this.array[0]);
+        let FindedElement = <T>this.array[0];
+        if (typeof min !== "number")
+            throw new InvalidOperationError("Element is not number.");
+        console.log(FindedElement, l, min)
+        while (l-- > 0)
+            if (selector(this.array[l]) < min && isFinite(selector(this.array[l]))) {
+                min = selector(this.array[l]);
+                FindedElement = this.array[l];
+                console.log(FindedElement);
+            }
+        return FindedElement;
     }
     public Sum(selector?: (element: T) => number, context?: any): number {
         this.checkArray();
@@ -204,7 +254,9 @@ class Enumerable<T> implements IEnumerable<T> {
     private Predicate(): boolean {
         return true;
     }
-
+    private Selector(e: any): any {
+        return e;
+    }
     private checkArray() {
         if (!this.array)
             throw new ReferenceError("ArgumentUndefinedError(array)");
