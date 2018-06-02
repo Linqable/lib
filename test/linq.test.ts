@@ -49,7 +49,7 @@ test("First - Willem", (t) => {
 test("First - Throw Error No Math", (t) => {
     t.throws(() => {
         [].First(x => x.age == 321);
-    }, null, "No math");
+    }, "No math");
 });
 
 
@@ -86,6 +86,18 @@ test("All dead", (t) => {
     t.true(linqData.Where(x => x.IsDead).All(x => x.IsDead));
 });
 test("All Not dead", (t) => {
-    t.false([{ x: 1 }, { x: 1 }, { x: 2 }].All(x => x.x == 1));
+    t.false(linqData.Where(x => !x.IsDead).All(x => x.IsDead));
 });
+
+test("Sum ages", (t) => {
+    t.deepEqual(linqData.Sum(x => x.age), 496);
+});
+
+test("Throw Sum InvalidOperation", (t) => {
+    t.throws(() => {
+        linqData.Sum(x => <number><any>x.birthdate);
+    }, "Element is not number.");
+});
+
+
 

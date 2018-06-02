@@ -40,4 +40,9 @@
             return new Enumerable(this).All(predicate, context);
         };
     }
+    if (typeof Array.prototype.Sum !== 'function') {
+        Array.prototype.Sum = function (selector?: any, context?: any) {
+            return new Enumerable(this).Sum(selector, context);
+        };
+    }
 })();

@@ -1,5 +1,24 @@
 class InvalidOperationError extends Error { }
+declare global {
 
+    interface Array<T> {
+        Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[];
+        Where(predicate: (element: T, index: number) => boolean, context?: any): T[];
+        Any(predicate?: (element: T) => boolean, context?: any): boolean;
+        All(predicate: (element: T) => boolean, context?: any): boolean;
+        IsEmpty(): boolean;
+        Max(selector?: (element: T) => number, context?: any): number;
+        Min(selector?: (element: T) => number, context?: any): number;
+        MaxBy<TKey>(keySelector: (element: T) => TKey, context?: any): T;
+        MinBy<TKey>(keySelector: (element: T) => TKey, context?: any): T;
+        Sum(selector?: (element: T) => number, context?: any): number;
+        First(predicate?: (element: T, index: number) => boolean, context?: any): T;
+        FirstOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
+        Last(predicate?: (element: T, index?: number) => boolean, context?: any): T;
+        LastOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
+        Take<TResult>(count: number): TResult[];
+    }
+}
 interface IEnumerable<T> {
     Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): this;
     Where(predicate: (element: T, index: number) => boolean, context?: any): this;
@@ -10,7 +29,7 @@ interface IEnumerable<T> {
     Min(selector?: (element: T) => number, context?: any): number;
     MaxBy<TKey>(keySelector: (element: T, context?: any) => TKey): T;
     MinBy<TKey>(keySelector: (element: T, context?: any) => TKey): T;
-    Sum(selector?: (element: T, context?: any) => number): number;
+    Sum(selector?: (element: T) => number, context?: any): number;
     First(predicate?: (element: T, index: number) => boolean, context?: any): T;
     FirstOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
     Last(predicate?: (element: T, index?: number) => boolean, context?: any): T;
@@ -48,8 +67,24 @@ class Enumerable<T> implements IEnumerable<T> {
     public MinBy<TKey>(keySelector: (element: T, context?: any) => TKey): T {
         throw new Error("Method not implemented.");
     }
-    public Sum(selector?: (element: T, context?: any) => number): number {
-        throw new Error("Method not implemented.");
+    public Sum(selector?: (element: T) => number, context?: any): number {
+        this.checkArray();
+        let num: number = 0;
+        let arr: Array<number>;
+        if (selector)
+            arr = <Array<number>><any>this.array.Select(selector, context);
+        else
+            arr = <Array<number>><any>this.array;
+
+        arr.forEach(element => {
+            if (typeof element !== "number")
+                throw new InvalidOperationError("Element is not number.");
+            if (!isFinite(element) || isNaN(element)) { }
+            else
+                num += element;
+        });
+
+        return num;
     }
     public Last(predicate?: (element: T, index?: number) => boolean, context?: any): T {
         this.checkArray();
@@ -181,26 +216,6 @@ class Enumerable<T> implements IEnumerable<T> {
             arr2.push(arr[i]);
         };
         return arr2;
-    }
-}
-declare global {
-
-    interface Array<T> {
-        Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[];
-        Where(predicate: (element: T, index: number) => boolean, context?: any): T[];
-        Any(predicate?: (element: T) => boolean, context?: any): boolean;
-        All(predicate: (element: T) => boolean, context?: any): boolean;
-        IsEmpty(): boolean;
-        Max(selector?: (element: T) => number, context?: any): number;
-        Min(selector?: (element: T) => number, context?: any): number;
-        MaxBy<TKey>(keySelector: (element: T, context?: any) => TKey): T;
-        MinBy<TKey>(keySelector: (element: T, context?: any) => TKey): T;
-        Sum(selector?: (element: T, context?: any) => number): number;
-        First(predicate?: (element: T, index: number) => boolean, context?: any): T;
-        FirstOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
-        Last(predicate?: (element: T, index?: number) => boolean, context?: any): T;
-        LastOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
-        Take<TResult>(count: number): TResult[];
     }
 }
 
