@@ -65,4 +65,14 @@
             return new Enumerable(this).MinBy(selector);
         };
     }
+    if (typeof Array.prototype.IsEmpty !== 'function') {
+        Array.prototype.IsEmpty = function () {
+            return new Enumerable(this).IsEmpty();
+        };
+    }
+    if (typeof Array.prototype.Take !== 'function') {
+        Array.prototype.Take = function (count) {
+            return new Enumerable(this).Take(count);
+        };
+    }
 })();

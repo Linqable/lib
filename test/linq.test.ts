@@ -115,4 +115,12 @@ test("MinBy", (t) => {
     t.deepEqual(linqData.MinBy(x => x.age).name, "Chtholly Nola");
 });
 
+test("IsEmpty", (t) => {
+    t.true(linqData.Where(x => x.age == 9).IsEmpty());
+});
+
+
+test("Take", (t) => {
+    t.deepEqual(linqData.Take(1).length, 1);
+});
 

@@ -16,7 +16,7 @@ declare global {
         FirstOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
         Last(predicate?: (element: T, index?: number) => boolean, context?: any): T;
         LastOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
-        Take<TResult>(count: number): TResult[];
+        Take(count: number): T[];
     }
 }
 interface IEnumerable<T> {
@@ -34,7 +34,7 @@ interface IEnumerable<T> {
     FirstOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
     Last(predicate?: (element: T, index?: number) => boolean, context?: any): T;
     LastOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
-    Take<TResult>(count: number): TResult[];
+    Take(count: number): T[];
 }
 
 
@@ -108,12 +108,10 @@ class Enumerable<T> implements IEnumerable<T> {
         let FindedElement = <T>this.array[0];
         if (typeof min !== "number")
             throw new InvalidOperationError("Element is not number.");
-        console.log(FindedElement, l, min)
         while (l-- > 0)
             if (selector(this.array[l]) < min && isFinite(selector(this.array[l]))) {
                 min = selector(this.array[l]);
                 FindedElement = this.array[l];
-                console.log(FindedElement);
             }
         return FindedElement;
     }
@@ -157,8 +155,10 @@ class Enumerable<T> implements IEnumerable<T> {
             return defaultValue;
         }
     }
-    public Take<TResult>(count: number): TResult[] {
-        throw new Error("Method not implemented.");
+    public Take(count: number): T[] {
+        if (!count)
+            count = 1;
+        return this.array.slice(0, count);
     }
 
     public Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): this {
