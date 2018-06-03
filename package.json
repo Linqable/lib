@@ -1,5 +1,5 @@
 {
-  "name": "linq.ts",
+  "name": "linqable.ts",
   "version": "1.0.2-beta",
   "description": "LINQ implementation library for TypeScript",
   "main": "index.js",
@@ -15,16 +15,16 @@
     "lang"
   ],
   "bugs": {
-    "url": "https://github.com/0xF6/linq.ts/issues"
+    "url": "https://github.com/0xF6/linqable.ts/issues"
   },
-  "homepage": "https://github.com/0xF6/linq.ts#readme",
+  "homepage": "https://github.com/0xF6/linqable.ts#readme",
   "scripts": {
     "build": "webpack",
     "test": "webpack && tsc -p ./test/tsconfig.json && ava --verbose"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/0xF6/linq.ts.git"
+    "url": "git+https://github.com/0xF6/linqable.ts.git"
   },
   "devDependencies": {
     "@types/node": "^10.1.4",
