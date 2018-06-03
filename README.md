@@ -21,6 +21,8 @@ LINQ 💥 implementation library for TypeScript ❄️
 
 
 ### Usage 🌱
+<hr/>
+**Standard API**
 
 
 #### [First]OrDefault
@@ -131,7 +133,7 @@ array2.IsEmpty() -> false
 #### MaxBy
 Returns the maxima (maximal elements) of the given sequence, based on the given projection. 
 ```TypeScript
-let array = [{name: "Chtholly Nola", age: 17}, { nname: "Ithea Myse", age: 18 }]
+let array = [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
 
 /* ... */
 
@@ -141,7 +143,7 @@ array.MaxBy(x => x.age) -> { nname: "Ithea Myse", age: 18 }
 #### MinBy
 Returns the minima (minimal elements) of the given sequence, based on the given projection. 
 ```TypeScript
-let array = [{name: "Chtholly Nola", age: 17}, { nname: "Ithea Myse", age: 18 }]
+let array = [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
 
 /* ... */
 
@@ -151,7 +153,7 @@ array.MinBy(x => x.age) -> {name: "Chtholly Nola", age: 17}
 #### Min
 Invokes a transform function on each element of a sequence and returns the minimum number value.  
 ```TypeScript
-let array = [{name: "Chtholly Nola", age: 17}, { nname: "Ithea Myse", age: 18 }]
+let array = [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
 
 /* ... */
 
@@ -161,7 +163,7 @@ array.Min(x => x.age) -> 17
 #### Max
 Invokes a transform function on each element of a sequence and returns the maximum number value.
 ```TypeScript
-let array = [{name: "Chtholly Nola", age: 17}, { nname: "Ithea Myse", age: 18 }]
+let array = [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
 
 /* ... */
 
@@ -176,6 +178,36 @@ let array = ["Cobalt","Mithril","Adamantium"];
 /* ... */
 
 array.Take(2) -> ["Cobalt","Mithril"]
+```
+
+
+**Advanced API**
+
+#### Consume
+Completely consumes the given sequence. 
+This method uses immediate execution, and doesn't store any data during execution
+
+```TypeScript
+let array = [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
+
+/* ... */
+
+array.Comsume();
+```
+
+#### Batch
+Batches the source sequence into sized buckets.
+
+```TypeScript
+let array = [{name: "Chtholly Nola"}, 
+             {name: "Nephren Ruq"}, 
+             {name: "Almaria Dufna"}, 
+             {name: "Ithea Myse"}]
+
+/* ... */
+
+array.Batch(2); -> Iterator -> [[{name: "Chtholly Nola"}, {name: "Nephren Ruq"}],[{name: "Almaria Dufna"}, {name: "Ithea Myse"}]]
+// Returns an array with 2 arrays 😏
 ```
 
 
@@ -223,14 +255,14 @@ array.Take(2) -> ["Cobalt","Mithril"]
 - [ ] AggregateRight
 - [ ] Assert
 - [ ] AssertCount
-- [ ] AtLeast
-- [ ] AtMost
+- [x] AtLeast
+- [x] AtMost
 - [ ] Backsert
-- [ ] Batch
+- [x] Batch
 - [ ] Cartesian 
 - [ ] Choose
 - [ ] Concat
-- [ ] Consume
+- [x] Consume
 - [ ] CountBetween & CountBy & CountDown & CompareCount
 - [ ] EndsWith
 - [ ] EquiZip
