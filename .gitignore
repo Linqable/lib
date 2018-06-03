@@ -70,3 +70,6 @@ dist/
 test/linq\.test\.js\.map
 
 test/linq\.test\.d\.ts
+
+
+build/
