@@ -1,28 +1,29 @@
 {
     "compilerOptions": {
-        "target": "es6",
-        "module": "amd",
-        "noImplicitAny": true,
-        "removeComments": true,
-        "preserveConstEnums": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "target": "es5",
+        "lib": [
+            "es5",
+            "es6",
+            "dom"
+        ],
+        "module": "commonjs",
+        "removeComments": false,
         "sourceMap": true,
-        "outFile": "linqable.js",
-        "moduleResolution": "node",
-        "declaration": true
+        "outDir": "build/",
+        "declaration": true,
+        "moduleResolution": "node"
     },
-    "typeRoots": [
-        "node_modules/@types"
-    ],
-    "include": [
-        "src/**/*"
+    "filesGlob": [
+        "./src/**/*.ts",
+        "!node_modules/**/*"
     ],
     "exclude": [
         "node_modules",
-        "**/*.spec.ts",
-        "*.js",
-        "bin",
+        "test",
         "dist",
-        "src/test/**/*",
-        "test"
-    ]
+        "build"
+    ],
+    "compileOnSave": true
 }

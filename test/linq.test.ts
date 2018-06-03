@@ -1,5 +1,7 @@
-import "./../dist/linqable";
+import "./../dist/Extensions";
+import "./../dist/Enumerable";
 import test from 'ava';
+import { Enumerable } from "./../dist/Enumerable";
 var linqData: Array<{
     name: string,
     age: number,
@@ -124,3 +126,16 @@ test("Take", (t) => {
     t.deepEqual(linqData.Take(1).length, 1);
 });
 
+
+
+test("Batch", (t) => {
+    t.plan(3);
+    for (let i of linqData.Batch(3))
+        t.deepEqual(i.length, 3);
+});
+
+test("Consume", (t) => {
+    t.notThrows(() => {
+        linqData.Consume();
+    });
+});

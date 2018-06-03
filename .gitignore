@@ -60,10 +60,13 @@ typings/
 # next.js build output
 .next
 
-build/
 
 \.vs/
 
 dist/
 
 \.vscode/
+
+test/linq\.test\.js\.map
+
+test/linq\.test\.d\.ts

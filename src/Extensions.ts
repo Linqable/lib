@@ -75,4 +75,29 @@
             return new Enumerable(this).Take(count);
         };
     }
+    if (typeof Array.prototype.Acquire !== 'function') {
+        Array.prototype.Acquire = function () {
+            return new Enumerable(this).Acquire();
+        };
+    }
+    if (typeof Array.prototype.AtLeast !== 'function') {
+        Array.prototype.AtLeast = function (c) {
+            return new Enumerable(this).AtLeast(c);
+        };
+    }
+    if (typeof Array.prototype.AtMost !== 'function') {
+        Array.prototype.AtMost = function (c) {
+            return new Enumerable(this).AtMost(c);
+        };
+    }
+    if (typeof Array.prototype.Batch !== 'function') {
+        Array.prototype.Batch = function (size, selector) {
+            return new Enumerable(this).Batch(size, selector);
+        };
+    }
+    if (typeof Array.prototype.Consume !== 'function') {
+        Array.prototype.Consume = function () {
+            return new Enumerable(this).Consume();
+        };
+    }
 })();
