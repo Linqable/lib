@@ -1,4 +1,4 @@
-# linqable.ts 💥
+# < linqable.ts 💥 >
 LINQ 💥 implementation library for TypeScript ❄️
 
 
