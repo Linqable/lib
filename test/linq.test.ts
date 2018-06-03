@@ -1,4 +1,4 @@
-import "./../dist/linqts";
+import "./../dist/linqable";
 import test from 'ava';
 var linqData: Array<{
     name: string,

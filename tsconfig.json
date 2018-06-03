@@ -6,7 +6,7 @@
         "removeComments": true,
         "preserveConstEnums": true,
         "sourceMap": true,
-        "outFile": "linqts.js",
+        "outFile": "linqable.js",
         "moduleResolution": "node",
         "declaration": true
     },

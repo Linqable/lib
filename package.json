@@ -2,7 +2,7 @@
   "name": "linqable.ts",
   "version": "1.0.2-beta",
   "description": "LINQ implementation library for TypeScript",
-  "main": "index.js",
+  "main": "dist/linqable.js",
   "author": "Yuuki Wesp",
   "license": "MIT",
   "private": false,
@@ -12,7 +12,9 @@
     "linqjs",
     "csharp",
     "query",
-    "lang"
+    "lang",
+    "linqable",
+    "enumerable"
   ],
   "bugs": {
     "url": "https://github.com/0xF6/linqable.ts/issues"
