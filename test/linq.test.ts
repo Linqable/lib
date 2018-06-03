@@ -126,8 +126,6 @@ test("Take", (t) => {
     t.deepEqual(linqData.Take(1).length, 1);
 });
 
-
-
 test("Batch", (t) => {
     t.plan(3);
     for (let i of linqData.Batch(3))
