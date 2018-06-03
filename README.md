@@ -1,4 +1,4 @@
-# < linqable.ts 💥 >
+# linqable.ts 💥
 LINQ 💥 implementation library for TypeScript ❄️
 
 
@@ -12,6 +12,10 @@ LINQ 💥 implementation library for TypeScript ❄️
 ### Build ☄️
 1. `yarn build`
 2. You are great! 💫
+
+### Test 🍒
+1. `yarn test`
+2. ava write test-report to screen
 
 
 ### Usage 🌱
