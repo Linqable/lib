@@ -17,6 +17,8 @@ LINQ 💥 implementation library for TypeScript ❄️
 1. `yarn test`
 2. ava write test-report to screen
 
+![image](https://user-images.githubusercontent.com/13326808/40882212-7d39d292-66e3-11e8-9869-c6c644dd1262.png)
+
 
 ### Usage 🌱
 
