@@ -1,5 +1,5 @@
 # linq.ts 💥
-LINQ implementation library for TypeScript
+LINQ 💥 implementation library for TypeScript ❄️
 
 
 ### Dependences 🔥
