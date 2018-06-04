@@ -21,7 +21,8 @@ LINQ 💥 implementation library for TypeScript ❄️
 
 
 ### Usage 🌱
-<hr/>
+<hr/>   
+
 **Standard API**
 
 
@@ -180,6 +181,19 @@ let array = ["Cobalt","Mithril","Adamantium"];
 array.Take(2) -> ["Cobalt","Mithril"]
 ```
 
+
+#### OrderBy
+Sorts the elements of a sequence in a particular direction (ascending, descending) according to a key.
+```TypeScript
+let array = [4, 2, 7, 3, 0, 6];
+
+/* ... */
+
+array.OrderBy(); -> [0, 2, 3, 4, 6, 7];
+```
+Supports primitives, including Date.  
+To compare other objects, 
+you need to implement interface IComparer (TypeScript) or implement function [`Compare(y) : number`]
 
 **Advanced API**
 
