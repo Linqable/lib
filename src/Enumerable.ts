@@ -1,47 +1,4 @@
 import { InvalidOperationError } from "./Error";
-
-declare global {
-
-    interface Array<T> {
-        Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[];
-        Where(predicate: (element: T, index: number) => boolean, context?: any): T[];
-        Any(predicate?: (element: T) => boolean, context?: any): boolean;
-        All(predicate: (element: T) => boolean, context?: any): boolean;
-        IsEmpty(): boolean;
-        Max(selector?: (element: T) => number): number;
-        Min(selector?: (element: T) => number): number;
-        MaxBy(selector: (element: T) => number): T;
-        MinBy(selector: (element: T) => number): T;
-        Sum(selector?: (element: T) => number, context?: any): number;
-        First(predicate?: (element: T, index: number) => boolean, context?: any): T;
-        FirstOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
-        Last(predicate?: (element: T, index?: number) => boolean, context?: any): T;
-        LastOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
-        Take(count: number): T[];
-        Reverse(): T[];
-
-        ThenBy<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
-        ThenByDescending<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
-        OrderBy<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
-        OrderByDescending<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
-
-
-        Aggregate(selector: (el1: T, el2: T) => T, seed?: T): T;
-
-
-
-        SelectMany<TCollection, TResult>(colSelector: (element: T, index?: number) => TCollection[], resSelector: (outer: T, inner: TCollection) => TResult): Array<TResult>;
-
-        /* ... Advanced API ... */
-        Acquire(): T[];
-        AtLeast(count: number): boolean;
-        AtMost(count: number): boolean;
-        Batch(size: number, resultSelector?: (arr: Array<T>) => Array<T>): IterableIterator<T[]>;
-        Consume(): void
-
-    }
-}
-
 export class Enumerable<T> {
     private array: Array<T>;
     private window: any;
@@ -441,3 +398,4 @@ export class Enumerable<T> {
         return arr2;
     }
 }
+
