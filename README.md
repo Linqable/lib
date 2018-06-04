@@ -183,6 +183,19 @@ array.Take(2) -> ["Cobalt","Mithril"]
 
 **Advanced API**
 
+#### Acquire
+Ensures that a source sequence of objects are all acquired successfully. 
+If the acquisition of any one fails then those successfully acquired till that point are delete
+
+```TypeScript
+let array = [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
+
+/* ... */
+
+array.Acquire(); -> success -> [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
+array.Acquire(); -> fail -> [] -> throw
+```
+
 #### Consume
 Completely consumes the given sequence. 
 This method uses immediate execution, and doesn't store any data during execution
@@ -251,7 +264,7 @@ array.Batch(2); -> Iterator -> [[{name: "Chtholly Nola"}, {name: "Nephren Ruq"}]
 - [ ] GroupJoin
 - [ ] Join
 #### Advanced:
-- [ ] Acquire
+- [x] Acquire
 - [ ] AggregateRight
 - [ ] Assert
 - [ ] AssertCount
