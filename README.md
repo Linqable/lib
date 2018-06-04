@@ -259,14 +259,14 @@ array.Batch(2); -> Iterator -> [[{name: "Chtholly Nola"}, {name: "Nephren Ruq"}]
 - [x] Min & Max
 - [x] MinBy & MaxBy
 - [x] IsDefault
-- [ ] OrderBy
+- [x] OrderBy
 - [ ] Range
 - [ ] Reverse
 - [ ] Single
 - [ ] SingleOrDefault
 - [ ] SkipWhile 
-- [ ] ThenBy
-- [ ] ThenByDescending
+- [x] ThenBy
+- [x] ThenByDescending
 - [x] ToArray
 - [ ] Union
 - [ ] Zip
