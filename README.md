@@ -8,6 +8,9 @@ LINQ 💥 implementation library for TypeScript ❄️
 3. AVA 1.0.0-beta.5 or above (in global)
 4. Webpack 3.1.0 or above (in global)
 
+### Install
+- `yarn add linqable.ts`
+- `npm i linqable.ts`
 
 ### Build ☄️
 1. `yarn build`
