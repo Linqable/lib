@@ -23,6 +23,9 @@ linqData.push({ name: "Nygglatho", age: 21, workPlace: "Caretaker", gender: "fem
 test('Select names', t => {
     t.deepEqual(linqData.Select(x => x.name).length, 8);
 });
+test("SelectMany", (t) => {
+    t.deepEqual(new Enumerable([{ ar: [1, 2], name: "2" }, { ar: [3, 4], name: "1" }]).SelectMany(x => x.ar, (q, z) => z), [1, 2, 3, 4]);
+});
 test("Where all dead", (t) => {
     t.deepEqual(linqData.Where(x => x.IsDead).length, 2);
 });
@@ -179,3 +182,5 @@ test("Birthdate - OrderByDescending", (t) => {
     t.deepEqual(JSON.stringify(linqData.OrderByDescending(x => x.birthdate).Select(x => x.birthdate)),
         '["1204-02-13T21:00:00.000Z","1203-07-11T21:00:00.000Z","1203-06-21T21:00:00.000Z","1199-02-26T21:00:00.000Z","1137-05-03T21:00:00.000Z","0903-01-02T21:00:00.000Z","0899-04-24T21:00:00.000Z",null]')
 });
+
+

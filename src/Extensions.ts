@@ -120,4 +120,14 @@
             return new Enumerable(this).ThenBy(selector, comp);
         };
     }
+    if (typeof Array.prototype.Reverse !== 'function') {
+        Array.prototype.Reverse = function () {
+            return new Enumerable(this).Reverse();
+        };
+    }
+    if (typeof Array.prototype.SelectMany !== 'function') {
+        Array.prototype.SelectMany = function (q, w) {
+            return new Enumerable(this).SelectMany(q, w);
+        };
+    }
 })();

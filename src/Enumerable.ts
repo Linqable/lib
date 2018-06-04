@@ -18,11 +18,19 @@ declare global {
         Last(predicate?: (element: T, index?: number) => boolean, context?: any): T;
         LastOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
         Take(count: number): T[];
+        Reverse(): T[];
 
         ThenBy<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
         ThenByDescending<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
         OrderBy<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
         OrderByDescending<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
+
+
+        Aggregate(selector: (el1: T, el2: T) => T, seed?: T): T;
+
+
+
+        SelectMany<TCollection, TResult>(colSelector: (element: T, index?: number) => TCollection[], resSelector: (outer: T, inner: TCollection) => TResult): Array<TResult>;
 
         /* ... Advanced API ... */
         Acquire(): T[];
@@ -263,7 +271,32 @@ export class Enumerable<T> {
         };
         return arr.sort(fn);
     }
+    public Reverse(): T[] {
+        return this._reverseArray(this.array);
+    }
+    public Aggregate(selector: (el1: any, el2: any) => any, seed?: any): any {
+        this.checkArray();
+        var arr = this.array.slice(0);
+        var l = this.array.length;
+        if (seed == null || seed == undefined)
+            seed = arr.shift();
 
+        for (var i = 0; i < l; i++)
+            seed = selector(seed, arr[i]);
+
+        return seed;
+    }
+
+    public SelectMany<TCollection, TResult>(colSelector: (element: T, index?: number) => TCollection[], resSelector: (outer: T, inner: TCollection) => TResult): Array<TResult> {
+        resSelector = resSelector || function <TCollection, TResult>(outer: T, res: TCollection): TResult {
+            return <TResult><any>res;
+        };
+        return this.Aggregate((a, b) => {
+            return (a as any as Array<{}>).concat(colSelector(b).Select((res) => {
+                return resSelector(b, res);
+            }));
+        }, new Array<T>());
+    }
 
     public ToArray(): Array<T> {
         if (this.array)
