@@ -100,4 +100,24 @@
             return new Enumerable(this).Consume();
         };
     }
+    if (typeof Array.prototype.OrderByDescending !== 'function') {
+        Array.prototype.OrderByDescending = function (selector, comp) {
+            return new Enumerable(this).OrderByDescending(selector, comp);
+        };
+    }
+    if (typeof Array.prototype.OrderBy !== 'function') {
+        Array.prototype.OrderBy = function (selector, comp) {
+            return new Enumerable(this).OrderBy(selector, comp);
+        };
+    }
+    if (typeof Array.prototype.ThenByDescending !== 'function') {
+        Array.prototype.ThenByDescending = function (selector, comp) {
+            return new Enumerable(this).ThenByDescending(selector, comp);
+        };
+    }
+    if (typeof Array.prototype.ThenBy !== 'function') {
+        Array.prototype.ThenBy = function (selector, comp) {
+            return new Enumerable(this).ThenBy(selector, comp);
+        };
+    }
 })();

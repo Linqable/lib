@@ -1,7 +1,7 @@
-import "./../dist/Extensions";
-import "./../dist/Enumerable";
+import "./../build/Extensions";
+import "./../build/Enumerable";
 import test from 'ava';
-import { Enumerable } from "./../dist/Enumerable";
+import { Enumerable } from "./../build/Enumerable";
 var linqData: Array<{
     name: string,
     age: number,
@@ -136,4 +136,46 @@ test("Consume", (t) => {
     t.notThrows(() => {
         linqData.Consume();
     });
+});
+
+test("Age - OrderBy", (t) => {
+    t.deepEqual(linqData.OrderBy(x => x.age).Select(x => x.age), [17, 17, 18, 19, 21, 83, 321, Infinity])
+});
+test("Age - OrderByDescending", (t) => {
+    t.deepEqual(linqData.OrderByDescending(x => x.age).Select(x => x.age), [Infinity, 321, 83, 21, 19, 18, 17, 17])
+});
+
+test("Name - OrderBy", (t) => {
+    t.deepEqual(linqData.OrderBy(x => x.name).Select(x => x.name), [
+        'Almaria Dufna',
+        'Chtholly Nola',
+        'Ebon Candle',
+        'Ithea Myse',
+        'Limeskin',
+        'Nephren Ruq',
+        'Nygglatho',
+        'Willem Kumesh',
+    ])
+});
+test("Name - OrderByDescending", (t) => {
+    t.deepEqual(linqData.OrderByDescending(x => x.name).Select(x => x.name),
+        [
+            "Willem Kumesh",
+            "Nygglatho",
+            "Nephren Ruq",
+            "Limeskin",
+            "Ithea Myse",
+            "Ebon Candle",
+            "Chtholly Nola",
+            "Almaria Dufna"
+        ])
+});
+
+test("Birthdate - OrderBy", (t) => {
+    t.deepEqual(JSON.stringify(linqData.OrderBy(x => x.birthdate).Select(x => x.birthdate)),
+        '[null,"0899-04-24T21:00:00.000Z","0903-01-02T21:00:00.000Z","1137-05-03T21:00:00.000Z","1199-02-26T21:00:00.000Z","1203-06-21T21:00:00.000Z","1203-07-11T21:00:00.000Z","1204-02-13T21:00:00.000Z"]')
+});
+test("Birthdate - OrderByDescending", (t) => {
+    t.deepEqual(JSON.stringify(linqData.OrderByDescending(x => x.birthdate).Select(x => x.birthdate)),
+        '["1204-02-13T21:00:00.000Z","1203-07-11T21:00:00.000Z","1203-06-21T21:00:00.000Z","1199-02-26T21:00:00.000Z","1137-05-03T21:00:00.000Z","0903-01-02T21:00:00.000Z","0899-04-24T21:00:00.000Z",null]')
 });

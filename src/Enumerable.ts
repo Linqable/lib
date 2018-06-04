@@ -18,11 +18,19 @@ declare global {
         Last(predicate?: (element: T, index?: number) => boolean, context?: any): T;
         LastOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
         Take(count: number): T[];
+
+        ThenBy<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
+        ThenByDescending<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
+        OrderBy<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
+        OrderByDescending<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
+
+        /* ... Advanced API ... */
         Acquire(): T[];
         AtLeast(count: number): boolean;
         AtMost(count: number): boolean;
         Batch(size: number, resultSelector?: (arr: Array<T>) => Array<T>): IterableIterator<T[]>;
         Consume(): void
+
     }
 }
 
@@ -212,6 +220,51 @@ export class Enumerable<T> {
         return f.apply(this.array, [predicate, this.getContext(context)]);
     }
 
+    public ThenBy<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[] {
+        this.checkArray();
+        Comparer = Comparer || this.SortComparer;
+        var arr = this.array.slice(0);
+        var fn = (a: T, b: T) => {
+            return Comparer(selector(a), selector(b));
+        };
+        return new Enumerable(arr).OrderBy(this.Selector, function (a, b) {
+            var res = fn(a, b);
+            return res === 0 ? Comparer(selector(a), selector(b)) : res;
+        });
+    }
+    public ThenByDescending<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[] {
+        this.checkArray();
+        Comparer = Comparer || this.SortComparer;
+        var arr = this.array.slice(0);
+        var fn = (a: T, b: T) => {
+            return Comparer(selector(a), selector(b));
+        };
+        return new Enumerable(arr).OrderBy(this.Selector, function (a, b) {
+            var res = fn(a, b);
+            return res === 0 ? -Comparer(selector(a), selector(b)) : res;
+        });
+    }
+    public OrderBy<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[] {
+        this.checkArray();
+        Comparer = Comparer || this.SortComparer;
+        var arr = this.array.slice(0);
+        var fn = (a: T, b: T) => {
+            return Comparer(selector(a), selector(b));
+        };
+        return arr.sort(fn);
+    }
+
+    public OrderByDescending<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[] {
+        this.checkArray();
+        Comparer = Comparer || this.SortComparer;
+        var arr = this.array.slice(0);
+        var fn = (a: T, b: T) => {
+            return -Comparer(selector(a), selector(b));
+        };
+        return arr.sort(fn);
+    }
+
+
     public ToArray(): Array<T> {
         if (this.array)
             return this.array;
@@ -316,12 +369,24 @@ export class Enumerable<T> {
     private static EqualityComparer(a: any, b: any): boolean {
         return a === b || a.valueOf() === b.valueOf();
     }
-    private static SortComparer(a: any, b: any): number {
+    private SortComparer(a: any, b: any): number {
+        console.log(typeof a);
+        console.log(typeof b);
         if (a === b) return 0;
-        if (a === null) return -1;
-        if (b === null) return 1;
+        if (a === null || a === undefined) return -1;
+        if (b === null || b === undefined) return 1;
+        if (a.hasOwnProperty("Compare"))
+            return a.Compare(b);
         if (typeof a == 'string')
             return a.toString().localeCompare(b.toString());
+        if (a instanceof Date && b instanceof Date) {
+            if (a.getTime() === b.getTime())
+                return 0;
+            if (a.getTime() <= b.getTime())
+                return -1;
+            if (a.getTime() >= b.getTime())
+                return 1;
+        }
         return a.valueOf() - b.valueOf();
     }
     private Predicate(): boolean {
