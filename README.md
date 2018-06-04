@@ -197,6 +197,8 @@ you need to implement interface IComparer (TypeScript)
 or implement function [`Compare(y) : number`]    
 
 As well support Descending.
+
+    
 **Advanced API**
 
 #### Acquire
