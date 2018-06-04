@@ -198,7 +198,20 @@ or implement function [`Compare(y) : number`]
 
 As well support Descending.
 
-    
+
+#### Reverse
+Inverts the order of the elements in a sequence.  
+```TypeScript
+let array = [{name: "Chtholly Nola"}, 
+             {name: "Nephren Ruq"}, 
+             {name: "Almaria Dufna"}, 
+             {name: "Ithea Myse"}]
+/* ... */
+
+array.Reverse() -> [{name: "Ithea Myse"},{name: "Almaria Dufna"},{name: "Nephren Ruq"},{name: "Chtholly Nola"}]
+```
+
+  
 **Advanced API**
 
 #### Acquire
@@ -261,7 +274,7 @@ array.Batch(2); -> Iterator -> [[{name: "Chtholly Nola"}, {name: "Nephren Ruq"}]
 - [x] IsDefault
 - [x] OrderBy
 - [ ] Range
-- [ ] Reverse
+- [x] Reverse
 - [ ] Single
 - [ ] SingleOrDefault
 - [ ] SkipWhile 
