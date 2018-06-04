@@ -8,6 +8,9 @@ LINQ 💥 implementation library for TypeScript ❄️
 3. AVA 1.0.0-beta.5 or above (in global)
 4. Webpack 3.1.0 or above (in global)
 
+### Install
+- `yarn add linqable.ts`
+- `npm i linqable.ts`
 
 ### Build ☄️
 1. `yarn build`
@@ -21,7 +24,8 @@ LINQ 💥 implementation library for TypeScript ❄️
 
 
 ### Usage 🌱
-<hr/>
+<hr/>   
+
 **Standard API**
 
 
@@ -181,6 +185,36 @@ array.Take(2) -> ["Cobalt","Mithril"]
 ```
 
 
+#### OrderBy
+Sorts the elements of a sequence in a particular direction (ascending, descending) according to a key.
+```TypeScript
+let array = [4, 2, 7, 3, 0, 6];
+
+/* ... */
+
+array.OrderBy(); -> [0, 2, 3, 4, 6, 7];
+```
+Supports primitives, including Date.  
+To compare other objects, 
+you need to implement interface IComparer (TypeScript)    
+or implement function [`Compare(y) : number`]    
+
+As well support Descending.
+
+
+#### Reverse
+Inverts the order of the elements in a sequence.  
+```TypeScript
+let array = [{name: "Chtholly Nola"}, 
+             {name: "Nephren Ruq"}, 
+             {name: "Almaria Dufna"}, 
+             {name: "Ithea Myse"}]
+/* ... */
+
+array.Reverse() -> [{name: "Ithea Myse"},{name: "Almaria Dufna"},{name: "Nephren Ruq"},{name: "Chtholly Nola"}]
+```
+
+  
 **Advanced API**
 
 #### Acquire
@@ -241,14 +275,14 @@ array.Batch(2); -> Iterator -> [[{name: "Chtholly Nola"}, {name: "Nephren Ruq"}]
 - [x] Min & Max
 - [x] MinBy & MaxBy
 - [x] IsDefault
-- [ ] OrderBy
+- [x] OrderBy
 - [ ] Range
-- [ ] Reverse
+- [x] Reverse
 - [ ] Single
 - [ ] SingleOrDefault
 - [ ] SkipWhile 
-- [ ] ThenBy
-- [ ] ThenByDescending
+- [x] ThenBy
+- [x] ThenByDescending
 - [x] ToArray
 - [ ] Union
 - [ ] Zip
