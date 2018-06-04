@@ -193,8 +193,10 @@ array.OrderBy(); -> [0, 2, 3, 4, 6, 7];
 ```
 Supports primitives, including Date.  
 To compare other objects, 
-you need to implement interface IComparer (TypeScript) or implement function [`Compare(y) : number`]
+you need to implement interface IComparer (TypeScript)    
+or implement function [`Compare(y) : number`]    
 
+As well support Descending.
 **Advanced API**
 
 #### Acquire
