@@ -1,4 +1,4 @@
-# linqable.ts 💥
+# linqable.ts 1.6 💥
 LINQ 💥 implementation library for TypeScript ❄️
 
 
@@ -24,6 +24,30 @@ LINQ 💥 implementation library for TypeScript ❄️
 
 
 ### Usage 🌱
+JS:   
+```JavaScript
+require("linqable.ts"); // import array extensions
+
+console.log([3,5].Sum());
+```
+TS:   
+```TypeScript
+import "linqable.ts";
+
+console.log([3,5].Sum());
+```
+
+Use Advanced & Base Linqable:
+    
+```TypeScript
+import { AdvancedLinqable, BaseLinqable } from "linqable.ts";
+
+console.log(new BaseLinqable([3,5]).Sum());
+console.log(new AdvancedLinqable([3,5]).Acquire());
+```
+
+
+### API:
 <hr/>   
 
 **Standard API**
@@ -133,27 +157,6 @@ array1.IsEmpty() -> true
 array2.IsEmpty() -> false
 ```
 
-
-#### MaxBy
-Returns the maxima (maximal elements) of the given sequence, based on the given projection. 
-```TypeScript
-let array = [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
-
-/* ... */
-
-array.MaxBy(x => x.age) -> { nname: "Ithea Myse", age: 18 }
-```
-
-#### MinBy
-Returns the minima (minimal elements) of the given sequence, based on the given projection. 
-```TypeScript
-let array = [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
-
-/* ... */
-
-array.MinBy(x => x.age) -> {name: "Chtholly Nola", age: 17}
-```
-
 #### Min
 Invokes a transform function on each element of a sequence and returns the minimum number value.  
 ```TypeScript
@@ -214,6 +217,54 @@ let array = [{name: "Chtholly Nola"},
 array.Reverse() -> [{name: "Ithea Myse"},{name: "Almaria Dufna"},{name: "Nephren Ruq"},{name: "Chtholly Nola"}]
 ```
 
+#### Distinct
+Returns distinct elements from a sequence by using the default equality comparer to compare values.
+```TypeScript
+let array1 = ["Alkaloid", "Protein", "Chlorophyll", "Alkaloid"];
+
+/* ... */
+
+array1.Distinct() -> ["Alkaloid", "Protein", "Chlorophyll"]
+```
+
+#### Union
+Produces the set union of two sequences.
+```TypeScript
+let array1 = ["Alkaloid", "Protein", "Chlorophyll", "Alkaloid"];
+let array2 = ["Uranium", "Iridium", "Iridium", "Plutonium"];
+
+/* ... */
+
+array1.Union(array2) -> ["Alkaloid", "Protein", "Chlorophyll", "Uranium", "Iridium", "Plutonium"]
+```
+
+#### Zip
+Applies a specified function to the corresponding elements of two sequences, producing a sequence of the results.
+```TypeScript
+let woman = [ "Chtholly", "Nephren" ];
+let man   = [ "Willem", "Willem" ];
+woman.Zip(man, (w, m) => `${w} love ${m}`) -> ["Chtholly love Willem", "Nephren love Willem"]
+```
+
+#### Single[OrDefault]
+Returns the only element of a sequence, and throws an exception if there is not exactly one element in the sequence.
+```TypeScript
+let array = [{synthesis: "Nuclear"}, {synthesis: "Thermonuclear"}]
+
+array.Single() -> Throw Error
+
+/* ... */
+
+array.SingleOrDefault({synthesis: "none"}) -> return default value -> {synthesis: "none"}
+
+/* ... */
+
+array = [{synthesis: "Nuclear"}];
+
+/* ... */
+
+array.Single() -> {synthesis: "Nuclear"}
+```
   
 **Advanced API**
 
@@ -257,6 +308,26 @@ array.Batch(2); -> Iterator -> [[{name: "Chtholly Nola"}, {name: "Nephren Ruq"}]
 // Returns an array with 2 arrays 😏
 ```
 
+#### MaxBy
+Returns the maxima (maximal elements) of the given sequence, based on the given projection. 
+```TypeScript
+let array = [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
+
+/* ... */
+
+array.MaxBy(x => x.age) -> { nname: "Ithea Myse", age: 18 }
+```
+
+#### MinBy
+Returns the minima (minimal elements) of the given sequence, based on the given projection. 
+```TypeScript
+let array = [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
+
+/* ... */
+
+array.MinBy(x => x.age) -> {name: "Chtholly Nola", age: 17}
+```
+
 
 ### RoadMap
 #### Standard: 
@@ -265,7 +336,7 @@ array.Batch(2); -> Iterator -> [[{name: "Chtholly Nola"}, {name: "Nephren Ruq"}]
 - [x] Last
 - [x] LastOrDefault
 - [x] Select
-- [ ] SelectMany
+- [x] SelectMany
 - [x] Where
 - [x] Any
 - [x] All
@@ -278,22 +349,22 @@ array.Batch(2); -> Iterator -> [[{name: "Chtholly Nola"}, {name: "Nephren Ruq"}]
 - [x] OrderBy
 - [ ] Range
 - [x] Reverse
-- [ ] Single
-- [ ] SingleOrDefault
+- [x] Single
+- [x] SingleOrDefault
 - [ ] SkipWhile 
 - [x] ThenBy
 - [x] ThenByDescending
 - [x] ToArray
-- [ ] Union
-- [ ] Zip
-- [ ] Aggregate
-- [ ] Count
+- [x] Union
+- [x] Zip
+- [x] Aggregate
+- [x] Count
 - [ ] Average
 - [ ] Append
-- [ ] Contains
-- [ ] DefaultIfEmpty
-- [ ] Distinct
-- [ ] Except
+- [x] Contains
+- [x] DefaultIfEmpty
+- [x] Distinct
+- [x] Except
 - [ ] GroupBy
 - [ ] GroupJoin
 - [ ] Join
