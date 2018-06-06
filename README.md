@@ -292,7 +292,7 @@ array.Batch(2); -> Iterator -> [[{name: "Chtholly Nola"}, {name: "Nephren Ruq"}]
 - [ ] Append
 - [x] Contains
 - [x] DefaultIfEmpty
-- [ ] Distinct
+- [x] Distinct
 - [x] Except
 - [ ] GroupBy
 - [ ] GroupJoin
