@@ -265,7 +265,7 @@ array.Batch(2); -> Iterator -> [[{name: "Chtholly Nola"}, {name: "Nephren Ruq"}]
 - [x] Last
 - [x] LastOrDefault
 - [x] Select
-- [ ] SelectMany
+- [x] SelectMany
 - [x] Where
 - [x] Any
 - [x] All
@@ -278,22 +278,22 @@ array.Batch(2); -> Iterator -> [[{name: "Chtholly Nola"}, {name: "Nephren Ruq"}]
 - [x] OrderBy
 - [ ] Range
 - [x] Reverse
-- [ ] Single
-- [ ] SingleOrDefault
+- [x] Single
+- [x] SingleOrDefault
 - [ ] SkipWhile 
 - [x] ThenBy
 - [x] ThenByDescending
 - [x] ToArray
-- [ ] Union
-- [ ] Zip
-- [ ] Aggregate
-- [ ] Count
+- [x] Union
+- [x] Zip
+- [x] Aggregate
+- [x] Count
 - [ ] Average
 - [ ] Append
-- [ ] Contains
-- [ ] DefaultIfEmpty
+- [x] Contains
+- [x] DefaultIfEmpty
 - [ ] Distinct
-- [ ] Except
+- [x] Except
 - [ ] GroupBy
 - [ ] GroupJoin
 - [ ] Join
