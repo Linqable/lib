@@ -61,10 +61,10 @@ let array = [{formula: "CeO2", MolarMass: 172.115 }, {formula: "O", MolarMass: 1
 
 /* ... */
 
-array.First() -> {formula: "CeO2", MolarMass: 172.115 }
+array.First() // => {formula: "CeO2", MolarMass: 172.115 }
 
 let defaultValue = {formula: "H", MollarMass: 14.1 }
-[].FirstOrDefault(null, defaultValue) -> {formula: "H", MollarMass: 14.1 }
+[].FirstOrDefault(null, defaultValue) // => {formula: "H", MollarMass: 14.1 }
 ```
 
 #### [Last]OrDefault
@@ -74,10 +74,10 @@ let array = [{formula: "CeO2", MolarMass: 172.115 }, {formula: "O", MolarMass: 1
 
 /* ... */
 
-array.Last() ->  {formula: "O", MolarMass: 15.999 }
+array.Last() // =>  {formula: "O", MolarMass: 15.999 }
 
 let defaultValue = {formula: "H", MollarMass: 14.1 }
-[].LastOrDefault(null, defaultValue) -> {formula: "H", MollarMass: 14.1 }
+[].LastOrDefault(null, defaultValue) // => {formula: "H", MollarMass: 14.1 }
 ```
 
 #### Select
@@ -87,7 +87,7 @@ let array = [{name: "Chtholly Nola", age: 17}, { name: "Nephren Ruq", age: 17}]
 
 /* ... */
 
-array.Select(x => x.name.split(' ').First()) -> [{name: "Chtholly"}, {"Nephren"}]
+array.Select(x => x.name.split(' ').First()) // => [{name: "Chtholly"}, {"Nephren"}]
 ```
 
 
@@ -101,7 +101,7 @@ let array = [{name: "Chtholly Nola", age: 17},
 
 /* ... */
 // where adult only 🙈
-array.Where(x => x.age >= 18) -> [ {name: "Almaria Dufna", age: 19}, {name: "Ithea Myse", age: 18}]
+array.Where(x => x.age >= 18) // => [ {name: "Almaria Dufna", age: 19}, {name: "Ithea Myse", age: 18}]
 ```
 
 
@@ -115,8 +115,8 @@ let array = [{name: "Chtholly Nola", IsDead: true},
 /* ... */
 
 
-array.Any(x => x.IsDead) -> true
-array.Where(x => !x.IsDead).Any(x => x.IsDead) -> false
+array.Any(x => x.IsDead) // => true
+array.Where(x => !x.IsDead).Any(x => x.IsDead) // => false
 ```
 
 #### All
@@ -129,8 +129,8 @@ let array = [{name: "Chtholly Nola", IsDead: true},
 /* ... */
 
 
-array.All(x => x.IsDead) -> false
-array.Where(x => x.IsDead).All(x => x.IsDead) -> true
+array.All(x => x.IsDead) // => false
+array.Where(x => x.IsDead).All(x => x.IsDead) // => true
 ```
 
 #### Sum
@@ -141,8 +141,8 @@ let array2 = [{num: 15}, {num: 10}];
 
 /* ... */
 
-array1.Sum() -> 6
-array2.Sim(x => x.num) -> 25
+array1.Sum() // => 6
+array2.Sum(x => x.num) // => 25
 ```
 
 
@@ -154,8 +154,8 @@ let array2 = ["Cobalt","Mithril"];
 
 /* ... */
 
-array1.IsEmpty() -> true
-array2.IsEmpty() -> false
+array1.IsEmpty() // => true
+array2.IsEmpty() // => false
 ```
 
 #### Min
@@ -165,7 +165,7 @@ let array = [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
 
 /* ... */
 
-array.Min(x => x.age) -> 17
+array.Min(x => x.age) // => 17
 ```
 
 #### Max
@@ -175,7 +175,7 @@ let array = [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
 
 /* ... */
 
-array.Max(x => x.age) -> 18
+array.Max(x => x.age) // => 18
 ```
 
 #### Take 
@@ -185,7 +185,7 @@ let array = ["Cobalt","Mithril","Adamantium"];
 
 /* ... */
 
-array.Take(2) -> ["Cobalt","Mithril"]
+array.Take(2) // => ["Cobalt","Mithril"]
 ```
 
 
@@ -196,7 +196,7 @@ let array = [4, 2, 7, 3, 0, 6];
 
 /* ... */
 
-array.OrderBy(); -> [0, 2, 3, 4, 6, 7];
+array.OrderBy(); // => [0, 2, 3, 4, 6, 7];
 ```
 Supports primitives, including Date.  
 To compare other objects, 
@@ -215,7 +215,7 @@ let array = [{name: "Chtholly Nola"},
              {name: "Ithea Myse"}]
 /* ... */
 
-array.Reverse() -> [{name: "Ithea Myse"},{name: "Almaria Dufna"},{name: "Nephren Ruq"},{name: "Chtholly Nola"}]
+array.Reverse() // => [{name: "Ithea Myse"},{name: "Almaria Dufna"},{name: "Nephren Ruq"},{name: "Chtholly Nola"}]
 ```
 
 #### Distinct
@@ -225,7 +225,7 @@ let array1 = ["Alkaloid", "Protein", "Chlorophyll", "Alkaloid"];
 
 /* ... */
 
-array1.Distinct() -> ["Alkaloid", "Protein", "Chlorophyll"]
+array1.Distinct() // => ["Alkaloid", "Protein", "Chlorophyll"]
 ```
 
 #### Union
@@ -236,7 +236,7 @@ let array2 = ["Uranium", "Iridium", "Iridium", "Plutonium"];
 
 /* ... */
 
-array1.Union(array2) -> ["Alkaloid", "Protein", "Chlorophyll", "Uranium", "Iridium", "Plutonium"]
+array1.Union(array2) // => ["Alkaloid", "Protein", "Chlorophyll", "Uranium", "Iridium", "Plutonium"]
 ```
 
 #### Zip
@@ -244,7 +244,7 @@ Applies a specified function to the corresponding elements of two sequences, pro
 ```TypeScript
 let woman = [ "Chtholly", "Nephren" ];
 let man   = [ "Willem", "Willem" ];
-woman.Zip(man, (w, m) => `${w} love ${m}`) -> ["Chtholly love Willem", "Nephren love Willem"]
+woman.Zip(man, (w, m) => `${w} love ${m}`) // => ["Chtholly love Willem", "Nephren love Willem"]
 ```
 
 #### Single[OrDefault]
@@ -252,11 +252,11 @@ Returns the only element of a sequence, and throws an exception if there is not 
 ```TypeScript
 let array = [{synthesis: "Nuclear"}, {synthesis: "Thermonuclear"}]
 
-array.Single() -> Throw Error
+array.Single() // => Throw Error
 
 /* ... */
 
-array.SingleOrDefault({synthesis: "none"}) -> return default value -> {synthesis: "none"}
+array.SingleOrDefault({synthesis: "none"}) // => return default value // => {synthesis: "none"}
 
 /* ... */
 
@@ -264,7 +264,7 @@ array = [{synthesis: "Nuclear"}];
 
 /* ... */
 
-array.Single() -> {synthesis: "Nuclear"}
+array.Single() // => {synthesis: "Nuclear"}
 ```
   
 **Advanced API**
@@ -278,8 +278,8 @@ let array = [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
 
 /* ... */
 
-array.Acquire(); -> success -> [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
-array.Acquire(); -> fail -> [] -> throw
+array.Acquire(); // => success // => [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
+array.Acquire(); // => fail // => [] // => throw
 ```
 
 #### Consume
@@ -305,7 +305,7 @@ let array = [{name: "Chtholly Nola"},
 
 /* ... */
 
-array.Batch(2); -> Iterator -> [[{name: "Chtholly Nola"}, {name: "Nephren Ruq"}],[{name: "Almaria Dufna"}, {name: "Ithea Myse"}]]
+array.Batch(2); // => Iterator // => [[{name: "Chtholly Nola"}, {name: "Nephren Ruq"}],[{name: "Almaria Dufna"}, {name: "Ithea Myse"}]]
 // Returns an array with 2 arrays 😏
 ```
 
@@ -316,7 +316,7 @@ let array = [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
 
 /* ... */
 
-array.MaxBy(x => x.age) -> { nname: "Ithea Myse", age: 18 }
+array.MaxBy(x => x.age) // => { name: "Ithea Myse", age: 18 }
 ```
 
 #### MinBy
@@ -326,7 +326,7 @@ let array = [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
 
 /* ... */
 
-array.MinBy(x => x.age) -> {name: "Chtholly Nola", age: 17}
+array.MinBy(x => x.age) // => {name: "Chtholly Nola", age: 17}
 ```
 
 
