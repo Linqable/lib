@@ -1,40 +1,47 @@
-import { Enumerable } from "./Enumerable";
+import { AdvancedLinqable } from "./AdvancedLinqable";
+import { BaseLinqable } from "./Base/BaseLinqable";
 import { IComparer } from "./Interfaces/IComparer";
+import { IStandardLinq } from "./Interfaces/IStandardLinq";
 import { InvalidOperationError } from "./Error";
 
-export { Enumerable, IComparer, InvalidOperationError };
+export { AdvancedLinqable, IComparer, InvalidOperationError, IStandardLinq, BaseLinqable };
 declare global {
 
     interface Array<T> {
-        Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[];
-        Where(predicate: (element: T, index: number) => boolean, context?: any): T[];
-        Any(predicate?: (element: T) => boolean, context?: any): boolean;
-        All(predicate: (element: T) => boolean, context?: any): boolean;
+        /* ... Standard API ... */
+
+        Reverse(): T[];
+        ToArray(): Array<T>;
+
+        Single(): T;
+        SingleOrDefault(defaultValue: T): T;
+        Except(arr: Array<T> | number, comparer?: (x: T, y: T) => boolean): any[];
+        Zip<T3, T4>(arr: Array<T4>, selector: (x:T, y: T4) => T3): T3[]
+        Union(arr: Array<T>): T[];
+        Distinct(comparer?: (x: T, y: T) => boolean): Array<T>;
+        Contains(el: T, comparer?: (x: T, y: T) => boolean): boolean;
+        Count(predicate?: (element: T, index?: number) => boolean): number;
         IsEmpty(): boolean;
+        All(predicate: (element: T) => boolean, context?: any): boolean;
         Max(selector?: (element: T) => number): number;
         Min(selector?: (element: T) => number): number;
         MaxBy(selector: (element: T) => number): T;
         MinBy(selector: (element: T) => number): T;
         Sum(selector?: (element: T) => number, context?: any): number;
-        First(predicate?: (element: T, index: number) => boolean, context?: any): T;
-        FirstOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
         Last(predicate?: (element: T, index?: number) => boolean, context?: any): T;
         LastOrDefault(predicate?: (element: T, index: number) => boolean, defaultValue?: T, context?: any): T;
         Take(count: number): T[];
-        Reverse(): T[];
-
+        Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[];
+        First(predicate?: (element: T, index?: number) => boolean, context?: any): T;
+        FirstOrDefault(predicate?: (element: T, index: number) => boolean, def?: T, context?: any): T;
+        Where(predicate: (element: T, index?: number) => boolean, context?: any): T[];
+        Any(predicate?: (element: T) => boolean, context?: any): boolean;
+        SelectMany<TCollection, TResult>(colSelector: (element: T, index?: number) => TCollection[], resSelector: (outer: T, inner: TCollection) => TResult): Array<TResult>;
         ThenBy<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
         ThenByDescending<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
-        OrderBy<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
-        OrderByDescending<TResult>(selector: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
-
-
-        Aggregate(selector: (el1: T, el2: T) => T, seed?: T): T;
-
-
-
-        SelectMany<TCollection, TResult>(colSelector: (element: T, index?: number) => TCollection[], resSelector: (outer: T, inner: TCollection) => TResult): Array<TResult>;
-
+        OrderBy<TResult>(selector?: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
+        OrderByDescending<TResult>(selector?: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
+        Aggregate(selector: (el1: any, el2: any) => any, seed?: any): any;
         /* ... Advanced API ... */
         Acquire(): T[];
         AtLeast(count: number): boolean;
@@ -46,15 +53,15 @@ declare global {
 }
 
 (() => {
-    var Enumerable = require("./Enumerable").Enumerable;
+    var Enumerable = require("./AdvancedLinqable").AdvancedLinqable;
     if (typeof Array.prototype.Where !== 'function') {
         Array.prototype.Where = function <T>(predicate: any, context?: any): T[] {
-            return <T[]>new Enumerable(this).Where(predicate, context).ToArray();
+            return <T[]>new Enumerable(this).Where(predicate, context);
         };
     }
     if (typeof Array.prototype.Select !== 'function') {
         Array.prototype.Select = function <T>(selector: any, context?: any): T[] {
-            return <T[]>new Enumerable(this).Select(selector, context).ToArray();
+            return <T[]>new Enumerable(this).Select(selector, context);
         };
     }
     if (typeof Array.prototype.Any !== 'function') {
@@ -175,6 +182,51 @@ declare global {
     if (typeof Array.prototype.SelectMany !== 'function') {
         Array.prototype.SelectMany = function (q, w) {
             return new Enumerable(this).SelectMany(q, w);
+        };
+    }
+    if (typeof Array.prototype.Count !== 'function') {
+        Array.prototype.Count = function (s) {
+            return new Enumerable(this).Count(s);
+        };
+    }
+    if (typeof Array.prototype.Union !== 'function') {
+        Array.prototype.Union = function (s) {
+            return new Enumerable(this).Union(s);
+        };
+    }
+    if (typeof Array.prototype.Distinct !== 'function') {
+        Array.prototype.Distinct = function (s) {
+            return new Enumerable(this).Distinct(s);
+        };
+    }
+    if (typeof Array.prototype.Contains !== 'function') {
+        Array.prototype.Contains = function (s, q) {
+            return new Enumerable(this).Contains(s, q);
+        };
+    }
+    if (typeof Array.prototype.Distinct !== 'function') {
+        Array.prototype.Distinct = function (s) {
+            return new Enumerable(this).Distinct(s);
+        };
+    }
+    if (typeof Array.prototype.Single !== 'function') {
+        Array.prototype.Single = function () {
+            return new Enumerable(this).Single();
+        };
+    }
+    if (typeof Array.prototype.SingleOrDefault !== 'function') {
+        Array.prototype.SingleOrDefault = function (def) {
+            return new Enumerable(this).SingleOrDefault(def);
+        };
+    }
+    if (typeof Array.prototype.Zip !== 'function') {
+        Array.prototype.Zip = function (x, y) {
+            return new Enumerable(this).Zip(x, y);
+        };
+    }
+    if (typeof Array.prototype.ToArray !== 'function') {
+        Array.prototype.ToArray = function () {
+            return new Enumerable(this).ToArray();
         };
     }
 })();

@@ -1,6 +1,6 @@
 {
   "name": "linqable.ts",
-  "version": "1.5.5",
+  "version": "1.6.0",
   "description": "LINQ implementation library for TypeScript",
   "main": "./build/Extensions.js",
   "author": "Yuuki Wesp",
@@ -22,7 +22,8 @@
   "homepage": "https://github.com/0xF6/linqable.ts#readme",
   "scripts": {
     "build": "tsc",
-    "test": "tsc && tsc -p ./test/tsconfig.json && ava --verbose"
+    "test": "tsc && tsc -p ./test/tsconfig.json && ava test/**/*.test.js --verbose",
+    "test-nya": "tsc && tsc -p ./test/tsconfig.json && ava test/**/*.test.js --tap | tap-nyan"
   },
   "repository": {
     "type": "git",
@@ -35,9 +36,8 @@
     "ts-loader": "^4.3.1",
     "typescript": "^2.8.4",
     "webpack": "^4.10.2",
-    "webpack-cli": "^2.1.4"
-  },
-  "dependencies": {
+    "webpack-cli": "^2.1.4",
+    "tap-nyan": "^1.1.0",
     "del": "^3.0.0"
   }
 }
