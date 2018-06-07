@@ -305,7 +305,7 @@ let array = [{name: "Chtholly Nola"},
 
 /* ... */
 
-array.Batch(2); // => Iterator // => [[{name: "Chtholly Nola"}, {name: "Nephren Ruq"}],[{name: "Almaria Dufna"}, {name: "Ithea Myse"}]]
+array.Batch(2); // => [[{name: "Chtholly Nola"}, {name: "Nephren Ruq"}],[{name: "Almaria Dufna"}, {name: "Ithea Myse"}]]
 // Returns an array with 2 arrays 😏
 ```
 
