@@ -84,19 +84,19 @@ export class AdvancedLinqable<T> extends BaseLinqable<T> {
     public Exclude(startIndex: number, count: number): T[]
     {
         this.checkArray();
-        if (startIndex < 0) throw new ArgumentOutOfRangeError();
-        if (count < 0) throw new ArgumentOutOfRangeError();
+        if (startIndex < 0) throw new ArgumentOutOfRangeError("startIndex is negative.");
+        if (count < 0) throw new ArgumentOutOfRangeError("count is negative.");
         if (count == 0) return this.array;
         let iter = this.GetIterator();
         
         let generator = function* () {
             let index = -1;
             let endIndex = startIndex + count;
-            while (iter.next() && ++index < startIndex)
+            while (iter.moveNext() && ++index < startIndex)
                 yield iter.getCurrent();
-            while (++index < endIndex && iter.next())
+            while (++index < endIndex && iter.moveNext())
                 continue;
-            while (iter.next())
+            while (iter.moveNext())
                 yield iter.getCurrent();
         }
         return this.IteratorToArray(generator());
@@ -119,11 +119,9 @@ export class AdvancedLinqable<T> extends BaseLinqable<T> {
             var lagQueue = new Array<T>(offset);
             var hasMore = true;
             let iter = that.GetIterator();
-            console.log("iter "+ JSON.stringify(iter));
             while (i-- > 0 && (hasMore = iter.moveNext()))
             {
                 lagQueue.push(iter.getCurrent());
-                console.log("iter.getCurrent() " +JSON.stringify(iter.getCurrent()));
                 yield selector(iter.getCurrent(), defaultValue);
             }
             if (hasMore)
@@ -131,7 +129,6 @@ export class AdvancedLinqable<T> extends BaseLinqable<T> {
                 while (iter.moveNext())
                 {
                     var lagValue = lagQueue.shift();
-                    console.log("lagValue " +JSON.stringify(lagValue));
                     yield selector(iter.getCurrent(), lagValue);
                     lagQueue.push(iter.getCurrent());
                 }
@@ -161,38 +158,35 @@ export class AdvancedLinqable<T> extends BaseLinqable<T> {
     /**
      * Flattens a sequence containing arbitrarily-nested sequences.
      */
-    public Flatten(predicate: (arr: Array<{}>) => boolean)
+    public Flatten(predicate?: (arr: Array<{}>) => boolean)
     {
         this.checkArray();
-        if (!predicate) throw new ArgumentNullError("Predicate is undefined.");
+        predicate = predicate || ((x) => typeof x !== "string");
         let that = this;
         let generator = function*()
         {
             let iter = that.GetIterator();
             let stack: Array<LinqArrayIterable<{}>> = [];
-
             stack.push(iter);
             try
             {
                 while (stack.Any())
                 {
                     let iter = stack.pop();
-
-                    let loop = function*() {
-                        while (iter.moveNext())
+                    let cur = null;
+                    reloop:
+                    while (cur = iter.next().value)
+                    {
+                        if (cur instanceof Array && predicate(cur))
                         {
-                            if (iter.getCurrent() instanceof Array && predicate(<Array<{}>><any>iter.getCurrent()))
-                            {
-                                stack.push(iter);
-                                iter = new AdvancedLinqable((<Array<{}>>iter.getCurrent())).GetIterator();
-                                loop();
-                            }
-                            else
-                            yield iter.getCurrent();
+                            stack.push(iter);
+                            iter = new AdvancedLinqable(cur).GetIterator();
+                            continue reloop;
                         }
+                        else
+                            yield cur;
                     }
-                    yield loop();
-                    iter = null; // 'delete' is denied is strict mode
+                    iter = null;
                 }
             }
             finally

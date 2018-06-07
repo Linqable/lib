@@ -52,7 +52,7 @@ declare global {
         Exclude(startIndex: number, count: number): T[];
         Lag<TResult>(offset: number, defaultValue: T, selector: (x:T, y: T) => TResult): TResult[];
         Pipe(act: (x:T) => void): T[];
-        Flatten(predicate: (arr: Array<{}>) => boolean);
+        Flatten(predicate?: (arr: Array<{}>) => boolean);
         Pairwise<TResult>(selector: (x:T, y:T) => TResult): TResult[];
 
     }

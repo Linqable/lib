@@ -17,7 +17,7 @@ export class LinqArrayIterable<T> implements IterableIterator<T> {
   public moveNext() : boolean
   {
     if (this.pointer < this.items.length) {
-      this.pointer++
+      this.pointer++;
       return true;
     } 
     else false;
@@ -27,7 +27,7 @@ export class LinqArrayIterable<T> implements IterableIterator<T> {
   }
   public getCurrent() : T
   {
-    return this.items[this.pointer];
+    return this.items[this.pointer - 1];
   }
 
   public toString() : string{
