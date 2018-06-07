@@ -116,7 +116,7 @@ export class AdvancedLinqable<T> extends BaseLinqable<T> {
         let generator = function* ()
         {
             var i = offset;
-            var lagQueue = new Array<T>(offset);
+            var lagQueue = new Array<T>();
             var hasMore = true;
             let iter = that.GetIterator();
             while (i-- > 0 && (hasMore = iter.moveNext()))
