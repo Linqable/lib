@@ -1,4 +1,4 @@
-# linqable.ts 1.6 💥
+# linqable.ts 1.7 💥
 LINQ 💥 implementation library for TypeScript ❄️
 
 
@@ -10,6 +10,7 @@ LINQ 💥 implementation library for TypeScript ❄️
 
 ### Install
 - `yarn add linqable.ts`
+or
 - `npm i linqable.ts`
 
 ### Build ☄️
@@ -378,7 +379,7 @@ let array = [0, 1, 2, 3, 4];
 /* ... */
 
 array.Lag(/*step*/2, /*defaultValue*/0, (a, b) => { return { A: a, B: b}; })
-//returned -> [{"A":0,"B":0},{"A":1,"B":0},{"A":2},{"A":3},{"A":4,"B":0}]
+//returned -> [{"A":0,"B":0},{"A":1,"B":0},{"A":2,"B":0},{"A":3,"B":1},{"A":4,"B":2}]
 ```
 
 
