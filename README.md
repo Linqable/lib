@@ -20,8 +20,7 @@ LINQ 💥 implementation library for TypeScript ❄️
 1. `yarn test`
 2. ava write test-report to screen
 
-![image](https://user-images.githubusercontent.com/13326808/41032243-7248e6e8-698b-11e8-9329-d9ad7046222d.png)
-
+![image](https://user-images.githubusercontent.com/13326808/41082352-ad6fe5f4-6a36-11e8-8e51-4d98f0dec746.png)
 
 
 ### Usage 🌱
@@ -328,6 +327,60 @@ let array = [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
 
 array.MinBy(x => x.age) // => {name: "Chtholly Nola", age: 17}
 ```
+
+#### Exclude
+Excludes elements from a sequence starting at a given index
+```TypeScript
+let array = ["CO2", "Ir2O", "C2O3", "NH3", "C2H6", "H2C03"]
+
+/* ... */
+
+array.Exclude(1, 2) // -> ["CO2", "NH3", "C2H6", "H2C03"]
+```
+
+#### Flatten
+Flattens a sequence containing arbitrarily-nested sequences.
+```TypeScript
+let array = ["CO2", ["C2O3", ["NH3", 127.4], 241, "H2C03"]
+
+/* ... */
+
+array.Flatten() // -> ["CO2", "C2O3", "NH3", 127.4, 241, "H2C03"]
+```
+
+
+#### Pairwise
+Returns a sequence resulting from applying a function to each element in the source sequence and its predecessor, with the exception of the first element which is only returned as the predecessor of the second element
+```TypeScript
+let array = ["atom", "core", "neutron"];
+
+/* ... */
+
+array.Pairwise((x, y) => `${x} contains ${y}`) // -> ["atom contains core", "core contains neutron"]
+```
+
+#### Pipe
+Executes the given action on each element in the source sequence and yields it
+```TypeScript
+let array = [{name: 'neutron', lifetime: 880}, {name: "proton", lifetime: Infinity}]
+
+/* ... */
+
+array.Pipe(x => x.lifetime++);
+array.Where(x => x.name == "neutron").lifetime // -> 881
+```
+
+#### Lag
+Produces a projection of a sequence by evaluating pairs of elements separated by a negative offset.
+```TypeScript
+let array = [0, 1, 2, 3, 4];
+
+/* ... */
+
+array.Lag(/*step*/2, /*defaultValue*/0, (a, b) => { return { A: a, B: b}; })
+//returned -> [{"A":0,"B":0},{"A":1,"B":0},{"A":2},{"A":3},{"A":4,"B":0}]
+```
+
 
 
 ### RoadMap
