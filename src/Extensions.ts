@@ -46,8 +46,14 @@ declare global {
         Acquire(): T[];
         AtLeast(count: number): boolean;
         AtMost(count: number): boolean;
-        Batch(size: number, resultSelector?: (arr: Array<T>) => Array<T>): IterableIterator<T[]>;
+        Batch(size: number, resultSelector?: (arr: Array<T>) => Array<T>): Array<T[]>
         Consume(): void
+
+        Exclude(startIndex: number, count: number): T[];
+        Lag<TResult>(offset: number, defaultValue: T, selector: (x:T, y: T) => TResult): TResult[];
+        Pipe(act: (x:T) => void): T[];
+        Flatten(predicate: (arr: Array<{}>) => boolean);
+        Pairwise<TResult>(selector: (x:T, y:T) => TResult): TResult[];
 
     }
 }
@@ -227,6 +233,31 @@ declare global {
     if (typeof Array.prototype.ToArray !== 'function') {
         Array.prototype.ToArray = function () {
             return new Enumerable(this).ToArray();
+        };
+    }
+    if (typeof Array.prototype.Exclude !== 'function') {
+        Array.prototype.Exclude = function (x, y) {
+            return new Enumerable(this).Exclude(x, y);
+        };
+    }
+    if (typeof Array.prototype.Lag !== 'function') {
+        Array.prototype.Lag = function (x, y, z) {
+            return new Enumerable(this).Lag(x, y, z);
+        };
+    }
+    if (typeof Array.prototype.Pipe !== 'function') {
+        Array.prototype.Pipe = function (x) {
+            return new Enumerable(this).Pipe(x);
+        };
+    }
+    if (typeof Array.prototype.Flatten !== 'function') {
+        Array.prototype.Flatten = function (x) {
+            return new Enumerable(this).Flatten(x);
+        };
+    }
+    if (typeof Array.prototype.Pairwise !== 'function') {
+        Array.prototype.Pairwise = function (x) {
+            return new Enumerable(this).Pairwise(x);
         };
     }
 })();

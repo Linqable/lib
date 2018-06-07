@@ -1,4 +1,5 @@
 import { Contextable } from './Contexteable';
+import { LinqArrayIterable } from './Iterable';
 export abstract class Queryable<T> extends Contextable
 {
     protected array: Array<T>;
@@ -63,5 +64,24 @@ export abstract class Queryable<T> extends Contextable
             arr2.push(arr[i]);
         };
         return arr2;
+    }
+
+
+    public GetIterator(): LinqArrayIterable<T>
+    {
+        return new LinqArrayIterable(this.array);
+    }
+
+    protected IteratorToArray<TResult>(iter: IterableIterator<TResult>): TResult[] // TODO
+    {
+        let result = [];
+        while(true)
+        {
+            let item = iter.next();
+            if(item.done)
+                break;
+            result.push(item.value);
+        }
+        return result;
     }
 }
