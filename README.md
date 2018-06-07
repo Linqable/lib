@@ -376,10 +376,10 @@ array.MinBy(x => x.age) // => {name: "Chtholly Nola", age: 17}
 - [ ] AssertCount
 - [x] AtLeast
 - [x] AtMost
-- [ ] Backsert
+- [ ] ~~Backsert~~
 - [x] Batch
-- [ ] Cartesian 
-- [ ] Choose
+- [ ] ~~Cartesian~~
+- [ ] Choose (Deferred typescript 3)
 - [ ] Concat
 - [x] Consume
 - [ ] CountBetween & CountBy & CountDown & CompareCount
@@ -388,12 +388,11 @@ array.MinBy(x => x.age) // => {name: "Chtholly Nola", age: 17}
 - [ ] DistinctBy
 - [ ] Exactly
 - [ ] ExceptBy
-- [ ] Exclude
-- [ ] FallbackIfEmpty
+- [x] Exclude
+- [ ] ~~FallbackIfEmpty~~
 - [ ] FillBackward & FillForward
-- [ ] Flatten
-- [ ] Fold
-- [ ] From
+- [x] Flatten
+- [ ] ~~Fold~~
 - [ ] FullGroupJoin
 - [ ] FullJoin
 - [ ] Generate & GenerateByIndex
@@ -401,27 +400,27 @@ array.MinBy(x => x.age) // => {name: "Chtholly Nola", age: 17}
 - [ ] Index
 - [ ] Insert
 - [ ] Interleave
-- [ ] Lag
+- [x] Lag
 - [ ] Lead
 - [ ] LeftJoin
-- [ ] Move
+- [x] Move
 - [ ] OrderedMerge
 - [ ] Pad & PadStart
-- [ ] Pairwise
+- [x] Pairwise
 - [ ] PartialSort & PartialSortBy
 - [ ] Partition
 - [ ] Permutations
-- [ ] Pipe
+- [x] Pipe
 - [ ] Prepend
-- [ ] PreScan
+- [ ] ~~PreScan~~
 - [ ] Random & RandomDouble & RandomSubset
-- [ ] Rank & RankBy
+- [ ] ~~Rank & RankBy~~
 - [ ] Repeat
 - [ ] RightJoin
 - [ ] RunLengthEncode
 - [ ] Scan & ScanRight
 - [ ] Segment
-- [ ] Sequence
+- [ ] ~~Sequence~~
 - [ ] Shuffle
 - [ ] SkipLast & SkipUntil
 - [ ] Slice
@@ -430,8 +429,9 @@ array.MinBy(x => x.age) // => {name: "Chtholly Nola", age: 17}
 - [ ] StartsWith
 - [ ] Subsets
 - [ ] TagFirstLast
+- [ ] ~~Transpose~~
 - [ ] TakeEvery & TakeLast & TakeUntil
-- [ ] ZipLongest & ZipShortest
+- [ ] ~~ZipLongest & ZipShortest~~
 
 ### License
 
