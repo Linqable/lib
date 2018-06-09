@@ -1,6 +1,6 @@
-import "./../build/Extensions";
+import "./../build";
 import test from 'ava';
-import { AdvancedLinqable } from "./../build/AdvancedLinqable";
+import { AdvancedLinqable } from "./../build";
 import { linqData } from "./etc/Data";
 
 test("Any", (t) => {
@@ -124,7 +124,7 @@ test("OrderBy", (t) => {
         'Willem Kumesh',
     ]);
     t.deepEqual(JSON.stringify(linqData.OrderBy(x => x.birthdate).Select(x => x.birthdate)),
-        '[null,"0899-04-24T21:00:00.000Z","0903-01-02T21:00:00.000Z","1137-05-03T21:00:00.000Z","1199-02-26T21:00:00.000Z","1203-06-21T21:00:00.000Z","1203-07-11T21:00:00.000Z","1204-02-13T21:00:00.000Z"]')
+        '[null,"0899-04-24T21:29:43.000Z","0903-01-02T21:29:43.000Z","1137-05-03T21:29:43.000Z","1199-02-26T21:29:43.000Z","1203-06-21T21:29:43.000Z","1203-07-11T21:29:43.000Z","1204-02-13T21:29:43.000Z"]')
 });
 test("OrderByDescending", (t) => {
     t.plan(3);
@@ -141,7 +141,7 @@ test("OrderByDescending", (t) => {
         "Almaria Dufna"
     ]);
     t.deepEqual(JSON.stringify(linqData.OrderByDescending(x => x.birthdate).Select(x => x.birthdate)),
-        '["1204-02-13T21:00:00.000Z","1203-07-11T21:00:00.000Z","1203-06-21T21:00:00.000Z","1199-02-26T21:00:00.000Z","1137-05-03T21:00:00.000Z","0903-01-02T21:00:00.000Z","0899-04-24T21:00:00.000Z",null]');
+        '["1204-02-13T21:29:43.000Z","1203-07-11T21:29:43.000Z","1203-06-21T21:29:43.000Z","1199-02-26T21:29:43.000Z","1137-05-03T21:29:43.000Z","0903-01-02T21:29:43.000Z","0899-04-24T21:29:43.000Z",null]');
 });
 
 test("Count", (t) => {

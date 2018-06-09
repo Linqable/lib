@@ -1,7 +1,7 @@
-import "./../build/Extensions";
-import "./../build/AdvancedLinqable";
+import "./../build";
+import { AdvancedLinqable } from "./../build";
 import test from 'ava';
-import { AdvancedLinqable } from "./../build/AdvancedLinqable";
+
 import { linqData } from "./etc/Data";
 
 
