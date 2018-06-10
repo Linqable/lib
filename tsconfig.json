@@ -23,7 +23,8 @@
         "node_modules",
         "test",
         "dist",
-        "build"
+        "build",
+        "index.d.ts"
     ],
     "compileOnSave": true
 }

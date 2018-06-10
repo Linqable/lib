@@ -113,6 +113,7 @@ test("Take", (t) => {
 test("OrderBy", (t) => {
     t.plan(3);
     t.deepEqual(linqData.OrderBy(x => x.age).Select(x => x.age), [17, 17, 18, 19, 21, 83, 321, Infinity])
+    t.deepEqual(["usb1", "usb3", "usb10", "usb15","usb4", "usb2"].OrderBy(), ["usb1", "usb2", "usb3", "usb4","usb10", "usb15"])
     t.deepEqual(linqData.OrderBy(x => x.name).Select(x => x.name), [
         'Almaria Dufna',
         'Chtholly Nola',
@@ -123,8 +124,9 @@ test("OrderBy", (t) => {
         'Nygglatho',
         'Willem Kumesh',
     ]);
-    t.deepEqual(JSON.stringify(linqData.OrderBy(x => x.birthdate).Select(x => x.birthdate)),
-        '[null,"0899-04-24T21:29:43.000Z","0903-01-02T21:29:43.000Z","1137-05-03T21:29:43.000Z","1199-02-26T21:29:43.000Z","1203-06-21T21:29:43.000Z","1203-07-11T21:29:43.000Z","1204-02-13T21:29:43.000Z"]')
+    t.deepEqual(JSON.stringify(linqData.OrderBy(x => x.birthdate)
+    .Select(x => x.birthdate ? x.birthdate.toISOString().slice(0,10).replace(/-/g,"") : x.birthdate)),
+        '[null,"08990424","09030102","11370503","11990226","12030621","12030711","12040213"]')
 });
 test("OrderByDescending", (t) => {
     t.plan(3);
@@ -140,8 +142,9 @@ test("OrderByDescending", (t) => {
         "Chtholly Nola",
         "Almaria Dufna"
     ]);
-    t.deepEqual(JSON.stringify(linqData.OrderByDescending(x => x.birthdate).Select(x => x.birthdate)),
-        '["1204-02-13T21:29:43.000Z","1203-07-11T21:29:43.000Z","1203-06-21T21:29:43.000Z","1199-02-26T21:29:43.000Z","1137-05-03T21:29:43.000Z","0903-01-02T21:29:43.000Z","0899-04-24T21:29:43.000Z",null]');
+    t.deepEqual(JSON.stringify(linqData.OrderByDescending(x => x.birthdate)
+    .Select(x => x.birthdate ? x.birthdate.toISOString().slice(0,10).replace(/-/g,"") : x.birthdate)),
+        '["12040213","12030711","12030621","11990226","11370503","09030102","08990424",null]');
 });
 
 test("Count", (t) => {
