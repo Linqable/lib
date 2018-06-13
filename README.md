@@ -3,7 +3,7 @@ LINQ 💥 implementation library for TypeScript ❄️
 
 
 [![Build Status](https://travis-ci.org/0xF6/linqable.ts.svg?branch=master)](https://travis-ci.org/0xF6/linqable.ts)
-[![Coverage Status](https://coveralls.io/repos/github/0xF6/linqable.ts/badge.svg?branch=master)](https://coveralls.io/github/0xF6/linqable.ts?branch=master)    
+[![codecov](https://codecov.io/gh/0xF6/linqable.ts/branch/master/graph/badge.svg)](https://codecov.io/gh/0xF6/linqable.ts)  
 
 ### Dependences 🔥
 1. Yarn 1.7 or above
