@@ -14,7 +14,12 @@
     "query",
     "lang",
     "linqable",
-    "enumerable"
+    "enumerable",
+    "functional programming",
+    "microsoft",
+    "dotnet",
+    ".net",
+    "csharp-linq"
   ],
   "bugs": {
     "url": "https://github.com/0xF6/linqable.ts/issues"
