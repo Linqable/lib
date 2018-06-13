@@ -29,7 +29,7 @@
     "build": "tsc",
     "test": "tsc && tsc -p ./test/tsconfig.json && ava test/**/*.test.js --verbose",
     "test-nya": "tsc && tsc -p ./test/tsconfig.json && ava test/**/*.test.js --tap | tap-nyan",
-    "report-test": "yarn nyc --reporter=lcov --reporter=text-lcov ava test/**/*.test.js"
+    "report-test": "tsc && tsc -p ./test/tsconfig.json && yarn nyc --reporter=lcov --reporter=text-lcov ava test/**/*.test.js"
   },
   "repository": {
     "type": "git",
