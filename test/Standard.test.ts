@@ -64,7 +64,7 @@ test("LastOrDefault", (t) => {
 
 
 test("Single", (t) => {
-    t.plan(3);    
+    t.plan(3);
     t.throws(() => {
         [0, 1, 1, 2].Single();
     }, "The input sequence contains more than one element.");
@@ -111,9 +111,9 @@ test("Take", (t) => {
 
 
 test("OrderBy", (t) => {
-    t.plan(3);
+    t.plan(4);
     t.deepEqual(linqData.OrderBy(x => x.age).Select(x => x.age), [17, 17, 18, 19, 21, 83, 321, Infinity])
-    t.deepEqual(["usb1", "usb3", "usb10", "usb15","usb4", "usb2"].OrderBy(), ["usb1", "usb2", "usb3", "usb4","usb10", "usb15"])
+    t.deepEqual(["usb1", "usb3", "usb10", "usb15", "usb4", "usb2"].OrderBy(), ["usb1", "usb2", "usb3", "usb4", "usb10", "usb15"])
     t.deepEqual(linqData.OrderBy(x => x.name).Select(x => x.name), [
         'Almaria Dufna',
         'Chtholly Nola',
@@ -125,26 +125,26 @@ test("OrderBy", (t) => {
         'Willem Kumesh',
     ]);
     t.deepEqual(JSON.stringify(linqData.OrderBy(x => x.birthdate)
-    .Select(x => x.birthdate ? x.birthdate.toISOString().slice(0,10).replace(/-/g,"") : x.birthdate)),
-        '[null,"08990424","09030102","11370503","11990226","12030621","12030711","12040213"]')
+        .Select(x => x.birthdate ? x.birthdate.toISOString().slice(0, 9).replace(/-/g, "") : x.birthdate)),
+        '[null,"0899042","0903010","1137050","1199022","1203062","1203071","1204021"]')
 });
 test("OrderByDescending", (t) => {
     t.plan(3);
     t.deepEqual(linqData.OrderByDescending(x => x.age).Select(x => x.age), [Infinity, 321, 83, 21, 19, 18, 17, 17])
     t.deepEqual(linqData.OrderByDescending(x => x.name).Select(x => x.name),
-    [
-        "Willem Kumesh",
-        "Nygglatho",
-        "Nephren Ruq",
-        "Limeskin",
-        "Ithea Myse",
-        "Ebon Candle",
-        "Chtholly Nola",
-        "Almaria Dufna"
-    ]);
+        [
+            "Willem Kumesh",
+            "Nygglatho",
+            "Nephren Ruq",
+            "Limeskin",
+            "Ithea Myse",
+            "Ebon Candle",
+            "Chtholly Nola",
+            "Almaria Dufna"
+        ]);
     t.deepEqual(JSON.stringify(linqData.OrderByDescending(x => x.birthdate)
-    .Select(x => x.birthdate ? x.birthdate.toISOString().slice(0,10).replace(/-/g,"") : x.birthdate)),
-        '["12040213","12030711","12030621","11990226","11370503","09030102","08990424",null]');
+        .Select(x => x.birthdate ? x.birthdate.toISOString().slice(0, 9).replace(/-/g, "") : x.birthdate)),
+        '["1204021","1203071","1203062","1199022","1137050","0903010","0899042",null]');
 });
 
 test("Count", (t) => {
@@ -162,13 +162,13 @@ test("Distinct", (t) => {
     t.deepEqual([0, 1, 1, 2].Distinct(), [0, 1, 2])
 })
 test("Union", (t) => {
-    var numbers1 = [ 3, 3, 4, 5, 5 ];
-    var numbers2 = [ 1, 2, 3 ];
-    t.deepEqual(numbers1.Union(numbers2).OrderBy(), [1,2,3,4,5])
+    var numbers1 = [3, 3, 4, 5, 5];
+    var numbers2 = [1, 2, 3];
+    t.deepEqual(numbers1.Union(numbers2).OrderBy(), [1, 2, 3, 4, 5])
 })
 test("Zip", (t) => {
-    var letters= [ "A", "B", "C", "D", "E" ];
-    var numbers= [ 1, 2, 3 ];
+    var letters = ["A", "B", "C", "D", "E"];
+    var numbers = [1, 2, 3];
     t.deepEqual(letters.Zip(numbers, (l, n) => l + n.toString()), ["A1", "B2", "C3"])
 })
 
