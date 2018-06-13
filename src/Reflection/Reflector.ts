@@ -6,17 +6,6 @@ export class Reflector {
         var results = (funcNameRegex).exec((this.obj).constructor.toString());
         return (results && results.length > 1) ? results[1] : "<Object>";
     }
-    public InstanceOf<T>(TCreator: { new(): T; }) {
-        let t: T = new TCreator();
-        for (let i in Object.getOwnPropertyNames(t)) {
-            if (this.obj.hasOwnProperty(i))
-                return true;
-        }
-        return false;
-    }
-    public getOwnPropertyNames(): Array<string> {
-        return Object.getOwnPropertyNames(this.obj);
-    }
 }
 
 declare global {
