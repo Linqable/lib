@@ -4,7 +4,9 @@ node_js:
 before_install:
   - npm i -g ava
   - npm i -g typescript
+  - npm i -g nyc
 install:
   - yarn
 script:
-  - yarn test
+  - yarn report-test
+after_success: npx codecov --file=./coverage/lcov.info
