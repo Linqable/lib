@@ -2,9 +2,9 @@ language: node_js
 node_js:
   - "9"
 before_install:
-- npm i -g ava
-- npm i -g typescript
+  - npm i -g ava
+  - npm i -g typescript
 install:
-- yarn
+  - yarn
 script:
-- yarn test
+  - yarn test
