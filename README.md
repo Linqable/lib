@@ -7,6 +7,7 @@ LINQ 💥 implementation library for TypeScript ❄️
 [![Build Status](https://travis-ci.org/0xF6/linqable.ts.svg?branch=master)](https://travis-ci.org/0xF6/linqable.ts)
 [![codecov](https://codecov.io/gh/0xF6/linqable.ts/branch/master/graph/badge.svg)](https://codecov.io/gh/0xF6/linqable.ts) 
 ![npm](https://img.shields.io/npm/dt/linqable.ts.svg)
+![image](https://david-dm.org/0xF6/linqable.ts.svg)
 
 
 ### Dependences 🔥
