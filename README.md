@@ -1,7 +1,9 @@
 # linqable.ts 1.7 💥
 LINQ 💥 implementation library for TypeScript ❄️
 
+[![NPM](https://nodei.co/npm/linqable.ts.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/linqable.ts/)       
 
+[![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.org/0xF6/linqable.ts.svg?branch=master)](https://travis-ci.org/0xF6/linqable.ts)
 [![codecov](https://codecov.io/gh/0xF6/linqable.ts/branch/master/graph/badge.svg)](https://codecov.io/gh/0xF6/linqable.ts)  
 
