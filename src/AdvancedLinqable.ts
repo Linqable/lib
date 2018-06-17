@@ -1,8 +1,29 @@
-import { InvalidOperationError, ArgumentOutOfRangeError, ArgumentNullError } from "./Error";
+import { InvalidOperationError, ArgumentOutOfRangeError, ArgumentNullError, EvaluateOperationError } from './Error';
 import { BaseLinqable, LinqArrayIterable } from './Base';
 export class AdvancedLinqable<T> extends BaseLinqable<T> {
     constructor(arr: Array<T>) {
         super(arr);
+    }
+    /**
+     * Returns a sequence containing the values resulting from invoking (in order) each function in the source sequence of functions.
+     */
+    public Evaluate(): T[] {
+        this.checkArray();
+        if (this.Count() == 0)
+            throw new ArgumentNullError("Array is empty.");
+        for (let f in this.array) {
+            if (typeof this.First() !== "function")
+                throw new InvalidOperationError("Array elemetns is not a functions.");
+        }
+        let q: Function[] = <Array<Function>><any>this.ToArray();
+        return q.Select(x => {
+            try {
+                return x();
+            }
+            catch (e) {
+                throw new EvaluateOperationError(e, "An error occurred in executive element while performing evaluate operation.");
+            }
+        });
     }
     /**
      * Ensures that a source sequence of objects are all acquired successfully. 
@@ -80,14 +101,13 @@ export class AdvancedLinqable<T> extends BaseLinqable<T> {
      * @param startIndex The zero-based index at which to begin excluding elements
      * @param count The number of elements to exclude
      */
-    public Exclude(startIndex: number, count: number): T[]
-    {
+    public Exclude(startIndex: number, count: number): T[] {
         this.checkArray();
         if (startIndex < 0) throw new ArgumentOutOfRangeError("startIndex is negative.");
         if (count < 0) throw new ArgumentOutOfRangeError("count is negative.");
         if (count == 0) return this.array;
         let iter = this.GetIterator();
-        
+
         let generator = function* () {
             let index = -1;
             let endIndex = startIndex + count;
@@ -106,27 +126,22 @@ export class AdvancedLinqable<T> extends BaseLinqable<T> {
      * @param defaultValue A default value supplied for the lagged value prior to the lag offset
      * @param selector A projection function which accepts the current and lagged items (in that order) and returns a result
      */
-    public Lag<TResult>(offset: number, defaultValue: T, selector: (x:T, y: T) => TResult): TResult[]
-    {
+    public Lag<TResult>(offset: number, defaultValue: T, selector: (x: T, y: T) => TResult): TResult[] {
         this.checkArray();
         if (!selector) throw new ArgumentNullError("Selector is undefined.");
         if (offset <= 0) throw new ArgumentOutOfRangeError("offset <= 0");
         let that = this;
-        let generator = function* ()
-        {
+        let generator = function* () {
             var i = offset;
             var lagQueue = new Array<T>();
             var hasMore = true;
             let iter = that.GetIterator();
-            while (i-- > 0 && (hasMore = iter.moveNext()))
-            {
+            while (i-- > 0 && (hasMore = iter.moveNext())) {
                 lagQueue.push(iter.getCurrent());
                 yield selector(iter.getCurrent(), defaultValue);
             }
-            if (hasMore)
-            {
-                while (iter.moveNext())
-                {
+            if (hasMore) {
+                while (iter.moveNext()) {
                     var lagValue = lagQueue.shift();
                     yield selector(iter.getCurrent(), lagValue);
                     lagQueue.push(iter.getCurrent());
@@ -139,15 +154,12 @@ export class AdvancedLinqable<T> extends BaseLinqable<T> {
      * Executes the given action on each element in the source sequence
      * @param act The action to execute on each element
      */
-    public Pipe(act: (x:T) => void): T[]
-    {
+    public Pipe(act: (x: T) => void): T[] {
         this.checkArray();
         if (!act) throw new ArgumentNullError("act is undefined.");
         let that = this;
-        let generator = function*()
-        {
-            for(let element of that.array)
-            {
+        let generator = function* () {
+            for (let element of that.array) {
                 act(element);
                 yield element;
             }
@@ -157,27 +169,21 @@ export class AdvancedLinqable<T> extends BaseLinqable<T> {
     /**
      * Flattens a sequence containing arbitrarily-nested sequences.
      */
-    public Flatten(predicate?: (arr: Array<{}>) => boolean)
-    {
+    public Flatten(predicate?: (arr: Array<{}>) => boolean) {
         this.checkArray();
         predicate = predicate || ((x) => typeof x !== "string");
         let that = this;
-        let generator = function*()
-        {
+        let generator = function* () {
             let iter = that.GetIterator();
             let stack: Array<LinqArrayIterable<{}>> = [];
             stack.push(iter);
-            try
-            {
-                while (stack.Any())
-                {
+            try {
+                while (stack.Any()) {
                     let iter = stack.pop();
                     let cur = null;
                     reloop:
-                    while (cur = iter.next().value)
-                    {
-                        if (cur instanceof Array && predicate(cur))
-                        {
+                    while (cur = iter.next().value) {
+                        if (cur instanceof Array && predicate(cur)) {
                             stack.push(iter);
                             iter = new AdvancedLinqable(cur).GetIterator();
                             continue reloop;
@@ -188,8 +194,7 @@ export class AdvancedLinqable<T> extends BaseLinqable<T> {
                     iter = null;
                 }
             }
-            finally
-            {
+            finally {
                 iter = null;
             }
         }
@@ -202,19 +207,16 @@ export class AdvancedLinqable<T> extends BaseLinqable<T> {
      * only returned as the predecessor of the second element.
      * @param selector transform function to apply to each pair of sequence.
      */
-    public Pairwise<TResult>(selector: (x:T, y:T) => TResult): TResult[]
-    {
+    public Pairwise<TResult>(selector: (x: T, y: T) => TResult): TResult[] {
         this.checkArray();
         if (!selector) throw new ArgumentNullError("Selector is undefined.");
         let that = this;
-        let generator = function*()
-        {
+        let generator = function* () {
             let iter = that.GetIterator();
             if (!iter.moveNext())
                 return;
             let previous = iter.getCurrent();
-            while (iter.moveNext())
-            {
+            while (iter.moveNext()) {
                 yield selector(previous, iter.getCurrent());
                 previous = iter.getCurrent();
             }
