@@ -1,4 +1,4 @@
-# linqable.ts 1.7 💥
+# linqable.ts 1.7.5 💥
 LINQ 💥 implementation library for TypeScript ❄️
 
 [![NPM](https://nodei.co/npm/linqable.ts.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/linqable.ts/)       
@@ -19,17 +19,6 @@ LINQ 💥 implementation library for TypeScript ❄️
 - `yarn add linqable.ts`
 or
 - `npm i linqable.ts`
-
-### Build ☄️
-1. `yarn build`
-2. You are great! 💫
-
-### Test 🍒
-1. `yarn test`
-2. ava write test-report to screen
-
-![image](https://user-images.githubusercontent.com/13326808/41082352-ad6fe5f4-6a36-11e8-8e51-4d98f0dec746.png)
-
 
 ### Usage 🌱
 JS:   
@@ -53,6 +42,17 @@ import { AdvancedLinqable, BaseLinqable } from "linqable.ts";
 console.log(new BaseLinqable([3,5]).Sum());
 console.log(new AdvancedLinqable([3,5]).Acquire());
 ```
+
+### Build ☄️
+1. `yarn build`
+2. You are great! 💫
+
+### Test 🍒
+1. `yarn test`
+2. ava write test-report to screen
+
+![image](https://user-images.githubusercontent.com/13326808/41602573-d6df7178-73e3-11e8-9941-8f71b67a6acc.png)
+
 
 
 ### API:
