@@ -4,7 +4,11 @@ import { linqData } from "./etc/Data";
 
 
 test("Evaluate", (t) => {
+    t.plan(2);
     t.deepEqual([() => true, () => "test", () => 123].Evaluate(), [true, "test", 123]);
+    t.throws(() => {
+        linqData.Evaluate();
+    }, "Array elemetns is not a functions.");
 });
 test("MaxBy", (t) => {
     t.deepEqual(linqData.MaxBy(x => x.age).name, "Willem Kumesh");
