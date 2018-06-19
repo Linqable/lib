@@ -1,6 +1,6 @@
 import { InvalidOperationError, ArgumentOutOfRangeError, ArgumentNullError, EvaluateOperationError } from './Error';
 import { BaseLinqable, LinqArrayIterable } from './Base';
-export class AdvancedLinqable<T> extends BaseLinqable<T> {
+class AdvancedLinqable<T> extends BaseLinqable<T> {
     constructor(arr: Array<T>) {
         super(arr);
     }
@@ -234,4 +234,4 @@ export class AdvancedLinqable<T> extends BaseLinqable<T> {
         return num >= min && num <= max;
     }
 }
-
+export { AdvancedLinqable };

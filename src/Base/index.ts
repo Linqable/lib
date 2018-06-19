@@ -1,4 +1,3 @@
 export * from "./BaseLinqable";
-export * from "./Contexteable";
-export * from "./Iterable";
+export * from "./iterable";
 export * from "./Queryable";

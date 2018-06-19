@@ -1,6 +1,6 @@
-import "./../build";
+import "./../src";
 import test from 'ava';
-import { AdvancedLinqable } from "./../build";
+import { AdvancedLinqable } from "./../src";
 import { linqData } from "./etc/Data";
 
 test("Any", (t) => {

@@ -2,9 +2,17 @@ import { AdvancedLinqable } from "./AdvancedLinqable";
 import { BaseLinqable } from "./Base/BaseLinqable";
 import { IComparer } from "./Interfaces/IComparer";
 import { IStandardLinq } from "./Interfaces/IStandardLinq";
-import { InvalidOperationError } from "./Error";
-
-export { AdvancedLinqable, IComparer, InvalidOperationError, IStandardLinq, BaseLinqable };
+import { InvalidOperationError, ArgumentOutOfRangeError, ArgumentNullError, EvaluateOperationError } from "./Error";
+export {
+    AdvancedLinqable,
+    IComparer,
+    InvalidOperationError,
+    ArgumentOutOfRangeError,
+    ArgumentNullError,
+    EvaluateOperationError,
+    IStandardLinq,
+    BaseLinqable
+};
 declare global {
 
     interface Array<T> {
@@ -16,7 +24,7 @@ declare global {
         Single(): T;
         SingleOrDefault(defaultValue: T): T;
         Except(arr: Array<T> | number, comparer?: (x: T, y: T) => boolean): any[];
-        Zip<T3, T4>(arr: Array<T4>, selector: (x:T, y: T4) => T3): T3[]
+        Zip<T3, T4>(arr: Array<T4>, selector: (x: T, y: T4) => T3): T3[]
         Union(arr: Array<T>): T[];
         Distinct(comparer?: (x: T, y: T) => boolean): Array<T>;
         Contains(el: T, comparer?: (x: T, y: T) => boolean): boolean;
@@ -50,10 +58,11 @@ declare global {
         Consume(): void
 
         Exclude(startIndex: number, count: number): T[];
-        Lag<TResult>(offset: number, defaultValue: T, selector: (x:T, y: T) => TResult): TResult[];
-        Pipe(act: (x:T) => void): T[];
+        Lag<TResult>(offset: number, defaultValue: T, selector: (x: T, y: T) => TResult): TResult[];
+        Pipe(act: (x: T) => void): T[];
         Flatten(predicate?: (arr: Array<{}>) => boolean);
-        Pairwise<TResult>(selector: (x:T, y:T) => TResult): TResult[];
+        Pairwise<TResult>(selector: (x: T, y: T) => TResult): TResult[];
+        Evaluate(): Array<any>;
 
     }
 }
@@ -258,6 +267,11 @@ declare global {
     if (typeof Array.prototype.Pairwise !== 'function') {
         Array.prototype.Pairwise = function (x) {
             return new Enumerable(this).Pairwise(x);
+        };
+    }
+    if (typeof Array.prototype.Evaluate !== 'function') {
+        Array.prototype.Evaluate = function () {
+            return new Enumerable(this).Evaluate();
         };
     }
 })();

@@ -1,7 +1,6 @@
-import { Contextable } from './Contexteable';
-import { LinqArrayIterable } from './Iterable';
-export abstract class Queryable<T> extends Contextable
-{
+import { Contextable } from '../Context';
+import { LinqArrayIterable } from './iterable';
+export abstract class Queryable<T> extends Contextable {
     protected array: Array<T>;
     constructor(arr: Array<T>) {
         super();
@@ -25,11 +24,10 @@ export abstract class Queryable<T> extends Contextable
             if (a.getTime() === b.getTime())
                 return true;
         }
-        try
-        {
+        try {
             return a.valueOf() === b.valueOf();
         }
-        catch(e) { console.log(a, b, "failed") }
+        catch (e) { console.log(a, b, "failed") }
         return false;
     }
     private static isWhitespace(code) {
@@ -41,8 +39,7 @@ export abstract class Queryable<T> extends Contextable
     private static isSign(code) {
         return code === '-'.charCodeAt(0) || code === '+'.charCodeAt(0);
     }
-    public static strCompare(a: string, b: string): number
-    {
+    public static strCompare(a: string, b: string): number {
         var ia = 0;
         var ib = 0;
         var ma = a.length;
@@ -63,7 +60,7 @@ export abstract class Queryable<T> extends Contextable
             na = nb = 0;
             sa = sb = true;
             bias = 0;
-    
+
             // skip over leading spaces
             while (this.isWhitespace(ca)) {
                 ia += 1;
@@ -73,15 +70,15 @@ export abstract class Queryable<T> extends Contextable
                 ib += 1;
                 cb = b.charCodeAt(ib);
             }
-    
+
             // compare digits with other symbols
             if (this.isDigit(ca) && !this.isDigit(cb)) return -1;
             if (!this.isDigit(ca) && this.isDigit(cb)) return 1;
-    
+
             // compare negative and positive
             if (!sa && sb) return -1;
             if (sa && !sb) return 1;
-    
+
             // count leading zeros
             while (ca === zero) {
                 za += 1;
@@ -93,20 +90,16 @@ export abstract class Queryable<T> extends Contextable
                 ib += 1;
                 cb = b.charCodeAt(ib);
             }
-    
+
             // count numbers
-            while (this.isDigit(ca) || this.isDigit(cb)) 
-            {
-                if (this.isDigit(ca) && this.isDigit(cb) && bias === 0) 
-                {
-                    if (sa) 
-                    {
-                        if      (ca < cb) bias = -1;
+            while (this.isDigit(ca) || this.isDigit(cb)) {
+                if (this.isDigit(ca) && this.isDigit(cb) && bias === 0) {
+                    if (sa) {
+                        if (ca < cb) bias = -1;
                         else if (ca > cb) bias = 1;
-                    } 
-                    else 
-                    {
-                        if      (ca > cb) bias = -1;
+                    }
+                    else {
+                        if (ca > cb) bias = -1;
                         else if (ca < cb) bias = 1;
                     }
                 }
@@ -121,16 +114,16 @@ export abstract class Queryable<T> extends Contextable
                     cb = b.charCodeAt(ib);
                 }
             }
-    
+
             // compare number length
             if (sa) {
                 if (na < nb) return -1;
-                if (na > nb)return 1;
+                if (na > nb) return 1;
             } else {
                 if (na > nb) return -1;
                 if (na < nb) return 1;
             }
-    
+
             // compare numbers
             if (bias) return bias;
             // compare leading zeros
@@ -141,15 +134,15 @@ export abstract class Queryable<T> extends Contextable
                 if (za < zb) return -1;
                 if (za > zb) return 1;
             }
-    
+
             // compare ascii codes
             if (ca < cb) return -1;
             if (ca > cb) return 1;
-    
+
             ia += 1;
             ib += 1;
         }
-    
+
         // compare length
         if (ma < mb) return -1;
         if (ma > mb) return 1;
@@ -161,7 +154,7 @@ export abstract class Queryable<T> extends Contextable
         if (a.hasOwnProperty("Compare"))
             return a.Compare(b);
         if (typeof a == 'string') // return a.toString().localeCompare(b.toString());
-        return Queryable.strCompare(a, b);
+            return Queryable.strCompare(a, b);
         if (a instanceof Date && b instanceof Date) {
             if (a.getTime() === b.getTime())
                 return 0;
@@ -178,7 +171,7 @@ export abstract class Queryable<T> extends Contextable
     protected Selector(e: any): any {
         return e;
     }
-    
+
 
     protected _reverseArray(arr: Array<T>): Array<T> {
         var arr2 = [];
@@ -189,18 +182,16 @@ export abstract class Queryable<T> extends Contextable
     }
 
 
-    public GetIterator(): LinqArrayIterable<T>
-    {
+    public GetIterator(): LinqArrayIterable<T> {
         return new LinqArrayIterable(this.array);
     }
 
     protected IteratorToArray<TResult>(iter: IterableIterator<TResult>): TResult[] // TODO
     {
         let result = [];
-        while(true)
-        {
+        while (true) {
             let item = iter.next();
-            if(item.done)
+            if (item.done)
                 break;
             result.push(item.value);
         }

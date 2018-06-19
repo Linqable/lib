@@ -6,3 +6,4 @@ export class EvaluateOperationError extends Error {
         super(msg);
     }
 }
+let ___q = () => { eval("1+1") }

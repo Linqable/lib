@@ -1,11 +1,11 @@
-import "./../build";
-import { AdvancedLinqable } from "./../build";
 import test from 'ava';
-
+import "./../src";
 import { linqData } from "./etc/Data";
 
 
-
+test("Evaluate", (t) => {
+    t.deepEqual([() => true, () => "test", () => 123].Evaluate(), [true, "test", 123]);
+});
 test("MaxBy", (t) => {
     t.deepEqual(linqData.MaxBy(x => x.age).name, "Willem Kumesh");
 });
