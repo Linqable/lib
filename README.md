@@ -59,7 +59,8 @@ console.log(new AdvancedLinqable([3,5]).Acquire());
 <hr/>   
 
 <details>
-<summary>Advanced API</summary>
+<summary>Advanced API</summary>     
+    
 **Advanced API**
 
 #### Evaluate  
@@ -190,7 +191,8 @@ array.Lag(/*step*/2, /*defaultValue*/0, (a, b) => { return { A: a, B: b}; })
 </details>
 
 <details>
-<summary>Standard API</summary>
+<summary>Standard API</summary> 
+    
 **Standard API**
 
 
@@ -410,7 +412,8 @@ array.Single() // => {synthesis: "Nuclear"}
 </details>
 
 <details>
-<summary>Road Map</summary>
+<summary>Road Map</summary> 
+    
 ### RoadMap
 #### Standard: 
 - [x] First
