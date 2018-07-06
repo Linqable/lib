@@ -1,4 +1,4 @@
-# linqable.ts 1.7.6 💥
+# linqable.ts 1.7.7 💥
 LINQ 💥 implementation library for TypeScript ❄️
 
 [![NPM](https://nodei.co/npm/linqable.ts.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/linqable.ts/)       
@@ -52,7 +52,7 @@ console.log(new AdvancedLinqable([3,5]).Acquire());
 1. `yarn test`
 2. ava write test-report to screen
 
-![image](https://user-images.githubusercontent.com/13326808/41602573-d6df7178-73e3-11e8-9941-8f71b67a6acc.png)
+![image](https://user-images.githubusercontent.com/13326808/42382885-4082cc80-813e-11e8-9be5-22781839d4ae.png)
 
 
 
@@ -63,6 +63,45 @@ console.log(new AdvancedLinqable([3,5]).Acquire());
 <summary>Advanced API</summary>     
     
 **Advanced API**
+
+#### Transpose  
+Transposes the rows of a sequence into columns.
+
+```TypeScript
+let array = [
+    [
+        "Nola", "Myse"
+    ],
+    [
+        "Ruq"
+    ],
+    [
+        "Dufna",
+        "Nygglatho",
+        "Kumesh"
+    ]
+];
+
+/* ... */
+
+array.Transpose();
+// result ->
+    [
+      [
+        'Nola',
+        'Ruq',
+        'Dufna',
+      ],
+      [
+        'Myse',
+        'Nygglatho',
+      ],
+      [
+        'Kumesh',
+      ],
+    ]
+```
+
 
 #### Evaluate  
 Returns a sequence containing the values resulting from invoking (in order) each function in the source sequence of functions.

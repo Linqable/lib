@@ -12,106 +12,92 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
             throw new ReferenceError("ArgumentUndefinedError(array)");
     }
     /**
-     * Returns the only element of a sequence, 
+     * Returns the only element of a sequence,
      * and throws an exception if there is not exactly one element in the sequence.
      * @throws {InvalidOperationError} The input sequence is empty. || The input sequence contains more than one element.
      */
-    public Single(): T
-    {
+    public Single(): T {
         this.checkArray();
-        if(this.IsEmpty())
+        if (this.IsEmpty())
             throw new InvalidOperationError("The input sequence is empty.");
-        if(this.Count() > 1)
+        if (this.Count() > 1)
             throw new InvalidOperationError("The input sequence contains more than one element.");
         return this.First();
     }
-    public SingleOrDefault(defaultValue: T): T
-    {
+    public SingleOrDefault(defaultValue: T): T {
         this.checkArray();
-        try
-        {
+        try {
             return this.Single();
         }
-        catch(e)
-        {
+        catch (e) {
             return defaultValue;
         }
     }
-    public Except(arr: Array<T> | number, comparer?: (x:T, y: T) => boolean)
-    {
+    public Except(arr: Array<T> | number, comparer?: (x: T, y: T) => boolean) {
         let array: Array<T>;
         let element: T = null;
         comparer = comparer || this.EqualityComparer;
-        if (!(arr instanceof Array)) 
+        if (!(arr instanceof Array))
             element = this.array[<number>arr];
-        else 
+        else
             array = arr;
         var l = this.Count();
-		var res = [];
-		for (var i = 0; i < l; i++) {
-			var k = array.Count();
+        var res = [];
+        for (var i = 0; i < l; i++) {
+            var k = array.Count();
             var t = false;
-            if(element != null)
-            {
+            if (element != null) {
                 if (comparer(this.array[i], element) === true) {
                     t = true;
                     break;
                 }
             }
-            else
-            {
+            else {
                 while (k-- > 0) {
-            
                     if (comparer(this.array[i], array[k]) === true) {
                         t = true;
                         break;
                     }
                 }
             }
-			
-			if (!t) res.push(this[i]);
-		}
-		return res;
+            if (!t) res.push(this[i]);
+        }
+        return res;
 
     }
-    public Zip<T3, T4>(arr: Array<T4>, selector: (x:T, y: T4) => T3): T3[]
-    {
+    public Zip<T3, T4>(arr: Array<T4>, selector: (x: T, y: T4) => T3): T3[] {
         return this
-			.Take(Math.min(this.Count(), arr.Count()))
-			.Select((t, i) => {
-				return selector(t, arr[i]);
-			});
+            .Take(Math.min(this.Count(), arr.Count()))
+            .Select((t, i) => {
+                return selector(t, arr[i]);
+            });
     }
-    public Union(arr: Array<T>): T[]
-    {
+    public Union(arr: Array<T>): T[] {
         this.checkArray();
         return new BaseLinqable(this.array.concat(arr)).Distinct();
     }
-    public Distinct(comparer?: (x: T, y: T) => boolean): Array<T>
-    {
+    public Distinct(comparer?: (x: T, y: T) => boolean): Array<T> {
         this.checkArray();
         comparer = comparer || this.EqualityComparer;
         var arr = [];
-		var l = this.Count();
-		for (var i = 0; i < l; i++) {
-			if (!arr.Contains(this.array[i], comparer))
+        var l = this.Count();
+        for (var i = 0; i < l; i++) {
+            if (!arr.Contains(this.array[i], comparer))
                 arr.push(this.array[i]);
         }
-		return arr;
+        return arr;
     }
-    public Contains(el: T, comparer?: (x: T, y: T) => boolean)
-    {
+    public Contains(el: T, comparer?: (x: T, y: T) => boolean) {
         this.checkArray();
         comparer = comparer || this.EqualityComparer;
-		var l = this.Count();
-		while (l-- > 0)
+        var l = this.Count();
+        while (l-- > 0)
             if (comparer(this.array[l], el) === true) return true;
-		return false;
+        return false;
     }
-    public Count(predicate?: (element: T, index?: number) => boolean)
-    {
+    public Count(predicate?: (element: T, index?: number) => boolean) {
         this.checkArray();
-        if(!predicate)
+        if (!predicate)
             return this.array.length;
         return this.Where(predicate).ToArray().length;
     }

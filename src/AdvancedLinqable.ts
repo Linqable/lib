@@ -5,6 +5,40 @@ class AdvancedLinqable<T> extends BaseLinqable<T> {
         super(arr);
     }
     /**
+     * Transposes a sequence of rows into a sequence of columns.
+     * @returns Returns a sequence of columns in the source swapped into rows.
+     */
+    public Transpose<T>(): Array<Array<T>> {
+        if (!this.array) throw new ArgumentNullError("array");
+        var source: Array<Array<T>> = <any>this.array;
+        let generator = function* (): IterableIterator<Array<T>> {
+            var enumerators = source.Select(e => new AdvancedLinqable(e).GetIterator()).Acquire();
+
+            try {
+                while (true) {
+                    var column = new Array<T>();
+                    var count = 0;
+                    for (var i = 0; i < enumerators.length; i++) {
+                        if (enumerators[i] == null)
+                            continue;
+                        if (enumerators[i].moveNext())
+                            column[count++] = enumerators[i].getCurrent();
+                        else
+                            enumerators[i] = null;
+                    }
+
+                    if (count == 0)
+                        break;
+                    yield column;
+                }
+            }
+            finally {
+                for (let e in enumerators) delete enumerators[e];
+            }
+        }
+        return this.IteratorToArray(generator());
+    }
+    /**
      * Returns a sequence containing the values resulting from invoking (in order) each function in the source sequence of functions.
      */
     public Evaluate(): T[] {

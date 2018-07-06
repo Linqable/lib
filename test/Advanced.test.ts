@@ -4,6 +4,13 @@ import { linqData } from "./etc/Data";
 import { EvaluateOperationError } from './../src';
 
 
+test("Transpose", (t) => {
+    t.deepEqual([
+        [10, 12],
+        [20],
+        [30, 35, 45]
+    ].Transpose(), [[10, 20, 30], [12, 35], [45]]);
+});
 test("Evaluate", (t) => {
     t.plan(3);
     t.deepEqual([() => true, () => "test", () => 123].Evaluate(), [true, "test", 123]);
@@ -19,7 +26,10 @@ test("MaxBy", (t) => {
 });
 
 test("MinBy", (t) => {
+    t.plan(3);
     t.deepEqual(linqData.MinBy(x => x.age).name, "Chtholly Nola");
+    t.deepEqual(linqData.Reverse().MinBy(x => x.age).name, "Chtholly Nola");
+    t.deepEqual(linqData.Min(x => x.age), 17);
 });
 
 

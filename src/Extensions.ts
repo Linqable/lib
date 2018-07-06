@@ -1,3 +1,11 @@
+
+
+/*
+    linable.ts (C) 2018 Yuuki Wesp - under MIT license
+    by using MoreLINQ (https://github.com/morelinq/MoreLINQ) Jonathan Skeet
+*/
+
+
 import { AdvancedLinqable } from "./AdvancedLinqable";
 import { BaseLinqable } from "./Base/BaseLinqable";
 import { IComparer } from "./Interfaces/IComparer";
@@ -51,19 +59,69 @@ declare global {
         OrderByDescending<TResult>(selector?: (element: T) => TResult, Comparer?: (a: TResult, b: TResult) => number): T[];
         Aggregate(selector: (el1: any, el2: any) => any, seed?: any): any;
         /* ... Advanced API ... */
+
+        /**
+        * Ensures that a source sequence of objects are all acquired successfully.
+        * If the acquisition of any one fails then those successfully acquired till that point are disposed
+        */
         Acquire(): T[];
+        /**
+         * Determines whether or not the number of elements in the sequence is greater than or equal to the given integer.
+         */
         AtLeast(count: number): boolean;
+        /**
+         * Determines whether or not the number of elements in the sequence is lesser than or equal to the given integer.
+         */
         AtMost(count: number): boolean;
+        /**
+         * Batches the source sequence into sized buckets and applies a projection to each bucket.
+         */
         Batch(size: number, resultSelector?: (arr: Array<T>) => Array<T>): Array<T[]>
+        /**
+         * Completely consumes the given sequence.
+         * This method uses immediate execution, and doesn't store any data during execution
+         */
         Consume(): void
-
+        /**
+         * Excludes a contiguous number of elements from a sequence starting
+         * at a given index.
+         * @param startIndex The zero-based index at which to begin excluding elements
+         * @param count The number of elements to exclude
+         */
         Exclude(startIndex: number, count: number): T[];
+        /**
+        * Produces a projection of a sequence by evaluating pairs of elements separated by a negative offset.
+        * @param offset The offset (expressed as a positive number) by which to lag each value of the sequence
+        * @param defaultValue A default value supplied for the lagged value prior to the lag offset
+        * @param selector A projection function which accepts the current and lagged items (in that order) and returns a result
+        */
         Lag<TResult>(offset: number, defaultValue: T, selector: (x: T, y: T) => TResult): TResult[];
+        /**
+         * Executes the given action on each element in the source sequence
+         * @param act The action to execute on each element
+         */
         Pipe(act: (x: T) => void): T[];
-        Flatten(predicate?: (arr: Array<{}>) => boolean);
+        /**
+         * Flattens a sequence containing arbitrarily-nested sequences.
+         */
+        Flatten(predicate?: (arr: Array<{}>) => boolean): {}[];
+        /**
+         * Returns a sequence resulting from applying a function to each
+         * element in the source sequence and its
+         * predecessor, with the exception of the first element which is
+         * only returned as the predecessor of the second element.
+         * @param selector transform function to apply to each pair of sequence.
+         */
         Pairwise<TResult>(selector: (x: T, y: T) => TResult): TResult[];
+        /**
+         * Returns a sequence containing the values resulting from invoking (in order) each function in the source sequence of functions.
+         */
         Evaluate(): Array<any>;
-
+        /**
+         * Transposes a sequence of rows into a sequence of columns.
+         * @returns Returns a sequence of columns in the source swapped into rows.
+         */
+        Transpose<T>(): T[][];
     }
 }
 
@@ -272,6 +330,11 @@ declare global {
     if (typeof Array.prototype.Evaluate !== 'function') {
         Array.prototype.Evaluate = function () {
             return new Enumerable(this).Evaluate();
+        };
+    }
+    if (typeof Array.prototype.Transpose !== 'function') {
+        Array.prototype.Transpose = function () {
+            return new Enumerable(this).Transpose();
         };
     }
 })();
