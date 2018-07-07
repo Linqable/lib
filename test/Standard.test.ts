@@ -23,7 +23,7 @@ test("Where", (t) => {
     t.deepEqual(linqData.Where(x => x.IsDead).length, 2);
     t.deepEqual(linqData.Where(x => x.age >= 18 && x.gender == "female").length, 3);
     t.deepEqual(linqData.Where(x => x.age >= 18 && x.gender == "female" && x.workPlace == "Soldier").length, 1);
-    t.deepEqual(linqData.Where(x => x.birthdate.getFullYear() > 1100 && x.birthdate.getFullYear() < 1200).length, 2);
+    t.deepEqual(linqData.Where(x => x.birthdate && x.birthdate.getFullYear() > 1100 && x.birthdate.getFullYear() < 1200).length, 2);
 });
 
 test("First", (t) => {
