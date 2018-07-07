@@ -272,7 +272,7 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
                     continue;
                 try {
                     // optimize v8 call
-                    if ((void 0, Reflect.apply)(predicate, this.array, [this.array[i], i]) === true)
+                    if ((void 0, Reflect.apply)(predicate, this.array, [this.array[i], i, this.array]) === true)
                         arr.push(this.array[i]);
                 }
                 catch (e) { }
