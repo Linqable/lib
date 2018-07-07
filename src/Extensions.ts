@@ -124,7 +124,13 @@ declare global {
         Transpose<T>(): T[][];
     }
 }
-
+(() => {
+    if (process.env.USE_PURE_JS) {
+        if (!(Reflect && Reflect.apply)) {
+            Reflect.apply = Function.prototype.apply.call;
+        }
+    }
+})();
 (() => {
     var Enumerable = require("./AdvancedLinqable").AdvancedLinqable;
     if (typeof Array.prototype.Where !== 'function') {

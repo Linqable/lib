@@ -60,7 +60,7 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
                     }
                 }
             }
-            if (!t) res.push(this[i]);
+            if (!t) res.push(this.array[i]);
         }
         return res;
 
@@ -79,7 +79,7 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
     public Distinct(comparer?: (x: T, y: T) => boolean): Array<T> {
         this.checkArray();
         comparer = comparer || this.EqualityComparer;
-        var arr = [];
+        var arr = [] as Array<any>;
         var l = this.Count();
         for (var i = 0; i < l; i++) {
             if (!arr.Contains(this.array[i], comparer))
@@ -215,8 +215,13 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
             count = 1;
         return this.array.slice(0, count);
     }
-    public Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): T[] {
+    public Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[] {
         this.checkArray();
+        if (process.env.USE_PURE_JS)
+            return this.select_n2(selector, context);
+        return this.array.map(selector, this.array);
+    }
+    private select_old<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[] {
         var arr = [];
         // TODO: optimization, move getContext, and call fixup
         var l = this.array.length;
@@ -224,9 +229,20 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
             arr.push(selector.call(this.getContext(context), this.array[i], i, this.array));
         return arr;
     }
+    private select_n2<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[] {
+        const arr = [];
+        const selfArray = this.array;
+        const l = selfArray.length;
+        for (var i = 0; i < l; i++) {
+            // optimize v8 call asm
+            let opt = (void 0, Reflect.apply)(selector, selfArray, [selfArray[i], i]);
+            arr.push(opt);
+        }
+        return arr;
+    }
     public First(predicate?: (element: T, index?: number) => boolean, context?: any): T {
         this.checkArray();
-
+        console.time()
         for (const source of this.array) {
             if (!predicate)
                 return source;
@@ -248,27 +264,34 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
     }
     public Where(predicate: (element: T, index?: number) => boolean, context?: any): T[] {
         this.checkArray();
-        var arr = [];
-        var l = this.array.length;
-        for (var i = 0; i < l; i++) {
-            if (!this.array[i])
-                continue;
-            try {
-                if (predicate.call(this.getContext(context), this.array[i], i, this) === true)
-                    arr.push(this.array[i]);
+        if (process.env.USE_PURE_JS) {
+            const arr = [];
+            const l = this.array.length;
+            for (var i = 0; i < l; i++) {
+                if (!this.array[i])
+                    continue;
+                try {
+                    // optimize v8 call
+                    if ((void 0, Reflect.apply)(predicate, this.array, [this.array[i], i]) === true)
+                        arr.push(this.array[i]);
+                }
+                catch (e) { }
             }
-            catch (e) { }
+            return arr;
         }
-        return arr;
+        else {
+            return this.array.filter(predicate, this.array);
+        }
     }
     public Any(predicate?: (element: T) => boolean, context?: any): boolean {
         this.checkArray();
         predicate = predicate || this.Predicate;
+        const selfArray = this.array;
         var f = this.array.some || function (p, c) {
             var l = this.array.length;
             if (!p) return l > 0;
-            while (l-- > 0)
-                if (p.call(c, this.array[l], l, this.array) === true) return true;
+            while (l-- > 0) // optimization v8 call
+                if ((void 0, Reflect.apply)(p, selfArray, [selfArray[l], l, selfArray]) === true) return true;
             return false;
         };
         return f.apply(this.array, [predicate, this.getContext(context)]);
