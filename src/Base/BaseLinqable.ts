@@ -218,6 +218,7 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
     public Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): T[] {
         this.checkArray();
         var arr = [];
+        // TODO: optimization, move getContext, and call fixup
         var l = this.array.length;
         for (var i = 0; i < l; i++)
             arr.push(selector.call(this.getContext(context), this.array[i], i, this.array));
