@@ -10,7 +10,7 @@ class AdvancedLinqable<T> extends BaseLinqable<T> {
      */
     public Transpose<T>(): Array<Array<T>> {
         if (!this.array) throw new ArgumentNullError("array");
-        var source: Array<Array<T>> = <any>this.array;
+        var source: Array<Array<T>> = this.array as any;
         let generator = function* (): IterableIterator<Array<T>> {
             var enumerators = source.Select(e => new AdvancedLinqable(e).GetIterator()).Acquire();
 
@@ -49,7 +49,7 @@ class AdvancedLinqable<T> extends BaseLinqable<T> {
             if (typeof this.First() !== "function")
                 throw new InvalidOperationError("Array elemetns is not a functions.");
         }
-        let q: Function[] = <Array<Function>><any>this.ToArray();
+        let q: Function[] = this.ToArray() as any as Array<Function>;
         return q.Select(x => {
             try {
                 return x();

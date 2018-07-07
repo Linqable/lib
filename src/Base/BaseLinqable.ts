@@ -143,7 +143,7 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
             throw new InvalidOperationError("Array Is Empty.");
         selector = selector || <(element: T) => number><any>this.Selector;
         var max = selector(this.array[0]);
-        let FindedElement = <T>this.array[0];
+        let FindedElement = this.array[0] as T;
         if (typeof max !== "number")
             throw new InvalidOperationError("Element is not number.");
         while (l-- > 0)
@@ -160,7 +160,7 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
             throw new InvalidOperationError("Array Is Empty.");
         selector = selector || <(element: T) => number><any>this.Selector;
         var min = selector(this.array[0]);
-        let FindedElement = <T>this.array[0];
+        let FindedElement = this.array[0] as T;
         if (typeof min !== "number")
             throw new InvalidOperationError("Element is not number.");
         while (l-- > 0)
@@ -175,9 +175,9 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
         let num: number = 0;
         let arr: Array<number>;
         if (selector)
-            arr = <Array<number>><any>this.array.Select(selector, context);
+            arr = this.array.Select(selector, context) as any as Array<number>;
         else
-            arr = <Array<number>><any>this.array;
+            arr = this.array as any as Array<number>;
 
         arr.forEach(element => {
             if (typeof element !== "number")
@@ -274,7 +274,7 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
     }
     public SelectMany<TCollection, TResult>(colSelector: (element: T, index?: number) => TCollection[], resSelector: (outer: T, inner: TCollection) => TResult): Array<TResult> {
         resSelector = resSelector || function <TCollection, TResult>(outer: T, res: TCollection): TResult {
-            return <TResult><any>res;
+            return res as any as TResult;
         };
         return this.Aggregate((a, b) => {
             return (a as any as Array<{}>).concat(colSelector(b).Select((res) => {
