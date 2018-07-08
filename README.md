@@ -1,4 +1,4 @@
-<h1 style="text-align: center;" markdown="1">💥 linqable.ts 1.7.9 💥</h1>    
+<h1 style="text-align: center;" markdown="1">💥 linqable.ts 1.7.13 💥</h1>    
 LINQ 💥 implementation library for TypeScript ❄️
 
 [![NPM](https://nodei.co/npm/linqable.ts.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/linqable.ts/)       
@@ -13,14 +13,14 @@ LINQ 💥 implementation library for TypeScript ❄️
 
 
 ### Install
-- `yarn add linqable.ts`
-or
-- `npm i linqable.ts`
+- `yarn add linqable.ts`    
+or  
+- `npm i linqable.ts`   
 
 ### CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.8/lib/web/linq.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.13/lib/web/linq.min.js"></script>
 ```
 
 ### Changelog
@@ -30,7 +30,7 @@ See [Changelog](changelog.md)
 Browser:
 ```html
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.8/lib/web/linq.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.13/lib/web/linq.min.js"></script>
 </head>
 <!-- ... -->
 <script>

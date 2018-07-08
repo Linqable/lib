@@ -1,4 +1,4 @@
-import "./../Reflection/Reflector";
+import { Reflector } from "./../reflection/Reflector";
 export class LinqArrayIterable<T> implements IterableIterator<T> {
 
   private pointer = 0;
@@ -29,6 +29,6 @@ export class LinqArrayIterable<T> implements IterableIterator<T> {
   }
 
   public toString(): string {
-    return `(${this.items.getReflector().getName()})${this.name} [${this.pointer}]`;
+    return `(${new Reflector(this.items).getName()})${this.name} [${this.pointer}]`;
   }
 }

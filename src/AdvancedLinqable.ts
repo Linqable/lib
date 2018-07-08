@@ -1,5 +1,6 @@
-import { InvalidOperationError, ArgumentOutOfRangeError, ArgumentNullError, EvaluateOperationError } from './Error';
-import { BaseLinqable, LinqArrayIterable } from './Base';
+import { InvalidOperationError, ArgumentOutOfRangeError, ArgumentNullError, EvaluateOperationError } from './error';
+import { BaseLinqable } from './Base/BaseLinqable';
+import { LinqArrayIterable } from './Base/iterable';
 class AdvancedLinqable<T> extends BaseLinqable<T> {
     constructor(arr: Array<T>) {
         super(arr);
@@ -12,7 +13,9 @@ class AdvancedLinqable<T> extends BaseLinqable<T> {
         if (!this.array) throw new ArgumentNullError("array");
         var source: Array<Array<T>> = this.array as any;
         let generator = function* (): IterableIterator<Array<T>> {
-            var enumerators = source.Select(e => new AdvancedLinqable(e).GetIterator()).Acquire();
+            var enumerators =
+                source.Select(e => new AdvancedLinqable(e).GetIterator())
+                    .Acquire();
 
             try {
                 while (true) {
@@ -260,9 +263,6 @@ class AdvancedLinqable<T> extends BaseLinqable<T> {
 
 
     protected QuantityIterator<T>(source: ArrayLike<T>, limit: number, min: number, max: number): boolean {
-        if (source == null) {
-            throw new Error("ArgumentNullError");
-        }
         let col: Array<T>
         let num = ((col = (source as Array<T>)) != null) ? col.length : limit;
         return num >= min && num <= max;

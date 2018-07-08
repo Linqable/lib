@@ -1,9 +1,8 @@
-import { Contextable } from '../Context';
-import { LinqArrayIterable } from './iterable';
-export abstract class Queryable<T> extends Contextable {
+import { LinqArrayIterable } from "./iterable";
+
+export class Behaviour<T> {
     protected array: Array<T>;
     constructor(arr: Array<T>) {
-        super();
         this.array = arr;
     }
     public Reverse(): T[] {
@@ -24,20 +23,13 @@ export abstract class Queryable<T> extends Contextable {
             if (a.getTime() === b.getTime())
                 return true;
         }
-        try {
-            return a.valueOf() === b.valueOf();
-        }
-        catch (e) { console.log(a, b, "failed") }
-        return false;
+        return a.valueOf() === b.valueOf();
     }
     private static isWhitespace(code) {
         return code <= 32;
     }
     private static isDigit(code) {
         return 48 <= code && code <= 57;
-    }
-    private static isSign(code) {
-        return code === '-'.charCodeAt(0) || code === '+'.charCodeAt(0);
     }
     public static strCompare(a: string, b: string): number {
         var ia = 0;
@@ -154,7 +146,7 @@ export abstract class Queryable<T> extends Contextable {
         if (a.hasOwnProperty("Compare"))
             return a.Compare(b);
         if (typeof a == 'string') // return a.toString().localeCompare(b.toString());
-            return Queryable.strCompare(a, b);
+            return Behaviour.strCompare(a, b);
         if (a instanceof Date && b instanceof Date) {
             if (a.getTime() === b.getTime())
                 return 0;
@@ -164,9 +156,6 @@ export abstract class Queryable<T> extends Contextable {
                 return 1;
         }
         return a.valueOf() - b.valueOf();
-    }
-    protected Predicate(): boolean {
-        return true;
     }
     protected Selector(e: any): any {
         return e;
@@ -196,5 +185,9 @@ export abstract class Queryable<T> extends Contextable {
             result.push(item.value);
         }
         return result;
+    }
+    protected checkArray() {
+        if (!this.array)
+            throw new ReferenceError("ArgumentUndefinedError(array)");
     }
 }

@@ -1,16 +1,11 @@
-import { Queryable } from "./Queryable";
-import { IStandardLinq } from "../Interfaces/IStandardLinq";
-import { InvalidOperationError } from '../Error';
+import aggregate, { aggregateDelegate } from '../core/aggregate';
+import { InvalidOperationError } from "../error";
+import { LinqArrayIterable } from "./iterable";
+import { Behaviour } from './behaviour';
+import where from '../core/where';
+import any from '../core/any';
 
-export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
-{
-    constructor(arr: Array<T>) {
-        super(arr);
-    }
-    protected checkArray() {
-        if (!this.array)
-            throw new ReferenceError("ArgumentUndefinedError(array)");
-    }
+export class BaseLinqable<T> extends Behaviour<T> {
     /**
      * Returns the only element of a sequence,
      * and throws an exception if there is not exactly one element in the sequence.
@@ -44,7 +39,6 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
         var l = this.Count();
         var res = [];
         for (var i = 0; i < l; i++) {
-            var k = array.Count();
             var t = false;
             if (element != null) {
                 if (comparer(this.array[i], element) === true) {
@@ -53,6 +47,7 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
                 }
             }
             else {
+                var k = array.Count();
                 while (k-- > 0) {
                     if (comparer(this.array[i], array[k]) === true) {
                         t = true;
@@ -106,9 +101,9 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
         return this.array.length == 0;
     }
     public All(predicate: (element: T) => boolean, context?: any): boolean {
-        predicate = predicate || this.Predicate;
+        predicate = predicate || (() => true);
         let l = this.array.length;
-        return this.Where(predicate, context).ToArray().length == l;
+        return this.Where(predicate, context).length == l;
     }
     public Max(selector?: (element: T) => number): number {
         this.checkArray();
@@ -215,31 +210,6 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
             count = 1;
         return this.array.slice(0, count);
     }
-    public Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[] {
-        this.checkArray();
-        if (this.isUsePureJS())
-            return this.select_n2(selector, context);
-        return this.array.map(selector, this.array);
-    }
-    private select_old<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[] {
-        var arr = [];
-        // TODO: optimization, move getContext, and call fixup
-        var l = this.array.length;
-        for (var i = 0; i < l; i++)
-            arr.push(selector.call(this.getContext(context), this.array[i], i, this.array));
-        return arr;
-    }
-    private select_n2<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[] {
-        const arr = [];
-        const selfArray = this.array;
-        const l = selfArray.length;
-        for (var i = 0; i < l; i++) {
-            // optimize v8 call asm
-            let opt = (void 0, Reflect.apply)(selector, selfArray, [selfArray[i], i]);
-            arr.push(opt);
-        }
-        return arr;
-    }
     public First(predicate?: (element: T, index?: number) => boolean, context?: any): T {
         this.checkArray();
         console.time()
@@ -263,45 +233,17 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
         }
     }
     public Where(predicate: (element: T, index?: number) => boolean, context?: any): T[] {
-        this.checkArray();
-        if (this.isUsePureJS()) {
-            const arr = [];
-            const l = this.array.length;
-            for (var i = 0; i < l; i++) {
-                if (!this.array[i])
-                    continue;
-                try {
-                    // optimize v8 call
-                    if ((void 0, Reflect.apply)(predicate, this.array, [this.array[i], i, this.array]) === true)
-                        arr.push(this.array[i]);
-                }
-                catch (e) { }
-            }
-            return arr;
-        }
-        else {
-            return this.array.filter(predicate, this.array);
-        }
+        return where(this.array, predicate);
     }
     public Any(predicate?: (element: T) => boolean, context?: any): boolean {
-        this.checkArray();
-        predicate = predicate || this.Predicate;
-        const selfArray = this.array;
-        var f = this.array.some || function (p, c) {
-            var l = this.array.length;
-            if (!p) return l > 0;
-            while (l-- > 0) // optimization v8 call
-                if ((void 0, Reflect.apply)(p, selfArray, [selfArray[l], l, selfArray]) === true) return true;
-            return false;
-        };
-        return f.apply(this.array, [predicate, this.getContext(context)]);
+        return any(this.array, predicate);
     }
     public SelectMany<TCollection, TResult>(colSelector: (element: T, index?: number) => TCollection[], resSelector: (outer: T, inner: TCollection) => TResult): Array<TResult> {
         resSelector = resSelector || function <TCollection, TResult>(outer: T, res: TCollection): TResult {
             return res as any as TResult;
         };
         return this.Aggregate((a, b) => {
-            return (a as any as Array<{}>).concat(colSelector(b).Select((res) => {
+            return (a as any as Array<any>).concat(colSelector(b).Select((res) => {
                 return resSelector(b, res);
             }));
         }, new Array<T>());
@@ -350,17 +292,8 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
         };
         return arr.sort(fn);
     }
-    public Aggregate(selector: (el1: any, el2: any) => any, seed?: any): any {
-        this.checkArray();
-        var arr = this.array.slice(0);
-        var l = this.array.length;
-        if (seed == null || seed == undefined)
-            seed = arr.shift();
-
-        for (var i = 0; i < l; i++)
-            seed = selector(seed, arr[i]);
-
-        return seed;
+    public Aggregate<TResult>(selector: aggregateDelegate<T, TResult>, seed?: TResult): TResult {
+        return aggregate(this.array, selector, seed);
     }
 
 }
