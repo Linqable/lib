@@ -12,9 +12,8 @@ LINQ 💥 implementation library for TypeScript ❄️
 
 
 ### Dependences 🔥
-1. Yarn 1.7 or above
-2. TypeScript 2.6 or above (in global)
-3. AVA 1.0.0-beta.6 or above (in global)
+1. TypeScript 2.6 or above (in global)
+2. AVA 1.0.0-beta.6 or above (in global)
 
 ### Install
 - `yarn add linqable.ts`
