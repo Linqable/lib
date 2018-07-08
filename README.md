@@ -20,7 +20,7 @@ or
 ### CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.8/lib/web/linq.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.9/lib/web/linq.min.js"></script>
 ```
 
 ### Changelog
@@ -30,7 +30,7 @@ See [Changelog](changelog.md)
 Browser:
 ```html
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.8/lib/web/linq.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.9/lib/web/linq.min.js"></script>
 </head>
 <!-- ... -->
 <script>
