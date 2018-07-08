@@ -1,5 +1,4 @@
-export abstract class Contextable
-{
+export abstract class Contextable {
     private window: any;
     protected getContext(context?: any): any {
         var global: any = global;
@@ -9,5 +8,8 @@ export abstract class Contextable
             this.window = window || global;
         }
         return context || this.window;
+    }
+    protected isUsePureJS() {
+        return process && process.env.USE_PURE_JS;
     }
 }

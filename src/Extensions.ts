@@ -130,7 +130,7 @@ declare global {
     }
 }
 (() => {
-    if (process.env.USE_PURE_JS) {
+    if (process && process.env.USE_PURE_JS) {
         if (!(Reflect && Reflect.apply)) {
             Reflect.apply = Function.prototype.apply.call;
         }

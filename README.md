@@ -1,4 +1,4 @@
-# linqable.ts 1.7.7 💥
+<h1 style="text-align: center;" markdown="1">💥 linqable.ts 1.7.9 💥</h1>    
 LINQ 💥 implementation library for TypeScript ❄️
 
 [![NPM](https://nodei.co/npm/linqable.ts.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/linqable.ts/)       
@@ -9,26 +9,36 @@ LINQ 💥 implementation library for TypeScript ❄️
 ![npm](https://img.shields.io/npm/dt/linqable.ts.svg)
 ![image](https://david-dm.org/0xF6/linqable.ts.svg)
 [![Dev Dependencies](https://img.shields.io/david/dev/0xF6/linqable.ts.svg)](https://david-dm.org/0xF6/linqable.ts?type=dev)
+[![](https://data.jsdelivr.com/v1/package/npm/linqable.ts/badge)](https://www.jsdelivr.com/package/npm/linqable.ts)
 
-
-### Dependences 🔥
-1. Yarn 1.7 or above
-2. TypeScript 2.6 or above (in global)
-3. AVA 1.0.0-beta.6 or above (in global)
 
 ### Install
 - `yarn add linqable.ts`
 or
 - `npm i linqable.ts`
 
-### Usage 🌱
-JS:   
-```JavaScript
-require("linqable.ts"); // import array extensions
+### CDN
 
-console.log([3,5].Sum());
+```html
+<script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.8/lib/web/linq.min.js"></script>
 ```
-TS:   
+
+### Changelog
+See [Changelog](changelog.md)
+
+### Usage 🌱
+Browser:
+```html
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.8/lib/web/linq.min.js"></script>
+</head>
+<!-- ... -->
+<script>
+    [2, 4].Sum() // -> 6
+</script>
+```
+
+Node:   
 ```TypeScript
 import "linqable.ts";
 
@@ -47,6 +57,10 @@ console.log(new AdvancedLinqable([3,5]).Acquire());
 ### Build ☄️
 1. `yarn build`
 2. You are great! 💫
+
+#### Dependences for build 🔥
+1. TypeScript 2.6 or above (in global)
+2. AVA 1.0.0-beta.6 or above (in global)
 
 ### Test 🍒
 1. `yarn test`

@@ -217,7 +217,7 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
     }
     public Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[] {
         this.checkArray();
-        if (process.env.USE_PURE_JS)
+        if (this.isUsePureJS())
             return this.select_n2(selector, context);
         return this.array.map(selector, this.array);
     }
@@ -264,7 +264,7 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
     }
     public Where(predicate: (element: T, index?: number) => boolean, context?: any): T[] {
         this.checkArray();
-        if (process.env.USE_PURE_JS) {
+        if (this.isUsePureJS()) {
             const arr = [];
             const l = this.array.length;
             for (var i = 0; i < l; i++) {

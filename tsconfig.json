@@ -2,7 +2,7 @@
     "compilerOptions": {
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "target": "es2015",
+        "target": "es6",
         "lib": [
             "es5",
             "es6",
@@ -11,7 +11,7 @@
         "module": "commonjs",
         "removeComments": false,
         "sourceMap": true,
-        "outDir": "build/",
+        "outDir": "lib/",
         "declaration": true,
         "moduleResolution": "node"
     },
@@ -24,7 +24,8 @@
         "test",
         "dist",
         "build",
-        "index.d.ts"
+        "index.d.ts",
+        "lib"
     ],
     "compileOnSave": true
 }
