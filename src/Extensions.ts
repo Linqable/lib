@@ -122,6 +122,11 @@ declare global {
          * @returns Returns a sequence of columns in the source swapped into rows.
          */
         Transpose<T>(): T[][];
+
+
+
+
+        ToQuery<T>(): AdvancedLinqable<T>;
     }
 }
 (() => {
@@ -131,8 +136,13 @@ declare global {
         }
     }
 })();
-(() => {
+(() => { //! WARNING & TODO: optimizations prototype check 
     var Enumerable = require("./AdvancedLinqable").AdvancedLinqable;
+    if (typeof Array.prototype.ToQuery !== 'function') {
+        Array.prototype.ToQuery = function <T>(): AdvancedLinqable<T> {
+            return new AdvancedLinqable(this);
+        };
+    }
     if (typeof Array.prototype.Where !== 'function') {
         Array.prototype.Where = function <T>(predicate: any, context?: any): T[] {
             return <T[]>new Enumerable(this).Where(predicate, context);
