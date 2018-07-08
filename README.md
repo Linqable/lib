@@ -1,5 +1,5 @@
 # linqable.ts 1.7.7 💥
-LINQ 💥 implementation library for TypeScript ❄️
+Classic and Advanced LINQ 💥 implementation library for TypeScript ❄️
 
 [![NPM](https://nodei.co/npm/linqable.ts.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/linqable.ts/)       
 
