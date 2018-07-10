@@ -23,12 +23,16 @@ export type anyDelegate<T> = (element: T) => boolean
  * @public @static @method Any
  */
 export default <T>(array: T[], predicate: anyDelegate<T> = (() => true)) => {
+    'use opt';
     validateArray(array);
     if (isUsePureJS()) {
         let l = array.length;
-        while (l-- > 0) if
-        ((void 0, Reflect.apply)(predicate, array, [array[l], l, array]) === true)
-            return true;
+        while (l-- > 0) {
+            '%opt-v8-call';
+            let res = (void 0, Reflect.apply)(predicate, array, [array[l], l, array]);
+            if (res === true)
+                return true;
+        }
         return false;
     }
     return array.some(predicate);

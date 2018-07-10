@@ -18,11 +18,12 @@ export type selectDelegate<T, TResult> = (element: T, index?: number) => TResult
  * @public @static @method Select
  */
 export default <T, TResult>(array: Array<T>, selector: selectDelegate<T, TResult>): TResult[] => {
+    'use opt';
     validateArray(array);
     if (isUsePureJS()) {
         const arr = [];
         for (var i = 0; i < array.length; i++) {
-            // optimize v8 call asm
+            '%opt-v8-call';
             let opt = (void 0, Reflect.apply)(selector, array, [array[i], i]);
             arr.push(opt);
         }
