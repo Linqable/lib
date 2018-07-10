@@ -7,7 +7,7 @@ import validateArray from "../utils/validateArray";
 import isUsePureJS from "../utils/isUsePureJS";
 
 
-export type anyDelegate<T> = (element: T) => boolean
+type anyDelegate<T> = (element: T) => boolean
 
 /**
  * Determines whether any element of a sequence exists or satisfies a condition.
@@ -22,7 +22,7 @@ export type anyDelegate<T> = (element: T) => boolean
  * @throws ReferenceError - array is undefined.
  * @public @static @method Any
  */
-export default <T>(array: T[], predicate: anyDelegate<T> = (() => true)) => {
+let any = <T>(array: T[], predicate: anyDelegate<T> = (() => true)) => {
     validateArray(array);
     if (isUsePureJS()) {
         let l = array.length;

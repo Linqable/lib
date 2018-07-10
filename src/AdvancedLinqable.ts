@@ -1,5 +1,6 @@
 import { InvalidOperationError, ArgumentOutOfRangeError, ArgumentNullError, EvaluateOperationError } from './error';
-import { BaseLinqable, LinqArrayIterable } from './Base';
+import { BaseLinqable } from './Base/BaseLinqable';
+import { LinqArrayIterable } from './Base/iterable';
 class AdvancedLinqable<T> extends BaseLinqable<T> {
     constructor(arr: Array<T>) {
         super(arr);

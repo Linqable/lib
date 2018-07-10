@@ -1,20 +1,11 @@
-import { Queryable } from "./Queryable";
-import { IStandardLinq } from "./IStandardLinq";
-import { aggregateDelegate } from '../core/aggregate';
-import where from "../core/where";
-import any from "../core/any";
-import aggregate from "../core/aggregate";
+import aggregate, { aggregateDelegate } from '../core/aggregate';
 import { InvalidOperationError } from "../error";
+import { LinqArrayIterable } from "./iterable";
+import { Behaviour } from './behaviour';
+import where from '../core/where';
+import any from '../core/any';
 
-export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
-{
-    constructor(arr: Array<T>) {
-        super(arr);
-    }
-    protected checkArray() {
-        if (!this.array)
-            throw new ReferenceError("ArgumentUndefinedError(array)");
-    }
+export class BaseLinqable<T> extends Behaviour<T> {
     /**
      * Returns the only element of a sequence,
      * and throws an exception if there is not exactly one element in the sequence.
@@ -112,7 +103,7 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
     public All(predicate: (element: T) => boolean, context?: any): boolean {
         predicate = predicate || this.Predicate;
         let l = this.array.length;
-        return this.Where(predicate, context).ToArray().length == l;
+        return this.Where(predicate, context).length == l;
     }
     public Max(selector?: (element: T) => number): number {
         this.checkArray();
@@ -218,31 +209,6 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
         if (!count)
             count = 1;
         return this.array.slice(0, count);
-    }
-    public Select<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[] {
-        this.checkArray();
-        if (this.isUsePureJS())
-            return this.select_n2(selector, context);
-        return this.array.map(selector, this.array);
-    }
-    private select_old<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[] {
-        var arr = [];
-        // TODO: optimization, move getContext, and call fixup
-        var l = this.array.length;
-        for (var i = 0; i < l; i++)
-            arr.push(selector.call(this.getContext(context), this.array[i], i, this.array));
-        return arr;
-    }
-    private select_n2<TResult>(selector: (element: T, index: number) => TResult, context?: any): TResult[] {
-        const arr = [];
-        const selfArray = this.array;
-        const l = selfArray.length;
-        for (var i = 0; i < l; i++) {
-            // optimize v8 call asm
-            let opt = (void 0, Reflect.apply)(selector, selfArray, [selfArray[i], i]);
-            arr.push(opt);
-        }
-        return arr;
     }
     public First(predicate?: (element: T, index?: number) => boolean, context?: any): T {
         this.checkArray();

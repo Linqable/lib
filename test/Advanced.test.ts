@@ -1,7 +1,6 @@
 import test from 'ava';
 import "./../src";
 import { linqData } from "./etc/Data";
-import { EvaluateOperationError } from './../src';
 
 
 test("Transpose", (t) => {
@@ -9,7 +8,7 @@ test("Transpose", (t) => {
         [10, 12],
         [20],
         [30, 35, 45]
-    ].ToQuery().Transpose(), [[10, 20, 30], [12, 35], [45]]);
+    ].Transpose(), [[10, 20, 30], [12, 35], [45]]);
 });
 test("Evaluate", (t) => {
     t.plan(3);
@@ -18,8 +17,8 @@ test("Evaluate", (t) => {
         linqData.Evaluate();
     }, "Array elemetns is not a functions.");
     t.throws(() => {
-        throw new EvaluateOperationError(new Error("1"), "2") // nyc wtf
-    }, "2");
+        [() => true, () => { throw "test" }, () => 123].Evaluate();
+    }, "An error occurred in executive element while performing evaluate operation.");
 });
 test("MaxBy", (t) => {
     t.deepEqual(linqData.MaxBy(x => x.age).name, "Willem Kumesh");

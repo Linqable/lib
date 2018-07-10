@@ -1,9 +1,8 @@
-import { LinqArrayIterable } from './iterable';
-import { Contextable } from './Contexteable';
-export abstract class Queryable<T> extends Contextable {
+import { LinqArrayIterable } from "./iterable";
+
+export class Behaviour<T> {
     protected array: Array<T>;
     constructor(arr: Array<T>) {
-        super();
         this.array = arr;
     }
     public Reverse(): T[] {
@@ -154,7 +153,7 @@ export abstract class Queryable<T> extends Contextable {
         if (a.hasOwnProperty("Compare"))
             return a.Compare(b);
         if (typeof a == 'string') // return a.toString().localeCompare(b.toString());
-            return Queryable.strCompare(a, b);
+            return Behaviour.strCompare(a, b);
         if (a instanceof Date && b instanceof Date) {
             if (a.getTime() === b.getTime())
                 return 0;
@@ -196,5 +195,22 @@ export abstract class Queryable<T> extends Contextable {
             result.push(item.value);
         }
         return result;
+    }
+    private window: any;
+    protected getContext(context?: any): any {
+        var global: any = global;
+        if (typeof (window) === 'undefined') {
+            this.window = global;
+        } else {
+            this.window = window || global;
+        }
+        return context || this.window;
+    }
+    protected isUsePureJS() {
+        return process && process.env.USE_PURE_JS;
+    }
+    protected checkArray() {
+        if (!this.array)
+            throw new ReferenceError("ArgumentUndefinedError(array)");
     }
 }

@@ -6,6 +6,10 @@
 Prepare fixes nyc reports
 
 
+#### Features:
+
+Added kotlin typing
+
 #### Changes:
 
 Move error classes to error folder  

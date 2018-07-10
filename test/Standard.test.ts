@@ -1,6 +1,6 @@
 import "./../src";
 import test from 'ava';
-import { AdvancedLinqable } from "./../src";
+import { AdvancedLinqable } from "./../src/AdvancedLinqable";
 import { linqData } from "./etc/Data";
 
 test("Any", (t) => {
@@ -12,7 +12,11 @@ test("All", (t) => {
     t.false(linqData.Where(x => !x.IsDead).All(x => x.IsDead));
 });
 test('Select', t => {
+    t.plan(2);
     t.deepEqual(linqData.Select(x => x.name).length, 8);
+    process.env.USE_PURE_JS = "true";
+    t.deepEqual(linqData.Select(x => x.name).length, 8);
+    delete process.env.USE_PURE_JS;
 });
 test("SelectMany", (t) => {
     t.deepEqual(new AdvancedLinqable([{ ar: [1, 2], name: "2" }, { ar: [3, 4], name: "1" }]).SelectMany(x => x.ar, (q, z) => z), [1, 2, 3, 4]);
@@ -91,13 +95,28 @@ test("Sum", (t) => {
 });
 
 test("Max", (t) => {
+    t.plan(3);
+    t.throws(() => {
+        linqData.Max(x => x.name as any as number);
+    }, "Element is not number.");
     t.deepEqual(linqData.Max(x => x.age), 321);
+    t.deepEqual([].Max(), 0);
 });
 
 test("Min", (t) => {
+    t.plan(4);
+    t.throws(() => {
+        linqData.Min(x => x.name as any as number);
+    }, "Element is not number.");
     t.deepEqual(linqData.Min(x => x.age), 17);
+    t.deepEqual([].Min(), 0);
+    t.deepEqual([-1, Infinity, 0, -Infinity].Min(x => x), -1);
 });
 
+
+test("Except", (t) => {
+    t.deepEqual([0, 1, 2, 3].Except([0, 1]), [2, 3]);
+});
 
 
 test("IsEmpty", (t) => {
