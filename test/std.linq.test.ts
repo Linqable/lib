@@ -191,3 +191,10 @@ test("Zip", (t) => {
     t.deepEqual(letters.Zip(numbers, (l, n) => l + n.toString()), ["A1", "B2", "C3"])
 })
 
+test("OrderBy Advanced", (t) => {
+    t.deepEqual([" l12l30*#489#(&10932$Y", " asd  d13 3Q*(@3 932912", "+!@($+)!#@&$_!@ !_@(&$", "Фывл3 )*№80 23\\"].OrderBy(), ['+!@($+)!#@&$_!@ !_@(&$', ' asd  d13 3Q*(@3 932912', ' l12l30*#489#(&10932$Y', 'Фывл3 )*№80 23\\']);
+})
+
+test("ToArray", (t) => {
+    t.deepEqual(new AdvancedLinqable(undefined).ToArray(), []);
+});

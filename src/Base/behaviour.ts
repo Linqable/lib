@@ -196,19 +196,6 @@ export class Behaviour<T> {
         }
         return result;
     }
-    private window: any;
-    protected getContext(context?: any): any {
-        var global: any = global;
-        if (typeof (window) === 'undefined') {
-            this.window = global;
-        } else {
-            this.window = window || global;
-        }
-        return context || this.window;
-    }
-    protected isUsePureJS() {
-        return process && process.env.USE_PURE_JS;
-    }
     protected checkArray() {
         if (!this.array)
             throw new ReferenceError("ArgumentUndefinedError(array)");
