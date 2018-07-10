@@ -1,4 +1,16 @@
 
+## 1.7.11
+
+#### Improvement:   
+
+Prepare fixes nyc reports
+
+
+#### Changes:
+
+Move error classes to error folder  
+Move obsolete classes and interfaces to base folder    
+
 ## 1.7.10
 
 #### Improvement:
@@ -8,8 +20,7 @@ Prepare fixes nyc reports
 
 Move any, where, select to external module  
 Move array declaration from Extensions.ts to index.ts   
-Move error classes to error folder  
-Move obsolete classes and interfaces to base folder    
+
 
 
 ## 1.7.9 & 1.7.9-1
