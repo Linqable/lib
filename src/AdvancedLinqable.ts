@@ -13,7 +13,9 @@ class AdvancedLinqable<T> extends BaseLinqable<T> {
         if (!this.array) throw new ArgumentNullError("array");
         var source: Array<Array<T>> = this.array as any;
         let generator = function* (): IterableIterator<Array<T>> {
-            var enumerators = source.Select(e => new AdvancedLinqable(e).GetIterator()).Acquire();
+            var enumerators =
+                source.Select(e => new AdvancedLinqable(e).GetIterator())
+                    .Acquire();
 
             try {
                 while (true) {
