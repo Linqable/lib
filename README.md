@@ -13,9 +13,9 @@ LINQ 💥 implementation library for TypeScript ❄️
 
 
 ### Install
-- `yarn add linqable.ts`
-or
-- `npm i linqable.ts`
+- `yarn add linqable.ts`    
+or  
+- `npm i linqable.ts`   
 
 ### CDN
 

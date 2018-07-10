@@ -1,5 +1,5 @@
 import test from 'ava';
-import "./../src/Reflection/Reflector"
+import "./../src/reflection/Reflector"
 class tt {
     constructor() { eval("1 + 1"); }
     public v1() { }

@@ -1,10 +1,10 @@
 import { Queryable } from "./Queryable";
-import { IStandardLinq } from "../Interfaces/IStandardLinq";
-import { InvalidOperationError } from '../Error';
-import aggregate from "../Core/aggregate";
-import { aggregateDelegate } from '../Core/aggregate';
-import where from "../Core/where";
-import any from "../Core/any";
+import { IStandardLinq } from "./IStandardLinq";
+import { aggregateDelegate } from '../core/aggregate';
+import where from "../core/where";
+import any from "../core/any";
+import aggregate from "../core/aggregate";
+import { InvalidOperationError } from "../error";
 
 export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
 {

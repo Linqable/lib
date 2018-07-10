@@ -1,5 +1,5 @@
-import { Contextable } from '../Context';
 import { LinqArrayIterable } from './iterable';
+import { Contextable } from './Contexteable';
 export abstract class Queryable<T> extends Contextable {
     protected array: Array<T>;
     constructor(arr: Array<T>) {

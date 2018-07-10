@@ -6,8 +6,10 @@ Prepare fixes nyc reports
 
 #### Changes:
 
-Move any, where, select to external module
-Move array declaration from Extensions.ts to index.ts
+Move any, where, select to external module  
+Move array declaration from Extensions.ts to index.ts   
+Move error classes to error folder  
+Move obsolete classes and interfaces to base folder    
 
 
 ## 1.7.9 & 1.7.9-1

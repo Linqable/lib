@@ -9,6 +9,7 @@
   "markdown": "github",
   "preview": false,
   "displayName": "Linqable.ts",
+  "jsdelivr": "./lib/web/linq.min.js",
   "keywords": [
     "typescript",
     "linq",

@@ -1,4 +1,4 @@
-import "./../Reflection/Reflector";
+import "./../reflection/Reflector";
 export class LinqArrayIterable<T> implements IterableIterator<T> {
 
   private pointer = 0;
