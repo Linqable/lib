@@ -42,6 +42,16 @@ test("MinBy", (t) => {
     }, "Array Is Empty.");
 });
 
+test("AtLeast", (t) => {
+    t.true([0, 1, 2].AtLeast(1))
+    t.false([0, 1, 2].AtLeast(5))
+});
+
+test("AtMost", (t) => {
+    t.false([0, 1, 2].AtMost(1))
+    t.true([0, 1, 2].AtMost(5))
+});
+
 
 test("Batch", (t) => {
     t.plan(3);
