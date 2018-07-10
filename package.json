@@ -1,11 +1,14 @@
 {
   "name": "linqable.ts",
-  "version": "1.7.9-1",
+  "version": "1.7.10",
   "description": "LINQ implementation library for TypeScript",
   "main": "./lib/Extensions.js",
   "author": "Yuuki Wesp",
   "license": "MIT",
   "private": false,
+  "markdown": "github",
+  "preview": false,
+  "displayName": "Linqable.ts",
   "keywords": [
     "typescript",
     "linq",
