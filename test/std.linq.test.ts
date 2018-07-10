@@ -2,7 +2,6 @@ import "./../src";
 import test from 'ava';
 import { AdvancedLinqable } from "./../src/AdvancedLinqable";
 import { linqData } from "./etc/Data";
-
 test("Any", (t) => {
     t.true(linqData.Any(x => x.IsDead));
 });
@@ -54,6 +53,10 @@ test("FirstOrDefault", (t) => {
 
 test("Last", (t) => {
     t.deepEqual(linqData.Last().name, "Nygglatho");
+    t.throws(() => {
+        [].Last(x => x);
+    }, "No math");
+    t.deepEqual([1, 2].Last(x => x == 2), 2);
 });
 test("LastOrDefault", (t) => {
     t.deepEqual(linqData.LastOrDefault(x => x.age == 1, {
@@ -87,7 +90,8 @@ test("SingleOrDefault", (t) => {
 
 
 test("Sum", (t) => {
-    t.plan(2);
+    t.plan(3);
+    t.deepEqual([1, 2].Sum(), 3);
     t.deepEqual(linqData.Sum(x => x.age), 496);
     t.throws(() => {
         linqData.Sum(x => <number><any>x.birthdate);
@@ -126,6 +130,14 @@ test("IsEmpty", (t) => {
 
 test("Take", (t) => {
     t.deepEqual(linqData.Take(1).length, 1);
+    t.deepEqual(linqData.Take(undefined).length, 1);
+});
+
+test("ThenBy", (t) => {
+    t.deepEqual(linqData.ThenBy(x => x.name).First().name, "Almaria Dufna");
+});
+test("ThenByDescending", (t) => {
+    t.deepEqual(linqData.ThenByDescending(x => x.name).First().name, "Almaria Dufna");
 });
 
 
@@ -197,4 +209,10 @@ test("OrderBy Advanced", (t) => {
 
 test("ToArray", (t) => {
     t.deepEqual(new AdvancedLinqable(undefined).ToArray(), []);
+});
+
+test("Test Throw Undefined Array", (t) => {
+    t.throws(() => {
+        new AdvancedLinqable(undefined).Sum()
+    }, "ArgumentUndefinedError(array)");
 });

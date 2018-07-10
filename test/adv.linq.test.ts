@@ -22,13 +22,24 @@ test("Evaluate", (t) => {
 });
 test("MaxBy", (t) => {
     t.deepEqual(linqData.MaxBy(x => x.age).name, "Willem Kumesh");
+    t.throws(() => {
+        linqData.MaxBy(x => x.name as any as number);
+    }, "Element is not number.");
+    t.throws(() => {
+        [].MaxBy(x => x);
+    }, "Array Is Empty.");
 });
 
 test("MinBy", (t) => {
-    t.plan(3);
     t.deepEqual(linqData.MinBy(x => x.age).name, "Chtholly Nola");
     t.deepEqual(linqData.Reverse().MinBy(x => x.age).name, "Chtholly Nola");
     t.deepEqual(linqData.Min(x => x.age), 17);
+    t.throws(() => {
+        linqData.MinBy(x => x.name as any as number);
+    }, "Element is not number.");
+    t.throws(() => {
+        [].MinBy(x => x);
+    }, "Array Is Empty.");
 });
 
 
