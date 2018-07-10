@@ -1,6 +1,10 @@
 import { Queryable } from "./Queryable";
 import { IStandardLinq } from "../Interfaces/IStandardLinq";
 import { InvalidOperationError } from '../Error';
+import aggregate from "../Core/aggregate";
+import { aggregateDelegate } from '../Core/aggregate';
+import where from "../Core/where";
+import any from "../Core/any";
 
 export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
 {
@@ -263,45 +267,17 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
         }
     }
     public Where(predicate: (element: T, index?: number) => boolean, context?: any): T[] {
-        this.checkArray();
-        if (this.isUsePureJS()) {
-            const arr = [];
-            const l = this.array.length;
-            for (var i = 0; i < l; i++) {
-                if (!this.array[i])
-                    continue;
-                try {
-                    // optimize v8 call
-                    if ((void 0, Reflect.apply)(predicate, this.array, [this.array[i], i, this.array]) === true)
-                        arr.push(this.array[i]);
-                }
-                catch (e) { }
-            }
-            return arr;
-        }
-        else {
-            return this.array.filter(predicate, this.array);
-        }
+        return where(this.array, predicate);
     }
     public Any(predicate?: (element: T) => boolean, context?: any): boolean {
-        this.checkArray();
-        predicate = predicate || this.Predicate;
-        const selfArray = this.array;
-        var f = this.array.some || function (p, c) {
-            var l = this.array.length;
-            if (!p) return l > 0;
-            while (l-- > 0) // optimization v8 call
-                if ((void 0, Reflect.apply)(p, selfArray, [selfArray[l], l, selfArray]) === true) return true;
-            return false;
-        };
-        return f.apply(this.array, [predicate, this.getContext(context)]);
+        return any(this.array, predicate);
     }
     public SelectMany<TCollection, TResult>(colSelector: (element: T, index?: number) => TCollection[], resSelector: (outer: T, inner: TCollection) => TResult): Array<TResult> {
         resSelector = resSelector || function <TCollection, TResult>(outer: T, res: TCollection): TResult {
             return res as any as TResult;
         };
         return this.Aggregate((a, b) => {
-            return (a as any as Array<{}>).concat(colSelector(b).Select((res) => {
+            return (a as any as Array<any>).concat(colSelector(b).Select((res) => {
                 return resSelector(b, res);
             }));
         }, new Array<T>());
@@ -350,17 +326,8 @@ export class BaseLinqable<T> extends Queryable<T> implements IStandardLinq<T>
         };
         return arr.sort(fn);
     }
-    public Aggregate(selector: (el1: any, el2: any) => any, seed?: any): any {
-        this.checkArray();
-        var arr = this.array.slice(0);
-        var l = this.array.length;
-        if (seed == null || seed == undefined)
-            seed = arr.shift();
-
-        for (var i = 0; i < l; i++)
-            seed = selector(seed, arr[i]);
-
-        return seed;
+    public Aggregate<TResult>(selector: aggregateDelegate<T, TResult>, seed?: TResult): TResult {
+        return aggregate(this.array, selector, seed);
     }
 
 }

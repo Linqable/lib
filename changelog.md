@@ -1,4 +1,15 @@
 
+## 1.7.10
+
+#### Improvement:
+Prepare fixes nyc reports
+
+#### Changes:
+
+Move any, where, select to external module
+Move array declaration from Extensions.ts to index.ts
+
+
 ## 1.7.9 & 1.7.9-1
 
 Fixes markdown :(
