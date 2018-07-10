@@ -5,6 +5,7 @@
 
 import validateArray from "../utils/validateArray";
 import isUsePureJS from "../utils/isUsePureJS";
+import call from "../utils/call";
 
 
 export type anyDelegate<T> = (element: T) => boolean
@@ -28,8 +29,7 @@ export default <T>(array: T[], predicate: anyDelegate<T> = (() => true)) => {
     if (isUsePureJS()) {
         let l = array.length;
         while (l-- > 0) {
-            '%opt-v8-call';
-            let res = (void 0, Reflect.apply)(predicate, array, [array[l], l, array]);
+            let res = call(Reflect.apply, predicate, array, [array[l], l, array]);
             if (res === true)
                 return true;
         }

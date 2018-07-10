@@ -19,6 +19,7 @@ test('Select', t => {
 });
 test("SelectMany", (t) => {
     t.deepEqual(new AdvancedLinqable([{ ar: [1, 2], name: "2" }, { ar: [3, 4], name: "1" }]).SelectMany(x => x.ar, (q, z) => z), [1, 2, 3, 4]);
+    t.deepEqual(linqData.SelectMany(x => x.name.split(''), x => x.workPlace).Count(), 88);
 });
 test("Where", (t) => {
     t.plan(5);
@@ -126,6 +127,7 @@ test("Except", (t) => {
 test("IsEmpty", (t) => {
     t.true(linqData.Where(x => x.age == 9).IsEmpty());
 });
+
 
 
 test("Take", (t) => {

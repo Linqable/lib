@@ -41,6 +41,11 @@ test("MinBy", (t) => {
         [].MinBy(x => x);
     }, "Array Is Empty.");
 });
+test("Distinct", (t) => {
+    t.deepEqual([0, 1, 2].Distinct((x, y) => x > y), [0, 1, 2]);
+    t.deepEqual([0, 1, 2].Distinct(), [0, 1, 2]);
+    t.deepEqual([4, 1, 2].Distinct((x, y) => x > y), [4]);
+});
 
 test("AtLeast", (t) => {
     t.true([0, 1, 2].AtLeast(1))
