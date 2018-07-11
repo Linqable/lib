@@ -1,6 +1,6 @@
 import { AdvancedLinqable } from "./AdvancedLinqable";
 import { aggregateDelegate } from "./core/aggregate";
-
+import "./Extensions";
 declare global {
 
     interface Array<T> {
@@ -109,5 +109,5 @@ declare global {
         ToQuery<T>(): AdvancedLinqable<T>;
     }
 }
-import "./Extensions";
+
 export { }

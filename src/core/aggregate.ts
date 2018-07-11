@@ -4,6 +4,7 @@
 // -===================================- //
 
 import validateArray from "../utils/validateArray";
+import call from "../utils/call";
 
 export type aggregateDelegate<T, TResult> = (el1: T, el2: T) => TResult;
 /**
@@ -19,6 +20,6 @@ export default <T, TResult>(array: T[], selector: aggregateDelegate<T, TResult>,
     if (seed == null || seed == undefined)
         seed = arr.shift() as any as TResult;
     for (var i = 0; i < array.length; i++)
-        seed = selector(seed as any as T, arr[i]);
+        seed = call(Reflect.apply, selector, array, [seed as any as T, arr[i]]);
     return seed;
 }

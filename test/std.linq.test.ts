@@ -5,7 +5,7 @@ import { linqData } from "./etc/Data";
 
 
 test("Aggregate", (t) => {
-    t.true(linqData.Aggregate(x => x.IsDead));
+    t.deepEqual(linqData.Aggregate(x => x && x.IsDead), undefined);
 });
 
 test("Any", (t) => {
