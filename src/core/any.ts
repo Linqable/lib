@@ -29,6 +29,7 @@ export default <T>(array: T[], predicate: anyDelegate<T> = (() => true)) => {
     if (isUsePureJS()) {
         let l = array.length;
         while (l-- > 0) {
+            '%opt-call';
             let res = call(Reflect.apply, predicate, array, [array[l], l, array]);
             if (res === true)
                 return true;

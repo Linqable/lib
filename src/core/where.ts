@@ -23,7 +23,7 @@ export default <T>(array: Array<T>, predicate: whereDelegate<T>): T[] => {
         const arr = [];
         for (let i = 0; i < array.length; i++) {
             if (!array[i]) continue;
-            '%opt-v8-call';
+            '%opt-call';
             let val = (void 0, Reflect.apply)(predicate, array, [array[i], i, array]);
             if (val == true)
                 arr.push(array[i]);

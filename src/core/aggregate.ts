@@ -19,6 +19,7 @@ export default <T, TResult>(array: T[], selector: aggregateDelegate<T, TResult>,
     var arr = array.slice(0);
     if (seed == null || seed == undefined)
         seed = arr.shift() as any as TResult;
+    '%opt-call';
     for (var i = 0; i < array.length; i++)
         seed = call(Reflect.apply, selector, array, [seed as any as T, arr[i]]);
     return seed;

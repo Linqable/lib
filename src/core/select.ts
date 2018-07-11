@@ -23,7 +23,7 @@ export default <T, TResult>(array: Array<T>, selector: selectDelegate<T, TResult
     if (isUsePureJS()) {
         const arr = [];
         for (var i = 0; i < array.length; i++) {
-            '%opt-v8-call';
+            '%opt-call';
             let opt = (void 0, Reflect.apply)(selector, array, [array[i], i]);
             arr.push(opt);
         }

@@ -1,6 +1,7 @@
 import test from 'ava';
 import "./../src";
 import { linqData } from "./etc/Data";
+import { AdvancedLinqable } from '../src/Extensions';
 
 
 class Bla<T> extends Array<T> {
@@ -33,6 +34,9 @@ test("Transpose", (t) => {
         [20],
         [30, 35, 45]
     ].Transpose(), [[10, 20, 30], [12, 35], [45]]);
+    t.throws(() => {
+        new AdvancedLinqable(undefined).Transpose();
+    }, "array")
 });
 test("Evaluate", (t) => {
     t.throws(() => {
