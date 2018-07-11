@@ -4,7 +4,7 @@ import { AdvancedLinqable } from "./../src/AdvancedLinqable";
 import { linqData } from "./etc/Data";
 
 
-test("Any", (t) => {
+test("Aggregate", (t) => {
     t.true(linqData.Aggregate(x => x.IsDead));
 });
 
