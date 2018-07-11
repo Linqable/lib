@@ -7,12 +7,3 @@ export class Reflector {
         return (results && results.length > 1) ? results[1] : "<Object>";
     }
 }
-
-declare global {
-    interface Object {
-        getReflector(): Reflector;
-    }
-}
-Object.prototype.getReflector = function () {
-    return new Reflector(this);
-};

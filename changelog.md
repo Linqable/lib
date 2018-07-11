@@ -1,4 +1,11 @@
 
+## 1.7.13
+
+#### Fixes:
+
+fixed #2 jquery is not сompatible
+
+
 ## 1.7.11 & 1.7.12
 
 #### Improvement:   
