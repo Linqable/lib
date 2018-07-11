@@ -4,6 +4,7 @@ import "./Extensions";
 declare global {
 
     interface Array<T> {
+        __linq__();
         /* ... Standard API ... */
 
         Reverse(): T[];
