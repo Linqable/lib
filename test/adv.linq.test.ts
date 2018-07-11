@@ -28,6 +28,11 @@ test("Transpose", (t) => {
         [20],
         [30, 35, 45]
     ].ToQuery().Transpose(), [[10, 20, 30], [12, 35], [45]]);
+    t.deepEqual([
+        [10, 12],
+        [20],
+        [30, 35, 45]
+    ].Transpose(), [[10, 20, 30], [12, 35], [45]]);
 });
 test("Evaluate", (t) => {
     t.throws(() => {
