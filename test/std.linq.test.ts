@@ -144,7 +144,6 @@ test("ThenByDescending", (t) => {
     t.deepEqual(linqData.ThenByDescending(x => x.name).First().name, "Almaria Dufna");
 });
 
-
 test("OrderBy", (t) => {
     t.deepEqual(linqData.OrderBy(x => x.age).Select(x => x.age), [17, 17, 18, 19, 21, 83, 321, Infinity])
     t.deepEqual(["usb1", "usb3", "usb10", "usb15", "usb4", "usb2"].OrderBy(), ["usb1", "usb2", "usb3", "usb4", "usb10", "usb15"])
