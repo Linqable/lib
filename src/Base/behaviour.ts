@@ -23,20 +23,13 @@ export class Behaviour<T> {
             if (a.getTime() === b.getTime())
                 return true;
         }
-        try {
-            return a.valueOf() === b.valueOf();
-        }
-        catch (e) { console.log(a, b, "failed") }
-        return false;
+        return a.valueOf() === b.valueOf();
     }
     private static isWhitespace(code) {
         return code <= 32;
     }
     private static isDigit(code) {
         return 48 <= code && code <= 57;
-    }
-    private static isSign(code) {
-        return code === '-'.charCodeAt(0) || code === '+'.charCodeAt(0);
     }
     public static strCompare(a: string, b: string): number {
         var ia = 0;
