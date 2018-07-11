@@ -160,8 +160,11 @@ test("OrderBy", (t) => {
     t.deepEqual(["usb1", "usb3", "usb10", "usb15", "usb4", "usb2"].OrderBy(), ["usb1", "usb2", "usb3", "usb4", "usb10", "usb15"])
 
     t.deepEqual(["+usb1", "-usb31", "-usb10"].OrderBy(), ["+usb1", "-usb10", "-usb31"])
+    t.deepEqual(["0", "-1", "-2"].OrderBy(), ["0", "-1", "-2"])
     t.deepEqual([new Date(1531334952251), new Date(1531334952251)].OrderBy(), [new Date(1531334952251), new Date(1531334952251)])
-
+    t.deepEqual(["$0@", "$0@1@"].OrderBy(), ["$0@", "$0@1@"]);
+    t.deepEqual([":", "::"].OrderBy(), [":", "::"]);
+    t.deepEqual(["::", ":"].OrderBy(), [":", "::"]);
     t.deepEqual(linqData.OrderBy(x => x.name).Select(x => x.name), [
         'Almaria Dufna',
         'Chtholly Nola',

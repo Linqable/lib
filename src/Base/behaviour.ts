@@ -39,18 +39,13 @@ export class Behaviour<T> {
         var ca, cb; // character code
         var za, zb; // leading zero count
         var na, nb; // number length
-        var sa, sb; // number sign
-        var ta, tb; // temporary
         var bias;
         let zero = '0'.charCodeAt(0);
-        let plus = '+'.charCodeAt(0);
-        let minus = '-'.charCodeAt(0);
         while (ia < ma && ib < mb) {
             ca = a.charCodeAt(ia);
             cb = b.charCodeAt(ib);
             za = zb = 0;
             na = nb = 0;
-            sa = sb = true;
             bias = 0;
 
             // skip over leading spaces
@@ -67,10 +62,6 @@ export class Behaviour<T> {
             if (this.isDigit(ca) && !this.isDigit(cb)) return -1;
             if (!this.isDigit(ca) && this.isDigit(cb)) return 1;
 
-            // compare negative and positive
-            if (!sa && sb) return -1;
-            if (sa && !sb) return 1;
-
             // count leading zeros
             while (ca === zero) {
                 za += 1;
@@ -86,14 +77,8 @@ export class Behaviour<T> {
             // count numbers
             while (this.isDigit(ca) || this.isDigit(cb)) {
                 if (this.isDigit(ca) && this.isDigit(cb) && bias === 0) {
-                    if (sa) {
-                        if (ca < cb) bias = -1;
-                        else if (ca > cb) bias = 1;
-                    }
-                    else {
-                        if (ca > cb) bias = -1;
-                        else if (ca < cb) bias = 1;
-                    }
+                    if (ca < cb) bias = -1;
+                    else if (ca > cb) bias = 1;
                 }
                 if (this.isDigit(ca)) {
                     ia += 1;
@@ -108,24 +93,14 @@ export class Behaviour<T> {
             }
 
             // compare number length
-            if (sa) {
-                if (na < nb) return -1;
-                if (na > nb) return 1;
-            } else {
-                if (na > nb) return -1;
-                if (na < nb) return 1;
-            }
+            if (na < nb) return -1;
+            if (na > nb) return 1;
 
             // compare numbers
             if (bias) return bias;
             // compare leading zeros
-            if (sa) {
-                if (za > zb) return -1;
-                if (za < zb) return 1;
-            } else {
-                if (za < zb) return -1;
-                if (za > zb) return 1;
-            }
+            if (za > zb) return -1;
+            if (za < zb) return 1;
 
             // compare ascii codes
             if (ca < cb) return -1;
