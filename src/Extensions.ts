@@ -18,7 +18,6 @@ import { aggregateDelegate } from './core/aggregate';
         Array.prototype.__linq__ = function () {
             return "1.7-*";
         }
-        [0].__linq__();
         Array.prototype.ToQuery = function <T>(): AdvancedLinqable<T> {
             return new AdvancedLinqable(this);
         };
@@ -153,7 +152,7 @@ import { aggregateDelegate } from './core/aggregate';
         };
     }
 })(AdvancedLinqable);
-
+[0].__linq__(); //? prefire
 
 export {
     AdvancedLinqable,
