@@ -9,17 +9,9 @@
 import { AdvancedLinqable } from "./AdvancedLinqable";
 import { BaseLinqable } from "./Base/BaseLinqable";
 import { IComparer } from "./Base/IComparer";
-import { aggregateDelegate } from "./core/aggregate";
 import { InvalidOperationError, ArgumentOutOfRangeError, ArgumentNullError, EvaluateOperationError } from "./error";
 import select from "./core/select";
 
-((ctx) => {
-    if (process && process.env.USE_PURE_JS) {
-        if (!(Reflect && Reflect.apply)) {
-            Reflect.apply = Function.prototype.apply.call;
-        }
-    }
-})(this);
 ((Enumerable) => { //! WARNING & TODO: optimizations prototype check
     if (typeof Array.prototype.ToQuery !== 'function') {
         Array.prototype.ToQuery = function <T>(): AdvancedLinqable<T> {
@@ -169,11 +161,6 @@ import select from "./core/select";
     if (typeof Array.prototype.Union !== 'function') {
         Array.prototype.Union = function (s) {
             return new Enumerable(this).Union(s);
-        };
-    }
-    if (typeof Array.prototype.Distinct !== 'function') {
-        Array.prototype.Distinct = function (s) {
-            return new Enumerable(this).Distinct(s);
         };
     }
     if (typeof Array.prototype.Contains !== 'function') {

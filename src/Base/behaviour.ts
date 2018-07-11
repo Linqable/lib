@@ -164,9 +164,6 @@ export class Behaviour<T> {
         }
         return a.valueOf() - b.valueOf();
     }
-    protected Predicate(): boolean {
-        return true;
-    }
     protected Selector(e: any): any {
         return e;
     }

@@ -39,7 +39,6 @@ export class BaseLinqable<T> extends Behaviour<T> {
         var l = this.Count();
         var res = [];
         for (var i = 0; i < l; i++) {
-            var k = array.Count();
             var t = false;
             if (element != null) {
                 if (comparer(this.array[i], element) === true) {
@@ -48,6 +47,7 @@ export class BaseLinqable<T> extends Behaviour<T> {
                 }
             }
             else {
+                var k = array.Count();
                 while (k-- > 0) {
                     if (comparer(this.array[i], array[k]) === true) {
                         t = true;
@@ -101,7 +101,7 @@ export class BaseLinqable<T> extends Behaviour<T> {
         return this.array.length == 0;
     }
     public All(predicate: (element: T) => boolean, context?: any): boolean {
-        predicate = predicate || this.Predicate;
+        predicate = predicate || (() => true);
         let l = this.array.length;
         return this.Where(predicate, context).length == l;
     }

@@ -263,9 +263,6 @@ class AdvancedLinqable<T> extends BaseLinqable<T> {
 
 
     protected QuantityIterator<T>(source: ArrayLike<T>, limit: number, min: number, max: number): boolean {
-        if (source == null) {
-            throw new Error("ArgumentNullError");
-        }
         let col: Array<T>
         let num = ((col = (source as Array<T>)) != null) ? col.length : limit;
         return num >= min && num <= max;

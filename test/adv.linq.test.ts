@@ -3,15 +3,36 @@ import "./../src";
 import { linqData } from "./etc/Data";
 
 
+class Bla<T> extends Array<T> {
+    constructor(arr: Array<T>) {
+        super(...arr);
+    }
+    [Symbol.iterator](): IterableIterator<T> {
+        throw new Error("test throw");
+    }
+}
+/**
+ * thanks @morsic
+ */
+test("Acquire", (t) => {
+    t.deepEqual([
+        1, 2, 3
+    ].Acquire(), [1, 2, 3]);
+    t.throws(() => {
+        new Bla([0, 1, 2]).Acquire();
+    }, "test throw");
+});
 test("Transpose", (t) => {
     t.deepEqual([
         [10, 12],
         [20],
         [30, 35, 45]
-    ].Transpose(), [[10, 20, 30], [12, 35], [45]]);
+    ].ToQuery().Transpose(), [[10, 20, 30], [12, 35], [45]]);
 });
 test("Evaluate", (t) => {
-    t.plan(3);
+    t.throws(() => {
+        [].Evaluate();
+    }, "Array is empty.");
     t.deepEqual([() => true, () => "test", () => 123].Evaluate(), [true, "test", 123]);
     t.throws(() => {
         linqData.Evaluate();
@@ -50,11 +71,17 @@ test("Distinct", (t) => {
 test("AtLeast", (t) => {
     t.true([0, 1, 2].AtLeast(1))
     t.false([0, 1, 2].AtLeast(5))
+    t.throws(() => {
+        [0, 1, 2].AtLeast(-1)
+    }, "Count cannot be negative.")
 });
 
 test("AtMost", (t) => {
     t.false([0, 1, 2].AtMost(1))
     t.true([0, 1, 2].AtMost(5))
+    t.throws(() => {
+        [0, 1, 2].AtMost(-1)
+    }, "Count cannot be negative.")
 });
 
 
@@ -113,10 +140,13 @@ test("Pairwise", (t) => {
 })
 
 test("Pipe", (t) => {
-    t.plan(3);
     let arr = [{ x: 12 }, { x: 12 }, { x: 12 }];
     arr.Pipe(x => { x.x++; })
     t.deepEqual(arr[0].x, 13);
     t.deepEqual(arr[1].x, 13);
     t.deepEqual(arr[2].x, 13);
+
+    t.throws(() => {
+        arr.Pipe(undefined);
+    }, "act is undefined.")
 })

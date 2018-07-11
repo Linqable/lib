@@ -20,6 +20,7 @@ test('Select', t => {
 test("SelectMany", (t) => {
     t.deepEqual(new AdvancedLinqable([{ ar: [1, 2], name: "2" }, { ar: [3, 4], name: "1" }]).SelectMany(x => x.ar, (q, z) => z), [1, 2, 3, 4]);
     t.deepEqual(linqData.SelectMany(x => x.name.split(''), x => x.workPlace).Count(), 88);
+    t.deepEqual(linqData.SelectMany(x => x.name.split(''), undefined).Count(), 88);
 });
 test("Where", (t) => {
     t.plan(5);
@@ -121,6 +122,7 @@ test("Min", (t) => {
 
 test("Except", (t) => {
     t.deepEqual([0, 1, 2, 3].Except([0, 1]), [2, 3]);
+    t.deepEqual([0, 1, 2, 3].Except(1), [0]);
 });
 
 
@@ -144,9 +146,11 @@ test("ThenByDescending", (t) => {
 
 
 test("OrderBy", (t) => {
-    t.plan(4);
     t.deepEqual(linqData.OrderBy(x => x.age).Select(x => x.age), [17, 17, 18, 19, 21, 83, 321, Infinity])
     t.deepEqual(["usb1", "usb3", "usb10", "usb15", "usb4", "usb2"].OrderBy(), ["usb1", "usb2", "usb3", "usb4", "usb10", "usb15"])
+
+    t.deepEqual(["+usb1", "-usb31", "-usb10"].OrderBy(), ["+usb1", "-usb10", "-usb31"])
+
     t.deepEqual(linqData.OrderBy(x => x.name).Select(x => x.name), [
         'Almaria Dufna',
         'Chtholly Nola',

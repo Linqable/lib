@@ -1,5 +1,5 @@
 import test from 'ava';
-import "./../src/reflection/Reflector"
+import { Reflector } from '../src/reflection/Reflector';
 class tt {
     constructor() { eval("1 + 1"); }
     public v1() { }
@@ -12,9 +12,9 @@ test("GetName", (t) => {
     let obj3 = {};
     let obj4 = "a";
     let obj5 = 1;
-    t.deepEqual(obj.getReflector().getName(), "<Object>");
-    t.deepEqual(obj2.getReflector().getName(), "Function");
-    t.deepEqual(obj3.getReflector().getName(), "Object");
-    t.deepEqual(obj4.getReflector().getName(), "String");
-    t.deepEqual(obj5.getReflector().getName(), "Number");
+    t.deepEqual(new Reflector(obj).getName(), "<Object>");
+    t.deepEqual(new Reflector(obj2).getName(), "Function");
+    t.deepEqual(new Reflector(obj3).getName(), "Object");
+    t.deepEqual(new Reflector(obj4 as any as object).getName(), "String");
+    t.deepEqual(new Reflector(obj5 as any as object).getName(), "Number");
 });

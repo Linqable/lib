@@ -7,8 +7,7 @@ package global
     Version: 1.7.11
  */
 
-import kotlin.js.*
-import kotlin.js.Json
+
 import org.khronos.webgl.*
 import org.w3c.dom.*
 import org.w3c.dom.events.*
@@ -21,6 +20,8 @@ import org.w3c.notifications.*
 import org.w3c.performance.*
 import org.w3c.workers.*
 import org.w3c.xhr.*
+import kotlin.js.*
+import kotlin.js.Json
 
 external fun <T> Array<T>.Reverse(): Array<T> = definedExternally
 external fun <T> Array<T>.ToArray(): Array<T> = definedExternally
