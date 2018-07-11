@@ -2,8 +2,17 @@ import "./../src";
 import test from 'ava';
 import { AdvancedLinqable } from "./../src/AdvancedLinqable";
 import { linqData } from "./etc/Data";
+
+
+test("Any", (t) => {
+    t.true(linqData.Aggregate(x => x.IsDead));
+});
+
 test("Any", (t) => {
     t.true(linqData.Any(x => x.IsDead));
+    process.env.USE_PURE_JS = "true";
+    t.true(linqData.Any(x => x.IsDead));
+    delete process.env.USE_PURE_JS;
 });
 test("All", (t) => {
     t.plan(2);
@@ -23,12 +32,14 @@ test("SelectMany", (t) => {
     t.deepEqual(linqData.SelectMany(x => x.name.split(''), undefined).Count(), 88);
 });
 test("Where", (t) => {
-    t.plan(5);
     t.deepEqual(linqData.Where(x => x.IsDead).length, 2);
     t.deepEqual(linqData.Where(x => x.IsDead).length, 2);
     t.deepEqual(linqData.Where(x => x.age >= 18 && x.gender == "female").length, 3);
     t.deepEqual(linqData.Where(x => x.age >= 18 && x.gender == "female" && x.workPlace == "Soldier").length, 1);
     t.deepEqual(linqData.Where(x => x.birthdate && x.birthdate.getFullYear() > 1100 && x.birthdate.getFullYear() < 1200).length, 2);
+    process.env.USE_PURE_JS = "true";
+    t.deepEqual(linqData.Where(x => x.IsDead).length, 2);
+    delete process.env.USE_PURE_JS;
 });
 
 test("First", (t) => {

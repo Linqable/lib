@@ -11,11 +11,17 @@ import { BaseLinqable } from "./Base/BaseLinqable";
 import { IComparer } from "./Base/IComparer";
 import { InvalidOperationError, ArgumentOutOfRangeError, ArgumentNullError, EvaluateOperationError } from "./error";
 import select from "./core/select";
+import { aggregateDelegate } from './core/aggregate';
 
 ((Enumerable) => { //! WARNING & TODO: optimizations prototype check
     if (typeof Array.prototype.ToQuery !== 'function') {
         Array.prototype.ToQuery = function <T>(): AdvancedLinqable<T> {
             return new AdvancedLinqable(this);
+        };
+    }
+    if (typeof Array.prototype.Aggregate !== 'function') {
+        Array.prototype.Aggregate = function <T, TResult>(selector: aggregateDelegate<T, TResult>, seed?: TResult): TResult {
+            return new Enumerable(this).Aggregate(selector, seed);
         };
     }
     if (typeof Array.prototype.Where !== 'function') {
