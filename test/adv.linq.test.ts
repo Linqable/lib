@@ -4,7 +4,7 @@ import { linqData } from "./etc/Data";
 import { AdvancedLinqable } from '../src/Extensions';
 
 
-class Bla<T> extends Array<T> {
+class IterableArray<T> extends Array<T> {
     constructor(arr: Array<T>) {
         super(...arr);
     }
@@ -20,7 +20,7 @@ test("Acquire", (t) => {
         1, 2, 3
     ].Acquire(), [1, 2, 3]);
     t.throws(() => {
-        new Bla([0, 1, 2]).Acquire();
+        new IterableArray([0, 1, 2]).Acquire();
     }, "test throw");
 });
 test("Transpose", (t) => {
