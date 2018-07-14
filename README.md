@@ -7,7 +7,7 @@
 
 <!-- Name -->
 <h1 align="center">
-  <a href="#">Linqable.ts</a>
+  Linqable.ts ✨
 </h1>
 
 
