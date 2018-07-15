@@ -1,1 +1,66 @@
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Linqable.ts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+</head>
+
+<body class="dimmed dimmable">
+    <noscript>
+        &lt;div class="nojs-message"&gt; Please enable JavaScript in your browser to access Site Linq Docs. &lt;/div&gt;
+    </noscript>
+    <div id="docs-loading-dimmer" class="ui active page dimmer">
+        <div class="content">
+            <div class="center">
+                <div class="ui large text loader">
+                    <div class="ui inverted red header">
+                        Loading docs...
+                        <div class="sub header">
+                            Linqable v1.7.14
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="root"></div>
+    <script>
+        (function () {
+            var delay = 1500
+            var dimmer = document.querySelector('#docs-loading-dimmer')
+            dimmer.style.pointerEvents = 'none'
+            dimmer.style.transition = 'opacity ' + delay + 'ms linear'
+            function removeDimmer() {
+                dimmer.style.opacity = '0'
+                setTimeout(function () {
+                    var dimmer = document.querySelector('#docs-loading-dimmer')
+                    document.body.removeChild(dimmer)
+                    document.body.setAttribute("class", "")
+                    window.removeEventListener('load', removeDimmer)
+                }, delay)
+            }
+            window.addEventListener('load', removeDimmer)
+        }())
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/react@16.4.1/umd/react.production.min.js" integrity="sha256-r6coyN0DEl/vyKMiiB9+AjqSKO8XTdGOFjlAhSnsqxM="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@16.4.1/umd/react-dom.production.min.js" integrity="sha256-y7o/b35Jyjb19wJ//GUjm84bLl+YlmDGmnwpgZvzN+4="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/0xF6/linqable.doc/v1.7.14/public/app.js"></script>
+    <style>
+        body {
+            background: #DADADA;
+            font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+    </style>
+
+</html>

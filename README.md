@@ -1,5 +1,15 @@
-<h1 style="text-align: center;" markdown="1">💥 linqable.ts 1.7.14 💥</h1>    
-LINQ 💥 implementation library for TypeScript ❄️
+<!-- Logo -->
+<p align="center">
+  <a href="#">
+    <img height="128" width="128" src="https://raw.githubusercontent.com/0xF6/linqable.doc/master/public/img/logo.png">
+  </a>
+</p>
+
+<!-- Name -->
+<h1 align="center">
+  Linqable.ts ✨
+</h1>
+
 
 [![NPM](https://nodei.co/npm/linqable.ts.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/linqable.ts/)       
 
