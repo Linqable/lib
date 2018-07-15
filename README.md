@@ -1,7 +1,7 @@
 <!-- Logo -->
 <p align="center">
   <a href="#">
-    <img height="128" width="128" src="https://raw.githubusercontent.com/0xF6/linqable.doc/master/public/img/logo.png">
+    <img height="128" width="128" src="https://raw.githubusercontent.com/0xF6/linqable.ts/master/docs/4a9b94e9cbe73230ef552f6882216f95.png">
   </a>
 </p>
 
