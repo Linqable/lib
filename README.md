@@ -11,6 +11,8 @@
 </h1>
 
 
+Open [documentation](https://0xf6.github.io/linqable.ts/)! ;3
+
 [![NPM](https://nodei.co/npm/linqable.ts.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/linqable.ts/)       
 
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
@@ -30,7 +32,7 @@ or
 ### CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.14/lib/web/linq.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.15/lib/web/linq.min.js"></script>
 ```
 
 ### Changelog
@@ -40,7 +42,7 @@ See [Changelog](changelog.md)
 Browser:
 ```html
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.14/lib/web/linq.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.15/lib/web/linq.min.js"></script>
 </head>
 <!-- ... -->
 <script>

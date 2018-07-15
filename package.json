@@ -1,6 +1,6 @@
 {
   "name": "linqable.ts",
-  "version": "1.7.14",
+  "version": "1.7.15",
   "description": "LINQ implementation library for TypeScript",
   "main": "./lib/Extensions.js",
   "author": "Yuuki Wesp",
@@ -28,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/0xF6/linqable.ts/issues"
   },
-  "homepage": "https://github.com/0xF6/linqable.ts#readme",
+  "homepage": "https://0xf6.github.io/linqable.ts/",
   "scripts": {
     "build": "yarn build:node && yarn build:web && yarn build:web:dev",
     "build:node": "tsc",
