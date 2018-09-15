@@ -71,8 +71,8 @@ console.log(new AdvancedLinqable([3,5]).Acquire());
 2. You are great! 💫
 
 #### Dependences for build 🔥
-1. TypeScript 2.6 or above (in global)
-2. AVA 1.0.0-beta.6 or above (in global)
+1. TypeScript 3.0 or above (in global)
+2. AVA 1.0.0-beta.8 or above (in global)
 
 ### Test 🍒
 1. `yarn test`
