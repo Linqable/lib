@@ -162,7 +162,7 @@ let array = [{name: "Chtholly Nola", age: 17}, { name: "Ithea Myse", age: 18 }]
 
 /* ... */
 
-array.Comsume();
+array.Consume();
 ```
 
 #### Batch
