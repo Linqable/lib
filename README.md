@@ -1,7 +1,7 @@
 <!-- Logo -->
 <p align="center">
   <a href="#">
-    <img height="128" width="128" src="https://raw.githubusercontent.com/0xF6/linqable.doc/master/public/img/logo.png">
+    <img height="128" width="128" src="https://raw.githubusercontent.com/0xF6/linqable.ts/master/docs/4a9b94e9cbe73230ef552f6882216f95.png">
   </a>
 </p>
 
@@ -71,8 +71,8 @@ console.log(new AdvancedLinqable([3,5]).Acquire());
 2. You are great! 💫
 
 #### Dependences for build 🔥
-1. TypeScript 2.6 or above (in global)
-2. AVA 1.0.0-beta.6 or above (in global)
+1. TypeScript 3.0 or above (in global)
+2. AVA 1.0.0-beta.8 or above (in global)
 
 ### Test 🍒
 1. `yarn test`
