@@ -1,6 +1,6 @@
 {
   "name": "linqable.ts",
-  "version": "1.7.17",
+  "version": "1.7.21",
   "description": "LINQ implementation library for TypeScript",
   "main": "./lib/Extensions.js",
   "author": "Yuuki Wesp",
@@ -26,9 +26,9 @@
     "csharp-linq"
   ],
   "bugs": {
-    "url": "https://github.com/0xF6/linqable.ts/issues"
+    "url": "https://github.com/Linqable/lib/issues"
   },
-  "homepage": "https://0xf6.github.io/linqable.ts/",
+  "homepage": "https://Linqable.github.io/lib/",
   "scripts": {
     "build": "yarn build:node && yarn build:web && yarn build:web:dev",
     "build:node": "tsc",
@@ -41,7 +41,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/0xF6/linqable.ts.git"
+    "url": "git+https://github.com/Linqable/lib.git"
   },
   "devDependencies": {
     "@types/node": "^10.9.4",

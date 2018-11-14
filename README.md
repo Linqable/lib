@@ -1,7 +1,7 @@
 <!-- Logo -->
 <p align="center">
   <a href="#">
-    <img height="128" width="128" src="https://raw.githubusercontent.com/0xF6/linqable.ts/master/docs/4a9b94e9cbe73230ef552f6882216f95.png">
+    <img height="128" width="128" src="https://raw.githubusercontent.com/Linqable/lib/master/docs/4a9b94e9cbe73230ef552f6882216f95.png">
   </a>
 </p>
 
@@ -11,16 +11,16 @@
 </h1>
 
 
-Open [documentation](https://0xf6.github.io/linqable.ts/)! ;3
+Open [documentation](https://linqable.github.io/lib/)! ;3
 
 [![NPM](https://nodei.co/npm/linqable.ts.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/linqable.ts/)       
 
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
-[![Build Status](https://travis-ci.org/0xF6/linqable.ts.svg?branch=master)](https://travis-ci.org/0xF6/linqable.ts)
-[![codecov](https://codecov.io/gh/0xF6/linqable.ts/branch/master/graph/badge.svg)](https://codecov.io/gh/0xF6/linqable.ts) 
+[![Build Status](https://travis-ci.org/linqable/lib.svg?branch=master)](https://travis-ci.org/0xF6/linqable.ts)
+[![codecov](https://codecov.io/gh/linqable/lib/branch/master/graph/badge.svg)](https://codecov.io/gh/0xF6/linqable.ts) 
 ![npm](https://img.shields.io/npm/dt/linqable.ts.svg)
-![image](https://david-dm.org/0xF6/linqable.ts.svg)
-[![Dev Dependencies](https://img.shields.io/david/dev/0xF6/linqable.ts.svg)](https://david-dm.org/0xF6/linqable.ts?type=dev)
+![image](https://david-dm.org/linqable/lib.svg)
+[![Dev Dependencies](https://img.shields.io/david/dev/linqable/lib.svg)](https://david-dm.org/0xF6/linqable.ts?type=dev)
 [![](https://data.jsdelivr.com/v1/package/npm/linqable.ts/badge)](https://www.jsdelivr.com/package/npm/linqable.ts)
 
 
@@ -32,7 +32,7 @@ or
 ### CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.15/lib/web/linq.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.18/lib/web/linq.min.js"></script>
 ```
 
 ### Changelog
@@ -42,7 +42,7 @@ See [Changelog](changelog.md)
 Browser:
 ```html
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.15/lib/web/linq.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/linqable.ts@1.7.18/lib/web/linq.min.js"></script>
 </head>
 <!-- ... -->
 <script>
