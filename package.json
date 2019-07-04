@@ -1,6 +1,6 @@
 {
   "name": "linqable.ts",
-  "version": "1.7.21",
+  "version": "1.7.22",
   "description": "LINQ implementation library for TypeScript",
   "main": "./lib/Extensions.js",
   "author": "Yuuki Wesp",
