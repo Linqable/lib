@@ -10,10 +10,20 @@
   Linqable.ts ✨
 </h1>
 
+<h2 align="center">
+  WARNING
+  <br/>
+  potential security vulnerabilities in dependencies
+  <br/>
+  project is not maintained, use <a href="https://ramdajs.com">ramdajs</a>
+</h2>
+
+
+
+
 
 Open [documentation](https://linqable.github.io/lib/)! ;3
-
-[![NPM](https://nodei.co/npm/linqable.ts.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/linqable.ts/)       
+ 
 
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 [![Maintainability](https://api.codeclimate.com/v1/badges/0fbf15d35307f46b1838/maintainability)](https://codeclimate.com/github/Linqable/lib/maintainability)
